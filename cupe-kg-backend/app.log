@@ -1,0 +1,68 @@
+2025-05-18 13:08:49,431 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-05-18 13:08:49,466 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-05-18 13:08:52,714 - __main__ - INFO - Services initialized successfully
+2025-05-18 13:08:52,722 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-05-18 13:08:52,757 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.9:5000
+2025-05-18 13:08:52,757 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-18 13:08:52,757 - werkzeug - INFO -  * Restarting with stat
+2025-05-18 13:08:58,668 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-05-18 13:08:58,684 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-05-18 13:09:01,894 - __main__ - INFO - Services initialized successfully
+2025-05-18 13:09:01,899 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-05-18 13:09:01,924 - werkzeug - WARNING -  * Debugger is active!
+2025-05-18 13:09:01,929 - werkzeug - INFO -  * Debugger PIN: 762-287-936
+2025-05-18 13:45:02,344 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 13:45:02] "GET /api/locations HTTP/1.1" 200 -
+2025-05-18 13:45:02,575 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 13:45:02] "GET /api/locations HTTP/1.1" 200 -
+2025-05-18 13:45:02,668 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 13:45:02] "GET /api/routes HTTP/1.1" 200 -
+2025-05-18 13:45:02,715 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 13:45:02] "GET /api/routes HTTP/1.1" 200 -
+2025-05-18 19:10:25,077 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-05-18 19:10:25,080 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-05-18 19:10:28,508 - __main__ - INFO - Services initialized successfully
+2025-05-18 19:10:28,515 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-05-18 19:10:28,542 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.9:5000
+2025-05-18 19:10:28,543 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-18 19:10:28,545 - werkzeug - INFO -  * Restarting with stat
+2025-05-18 19:10:33,167 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-05-18 19:10:33,169 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-05-18 19:10:35,722 - __main__ - INFO - Services initialized successfully
+2025-05-18 19:10:35,726 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-05-18 19:10:35,741 - werkzeug - WARNING -  * Debugger is active!
+2025-05-18 19:10:35,745 - werkzeug - INFO -  * Debugger PIN: 762-287-936
+2025-05-18 19:10:46,967 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:10:46] "GET /api/locations HTTP/1.1" 200 -
+2025-05-18 19:10:47,230 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:10:47] "GET /api/locations HTTP/1.1" 200 -
+2025-05-18 19:10:47,276 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:10:47] "GET /api/routes HTTP/1.1" 200 -
+2025-05-18 19:10:47,280 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:10:47] "GET /api/routes HTTP/1.1" 200 -
+2025-05-18 19:44:06,469 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:44:06] "GET /api/locations HTTP/1.1" 200 -
+2025-05-18 19:44:06,708 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:44:06] "GET /api/locations HTTP/1.1" 200 -
+2025-05-18 19:44:06,787 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:44:06] "GET /api/routes HTTP/1.1" 200 -
+2025-05-18 19:44:06,790 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:44:06] "GET /api/routes HTTP/1.1" 200 -
+2025-05-18 19:50:23,324 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:50:23] "GET /api/locations HTTP/1.1" 200 -
+2025-05-18 19:50:23,582 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:50:23] "GET /api/locations HTTP/1.1" 200 -
+2025-05-18 19:50:23,645 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:50:23] "GET /api/routes HTTP/1.1" 200 -
+2025-05-18 19:50:23,648 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:50:23] "GET /api/routes HTTP/1.1" 200 -
+2025-05-18 19:50:28,003 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:50:28] "GET /api/locations HTTP/1.1" 200 -
+2025-05-18 19:50:28,265 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:50:28] "GET /api/locations HTTP/1.1" 200 -
+2025-05-18 19:50:28,312 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:50:28] "GET /api/routes HTTP/1.1" 200 -
+2025-05-18 19:50:28,317 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 19:50:28] "GET /api/routes HTTP/1.1" 200 -
+2025-05-18 20:20:19,289 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-05-18 20:20:19,292 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-05-18 20:20:22,330 - __main__ - INFO - Services initialized successfully
+2025-05-18 20:20:22,334 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-05-18 20:20:22,363 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.9:5000
+2025-05-18 20:20:22,364 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-18 20:20:22,366 - werkzeug - INFO -  * Restarting with stat
+2025-05-18 20:20:28,117 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-05-18 20:20:28,121 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-05-18 20:20:30,914 - __main__ - INFO - Services initialized successfully
+2025-05-18 20:20:30,919 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-05-18 20:20:30,934 - werkzeug - WARNING -  * Debugger is active!
+2025-05-18 20:20:30,941 - werkzeug - INFO -  * Debugger PIN: 762-287-936

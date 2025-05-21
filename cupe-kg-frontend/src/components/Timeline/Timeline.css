@@ -1,0 +1,266 @@
+.timeline-container {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 350px;
+    max-height: 80vh;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    z-index: 1000;
+  }
+  
+  .timeline-container.collapsed {
+    height: 60px;
+  }
+  
+  .timeline-container.expanded {
+    height: auto;
+    max-height: 80vh;
+  }
+  
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .timeline-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #3f51b5;
+    font-weight: 600;
+  }
+  
+  .expand-button {
+    background: none;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .expand-button:hover {
+    background-color: rgba(63, 81, 181, 0.1);
+    color: #3f51b5;
+  }
+  
+  .timeline-content {
+    padding: 20px;
+    overflow-y: auto;
+    max-height: calc(80vh - 60px);
+  }
+  
+  .timeline {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 8px;
+    height: 100%;
+    width: 2px;
+    background-color: #ddd;
+  }
+  
+  .timeline-period {
+    position: relative;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .timeline-period:hover .period-label {
+    color: #3f51b5;
+  }
+  
+  .timeline-period.active .period-marker {
+    background-color: #3f51b5;
+    transform: scale(1.3);
+  }
+  
+  .timeline-period.active .period-label {
+    color: #3f51b5;
+    font-weight: 600;
+  }
+  
+  .period-marker {
+    position: absolute;
+    left: -20px;
+    top: 15px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #aaa;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+  
+  .period-label {
+    font-size: 14px;
+    color: #555;
+    transition: color 0.2s ease;
+  }
+  
+  .period-locations {
+    background-color: #f5f7ff;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 10px;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .period-locations h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: #3f51b5;
+  }
+  
+  .period-locations ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .location-item {
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    background-color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+  }
+  
+  .location-item:hover {
+    background-color: #f0f2ff;
+    border-left-color: #3f51b5;
+    transform: translateX(3px);
+  }
+  
+  .location-name {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .location-dynasty {
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+  }
+  
+  /* Dark theme support */
+  .dark-theme .timeline-container {
+    background-color: rgba(45, 45, 58, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dark-theme .timeline-header {
+    border-bottom-color: #444;
+  }
+  
+  .dark-theme .timeline-header h3 {
+    color: #7986cb;
+  }
+  
+  .dark-theme .expand-button {
+    color: #bbb;
+  }
+  
+  .dark-theme .expand-button:hover {
+    background-color: rgba(121, 134, 203, 0.1);
+    color: #7986cb;
+  }
+  
+  .dark-theme .timeline::before {
+    background-color: #555;
+  }
+  
+  .dark-theme .period-marker {
+    background-color: #777;
+  }
+  
+  .dark-theme .period-label {
+    color: #ccc;
+  }
+  
+  .dark-theme .timeline-period.active .period-marker {
+    background-color: #7986cb;
+  }
+  
+  .dark-theme .timeline-period.active .period-label,
+  .dark-theme .timeline-period:hover .period-label {
+    color: #7986cb;
+  }
+  
+  .dark-theme .period-locations {
+    background-color: rgba(63, 81, 181, 0.1);
+  }
+  
+  .dark-theme .period-locations h4 {
+    color: #7986cb;
+  }
+  
+  .dark-theme .location-item {
+    background-color: rgba(45, 45, 58, 0.8);
+  }
+  
+  .dark-theme .location-item:hover {
+    background-color: rgba(63, 81, 181, 0.2);
+    border-left-color: #7986cb;
+  }
+  
+  .dark-theme .location-name {
+    color: #ddd;
+  }
+  
+  .dark-theme .location-dynasty {
+    color: #aaa;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .timeline-container {
+      width: calc(100% - 40px);
+      left: 20px;
+      bottom: 20px;
+      max-width: 400px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .timeline-container {
+      width: calc(100% - 20px);
+      left: 10px;
+      bottom: 10px;
+    }
+    
+    .timeline-header h3 {
+      font-size: 16px;
+    }
+  }

@@ -1,0 +1,33 @@
+
+{
+    "id": "temple",
+    "name": "Temple Route",
+    "description": "Experience the rich diversity of ancient temple architecture and spirituality",
+    "color": "#9C27B0",
+    "path": [
+      [19.8876, 86.0945],
+      [19.8135, 85.8312],
+      [20.2399, 85.8320],
+      [15.3350, 76.4600],
+      [13.0827, 75.2579],
+      [10.9435, 79.8380],
+      [9.9195, 78.1193]
+    ],
+    "locations": [
+      {
+        "name": "Konark",
+        "coordinates": [19.8876, 86.0945],
+        "description": "Famous for the Sun Temple, an architectural marvel"
+      },
+      {
+        "name": "Hampi",
+        "coordinates": [15.3350, 76.4600],
+        "description": "Ruins of Vijayanagara with numerous temples"
+      },
+      {
+        "name": "Madurai",
+        "coordinates": [9.9195, 78.1193],
+        "description": "Home to the magnificent Meenakshi Amman Temple"
+      }
+    ]
+  }

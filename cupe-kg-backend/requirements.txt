@@ -1,0 +1,11 @@
+flask
+flask-cors
+pymongo
+neo4j
+transformers
+torch
+scikit-learn
+numpy
+scipy
+python-dotenv
+pandas

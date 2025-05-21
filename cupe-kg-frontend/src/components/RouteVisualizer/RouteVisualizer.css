@@ -1,0 +1,50 @@
+.route-path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 2s linear;
+}
+
+.travel-dot {
+  transition: all 0.3s ease;
+}
+
+.travel-dot.pulsing {
+  animation: dot-pulse 1.5s ease-out infinite;
+}
+
+@keyframes dot-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Add a glow effect for route path */
+.leaflet-interactive.route-path {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}
+
+/* Custom animation for route appearance */
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Style to make route have gradient effect */
+.leaflet-overlay-pane path {
+  transition: all 0.3s ease;
+}
+
+/* Make station points appear with animation */
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+  transition: opacity 0.5s ease, transform 0.3s ease;
+}

@@ -1,0 +1,32 @@
+
+{
+    "id": "hampi",
+    "name": "Hampi",
+    "description": "Ancient city in Karnataka that was once the capital of the Vijayanagara Empire",
+    "coordinates": {
+      "lat": 15.3350,
+      "lng": 76.4600
+    },
+    "category": "historical",
+    "history": "Hampi was the capital of the Vijayanagara Empire in the 14th century and one of the richest and largest cities in the world during its prime. The architectural ruins at Hampi represent an excellent example of Hindu urban architecture and engineering. The city was sacked by invading Deccan Sultanate armies in 1565, after which it fell into ruin and was largely abandoned.",
+    "period": "1336 CE - 1646 CE",
+    "dynasty": "Vijayanagara Empire",
+    "culturalFacts": [
+      "Hampi is a UNESCO World Heritage Site known for its stunning ruins and boulder-strewn landscape.",
+      "The Virupaksha Temple in Hampi continues to be an active place of worship, with rituals dating back to the 7th century CE.",
+      "The city's architectural style combines elements from various South Indian dynasties, including Chalukyas, Hoysalas, and Kakatiyas.",
+      "The famous stone chariot at the Vittala Temple is carved from a single block of granite and features musical pillars that produce different musical notes when tapped.",
+      "Annual Hampi Utsav (festival) celebrates the rich cultural heritage with music, dance, and cultural performances."
+    ],
+    "legends": [
+      {
+        "title": "The Story of Pampa and Shiva",
+        "description": "According to Hindu mythology, Pampa (the old name for the Tungabhadra River) was the daughter of Brahma who performed penance to marry Lord Shiva. Impressed by her devotion, Shiva agreed to marry her, and their union is believed to have taken place in Hampi. This is why the region was historically called 'Pampa-kshetra' (Pampa's place)."
+      },
+      {
+        "title": "Kishkindha Kingdom",
+        "description": "Hampi is believed to be the ancient Kishkindha, the monkey kingdom mentioned in the Hindu epic Ramayana. According to the epic, Lord Rama and his brother Lakshmana met Hanuman here while searching for Sita. Numerous hills and caves in the region are associated with tales from the Ramayana."
+      }
+    ],
+    "tags": ["UNESCO Heritage", "Architecture", "Hindu", "Historical Kingdom", "Ruins"]
+  }
