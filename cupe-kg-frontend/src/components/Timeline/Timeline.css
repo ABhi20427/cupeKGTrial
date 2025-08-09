@@ -40,27 +40,62 @@
   .expand-button {
     background: none;
     border: none;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 20px;
     color: #666;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    padding: 0;
+    margin-left: 8px;
   }
   
   .expand-button:hover {
     background-color: rgba(63, 81, 181, 0.1);
     color: #3f51b5;
   }
+
+  .expand-button::before {
+    content: '▼';
+    display: block;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+  }
+
+  .timeline-container.collapsed .expand-button::before {
+    transform: rotate(-90deg);
+  }
   
   .timeline-content {
     padding: 20px;
     overflow-y: auto;
     max-height: calc(80vh - 60px);
+    scrollbar-width: thin;
+    scrollbar-color: #3f51b5 #f5f7ff;
+  }
+
+  /* Custom scrollbar for webkit browsers */
+  .timeline-content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .timeline-content::-webkit-scrollbar-track {
+    background: #f5f7ff;
+    border-radius: 4px;
+  }
+
+  .timeline-content::-webkit-scrollbar-thumb {
+    background-color: #3f51b5;
+    border-radius: 4px;
+    border: 2px solid #f5f7ff;
+  }
+
+  .timeline-content::-webkit-scrollbar-thumb:hover {
+    background-color: #303f9f;
   }
   
   .timeline {
@@ -190,11 +225,16 @@
   
   .dark-theme .expand-button {
     color: #bbb;
+    background-color: transparent;
   }
   
   .dark-theme .expand-button:hover {
     background-color: rgba(121, 134, 203, 0.1);
     color: #7986cb;
+  }
+
+  .dark-theme .expand-button:active {
+    background-color: rgba(121, 134, 203, 0.2);
   }
   
   .dark-theme .timeline::before {
@@ -242,6 +282,67 @@
   .dark-theme .location-dynasty {
     color: #aaa;
   }
+
+  /* Loading state */
+  .timeline-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    padding: 20px;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f5f7ff;
+    border-radius: 50%;
+    border-top-color: #3f51b5;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Empty state */
+  .timeline-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+  }
+
+  .timeline-empty-icon {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 16px;
+  }
+
+  .timeline-empty-text {
+    font-size: 16px;
+    max-width: 250px;
+    line-height: 1.5;
+  }
+
+  /* Dark theme support for loading and empty states */
+  .dark-theme .loading-spinner {
+    border-color: #444;
+    border-top-color: #7986cb;
+  }
+
+  .dark-theme .timeline-empty {
+    color: #aaa;
+  }
+
+  .dark-theme .timeline-empty-icon {
+    color: #555;
+  }
   
   /* Responsive adjustments */
   @media (max-width: 768px) {
@@ -258,9 +359,53 @@
       width: calc(100% - 20px);
       left: 10px;
       bottom: 10px;
+      max-height: 70vh; /* Slightly smaller on mobile */
     }
     
     .timeline-header h3 {
       font-size: 16px;
+    }
+
+    .timeline-content {
+      max-height: calc(70vh - 60px);
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+
+    .location-item {
+      padding: 12px 16px; /* Larger touch targets */
+      margin-bottom: 8px;
+    }
+
+    .period-marker {
+      width: 20px; /* Larger touch target */
+      height: 20px;
+      left: -22px;
+    }
+
+    .timeline-period {
+      padding: 12px 0; /* More space for touch */
+    }
+
+    /* Active state feedback for touch */
+    .location-item:active {
+      background-color: #e8eaff;
+      transform: scale(0.98);
+    }
+
+    .dark-theme .location-item:active {
+      background-color: rgba(63, 81, 181, 0.3);
+    }
+  }
+
+  /* Handle landscape orientation */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .timeline-container {
+      max-height: 85vh;
+      right: 10px;
+      width: 300px; /* Fixed width in landscape */
+    }
+
+    .timeline-content {
+      max-height: calc(85vh - 60px);
     }
   }

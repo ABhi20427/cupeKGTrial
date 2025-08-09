@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useMapContext } from '../../context/MapContext';
+import MessageGroup from './MessageGroup';
 import './ChatInterface.css';
+import './MessageGroup.css';
 
 const ChatInterface = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +11,8 @@ const ChatInterface = () => {
       id: 1,
       type: 'bot',
       text: 'Hello! I\'m your CuPe-KG guide. Ask me anything about Indian heritage sites, historical periods, or travel routes.',
-      timestamp: new Date()
+      timestamp: new Date(),
+      status: 'delivered'
     }
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -18,7 +21,25 @@ const ChatInterface = () => {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   
-  const { selectedLocation } = useMapContext();
+  const mapContext = useMapContext();
+  const selectedLocation = mapContext?.selectedLocation;
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+
+  useEffect(() => {
+    // Check if either location or route is selected
+    const panelShouldBeOpen = Boolean(selectedLocation || mapContext?.selectedRoute);
+    // Add a small delay to match the panel animation
+    let timeoutId;
+    if (panelShouldBeOpen) {
+      timeoutId = setTimeout(() => setIsPanelOpen(true), 50);
+    } else {
+      timeoutId = setTimeout(() => setIsPanelOpen(false), 300);
+    }
+    // Cleanup timeout on unmount or when dependencies change
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [selectedLocation, mapContext?.selectedRoute]);
 
   const suggestions = [
     "Tell me about the history of Hampi",
@@ -56,9 +77,10 @@ const ChatInterface = () => {
     setIsOpen(!isOpen);
     // Focus input when opening
     if (!isOpen) {
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         inputRef.current?.focus();
       }, 300);
+      return () => clearTimeout(timeoutId);
     }
   };
 
@@ -155,12 +177,8 @@ const ChatInterface = () => {
     }
   };
 
-  const formatTimestamp = (timestamp) => {
-    return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
-
   return (
-    <div className="chat-wrapper">
+    <div className={`chat-wrapper${isPanelOpen ? ' panel-open' : ''}`}>
       <button 
         className={`chat-toggle ${isOpen ? 'open' : ''}`} 
         onClick={toggleChat}
@@ -188,33 +206,10 @@ const ChatInterface = () => {
         </div>
         
         <div className="chat-messages">
-          {messages.map(message => (
-            <div 
-              key={message.id} 
-              className={`message ${message.type === 'user' ? 'user-message' : 'bot-message'}`}
-            >
-              <div className="message-content">
-                <p>{message.text}</p>
-                
-                {message.suggestions && message.suggestions.length > 0 && (
-                  <div className="message-suggestions">
-                    {message.suggestions.map((suggestion, index) => (
-                      <button 
-                        key={index}
-                        className="suggestion-button"
-                        onClick={() => handleSuggestionClick(suggestion)}
-                      >
-                        {suggestion}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div className="message-timestamp">
-                {formatTimestamp(message.timestamp)}
-              </div>
-            </div>
-          ))}
+          <MessageGroup
+            messages={messages}
+            onSuggestionClick={handleSuggestionClick}
+          />
           
           {isTyping && (
             <div className="message bot-message typing">

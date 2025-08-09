@@ -64,11 +64,21 @@ const Header = ({ onSearch, onThemeToggle, theme }) => {
 
       <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`}>
         <ul className="nav-list">
-          <li className="nav-item"><a href="#" className="nav-link active">Home</a></li>
-          <li className="nav-item"><a href="#" className="nav-link">Explore</a></li>
-          <li className="nav-item"><a href="#" className="nav-link">Routes</a></li>
-          <li className="nav-item"><a href="#" className="nav-link">About</a></li>
-          <li className="nav-item"><a href="#" className="nav-link">Contact</a></li>
+          <li className="nav-item">
+            <button onClick={() => window.location.href = '/'} className="nav-link active">Home</button>
+          </li>
+          <li className="nav-item">
+            <button onClick={() => window.location.href = '/explore'} className="nav-link">Explore</button>
+          </li>
+          <li className="nav-item">
+            <button onClick={() => window.location.href = '/routes'} className="nav-link">Routes</button>
+          </li>
+          <li className="nav-item">
+            <button onClick={() => window.location.href = '/about'} className="nav-link">About</button>
+          </li>
+          <li className="nav-item">
+            <button onClick={() => window.location.href = '/contact'} className="nav-link">Contact</button>
+          </li>
         </ul>
       </nav>
     </header>

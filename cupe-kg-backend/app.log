@@ -66,3 +66,91 @@
 2025-05-18 20:20:30,919 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
 2025-05-18 20:20:30,934 - werkzeug - WARNING -  * Debugger is active!
 2025-05-18 20:20:30,941 - werkzeug - INFO -  * Debugger PIN: 762-287-936
+2025-05-28 22:14:44,799 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-05-28 22:14:44,801 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-05-28 22:14:47,731 - __main__ - INFO - Services initialized successfully
+2025-05-28 22:14:47,735 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-05-28 22:14:47,776 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.9:5000
+2025-05-28 22:14:47,777 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-28 22:14:47,779 - werkzeug - INFO -  * Restarting with stat
+2025-05-28 22:14:52,189 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-05-28 22:14:52,191 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-05-28 22:14:54,580 - __main__ - INFO - Services initialized successfully
+2025-05-28 22:14:54,584 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-05-28 22:14:54,597 - werkzeug - WARNING -  * Debugger is active!
+2025-05-28 22:14:54,602 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-05-28 22:42:44,642 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\route_service.py', reloading
+2025-05-28 22:42:45,816 - werkzeug - INFO -  * Restarting with stat
+2025-05-28 22:42:54,900 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-05-28 22:42:54,902 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-05-28 22:42:58,255 - __main__ - INFO - Services initialized successfully
+2025-05-28 22:42:58,263 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-05-28 22:42:58,292 - werkzeug - WARNING -  * Debugger is active!
+2025-05-28 22:42:58,299 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-06-06 11:08:46,019 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-06-06 11:08:46,024 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-06-06 11:08:51,088 - __main__ - INFO - Services initialized successfully
+2025-06-06 11:08:51,093 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-06-06 11:08:51,140 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.20.3.9:5000
+2025-06-06 11:08:51,140 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-06 11:08:51,142 - werkzeug - INFO -  * Restarting with stat
+2025-06-06 11:08:57,112 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-06-06 11:08:57,114 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-06-06 11:09:00,282 - __main__ - INFO - Services initialized successfully
+2025-06-06 11:09:00,289 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-06-06 11:09:00,303 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 11:09:00,317 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-06 21:13:49,938 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-06 21:13:49,941 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-08-06 21:13:52,986 - __main__ - INFO - Services initialized successfully
+2025-08-06 21:13:52,991 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-06 21:13:53,042 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-06 21:13:53,042 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-06 21:13:53,044 - werkzeug - INFO -  * Restarting with stat
+2025-08-06 21:13:57,757 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-06 21:13:57,759 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-08-06 21:14:00,028 - __main__ - INFO - Services initialized successfully
+2025-08-06 21:14:00,032 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-06 21:14:00,043 - werkzeug - WARNING -  * Debugger is active!
+2025-08-06 21:14:00,057 - werkzeug - INFO -  * Debugger PIN: 121-468-642
+2025-08-06 21:16:57,562 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\data\\routes.py', reloading
+2025-08-06 21:16:58,260 - werkzeug - INFO -  * Restarting with stat
+2025-08-06 21:17:02,990 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-06 21:17:02,993 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-08-06 21:17:02,996 - __main__ - ERROR - Error initializing services: 'id'
+2025-08-06 21:17:21,815 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-06 21:17:21,819 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-08-06 21:17:21,821 - __main__ - ERROR - Error initializing services: 'id'
+2025-08-06 21:19:04,454 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-06 21:19:04,456 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-08-06 21:19:06,723 - __main__ - INFO - Services initialized successfully
+2025-08-06 21:19:06,728 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-06 21:19:06,745 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-06 21:19:06,755 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-06 21:19:06,757 - werkzeug - INFO -  * Restarting with stat
+2025-08-06 21:19:11,276 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-06 21:19:11,278 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-08-06 21:19:13,716 - __main__ - INFO - Services initialized successfully
+2025-08-06 21:19:13,721 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-06 21:19:13,735 - werkzeug - WARNING -  * Debugger is active!
+2025-08-06 21:19:13,739 - werkzeug - INFO -  * Debugger PIN: 121-468-642
+2025-08-06 21:22:25,492 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\data\\routes.py', reloading
+2025-08-06 21:22:26,136 - werkzeug - INFO -  * Restarting with stat
+2025-08-06 21:22:30,862 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-06 21:22:30,864 - services.kg_service - INFO - Loaded 9 locations from placeholder data
+2025-08-06 21:22:33,270 - __main__ - INFO - Services initialized successfully
+2025-08-06 21:22:33,275 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-06 21:22:33,285 - werkzeug - WARNING -  * Debugger is active!
+2025-08-06 21:22:33,288 - werkzeug - INFO -  * Debugger PIN: 121-468-642

@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { fetchPlaceData, fetchRoutes, fetchLocations } from '../services/api';
 import { placeholderData } from '../data/placeholderData';
 import { routes as routesData } from '../data/routes';
