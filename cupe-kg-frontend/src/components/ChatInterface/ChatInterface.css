@@ -1,3 +1,19 @@
+/* Panel open state adjustments - ADD THIS ENTIRE SECTION */
+.chat-wrapper.panel-open {
+  bottom: 120px; /* Moves chat button up when panel is open */
+  transition: all 0.3s ease;
+}
+
+.chat-wrapper.panel-open .chat-container {
+  bottom: 80px; /* Adjust container position too */
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .chat-wrapper.panel-open {
+    bottom: 100px;
+  }
+}
 .chat-wrapper {
   position: fixed;
   bottom: 30px;

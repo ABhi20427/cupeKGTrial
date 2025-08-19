@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './InfoPanel.css';
 
-const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose }) => {
+const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose, onOpen }) => {
   const [activeTab, setActiveTab] = useState('history');
   const [isVisible, setIsVisible] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -15,6 +15,7 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose 
       setTimeout(() => {
         setAnimationClass('animate-in');
       }, 50);
+      onOpen?.(); // <-- Ensure callback is triggered when panel opens
     } else {
       // Set exit animation
       setAnimationClass('animate-out');
@@ -24,7 +25,7 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose 
         setAnimationClass('');
       }, 300);
     }
-  }, [isOpen]);
+  }, [isOpen, onOpen]);
 
   // Reset image loaded state when location changes
   useEffect(() => {
@@ -35,8 +36,9 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose 
   useEffect(() => {
     if (selectedLocation) {
       setActiveTab('history');
+      onOpen?.();  // <-- ADD THIS when panel opens
     }
-  }, [selectedLocation]);
+  }, [selectedLocation, onOpen]);
 
   if (!isVisible && !isOpen) {
     return null;

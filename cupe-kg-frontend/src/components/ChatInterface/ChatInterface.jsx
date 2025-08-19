@@ -4,7 +4,7 @@ import MessageGroup from './MessageGroup';
 import './ChatInterface.css';
 import './MessageGroup.css';
 
-const ChatInterface = () => {
+const ChatInterface = ({ isPanelOpen }) => {  // <-- ADD isPanelOpen prop
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -23,23 +23,6 @@ const ChatInterface = () => {
   
   const mapContext = useMapContext();
   const selectedLocation = mapContext?.selectedLocation;
-  const [isPanelOpen, setIsPanelOpen] = useState(false);
-
-  useEffect(() => {
-    // Check if either location or route is selected
-    const panelShouldBeOpen = Boolean(selectedLocation || mapContext?.selectedRoute);
-    // Add a small delay to match the panel animation
-    let timeoutId;
-    if (panelShouldBeOpen) {
-      timeoutId = setTimeout(() => setIsPanelOpen(true), 50);
-    } else {
-      timeoutId = setTimeout(() => setIsPanelOpen(false), 300);
-    }
-    // Cleanup timeout on unmount or when dependencies change
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [selectedLocation, mapContext?.selectedRoute]);
 
   const suggestions = [
     "Tell me about the history of Hampi",
@@ -178,7 +161,7 @@ const ChatInterface = () => {
   };
 
   return (
-    <div className={`chat-wrapper${isPanelOpen ? ' panel-open' : ''}`}>
+    <div className={`chat-wrapper ${isPanelOpen ? 'panel-open' : ''}`}>
       <button 
         className={`chat-toggle ${isOpen ? 'open' : ''}`} 
         onClick={toggleChat}
