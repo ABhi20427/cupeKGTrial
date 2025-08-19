@@ -1,6 +1,6 @@
 // src/components/Timeline/Timeline.jsx
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMapContext } from '../../context/MapContext';
 import './Timeline.css';
 
@@ -10,110 +10,114 @@ const Timeline = ({ isVisible, onLocationSelect }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [timelinePeriods, setTimelinePeriods] = useState([]);
 
-  const extractPeriodInfo = useCallback((periodString) => {
-    // Regular expressions to match different date formats
-    const dateRangeRegex = /(\d{1,4})\s*(?:BCE|CE)?\s*-\s*(\d{1,4})\s*(?:BCE|CE)?/i;
-    const singleDateRegex = /(\d{1,4})\s*(?:BCE|CE)?/i;
-    const centuryRegex = /(\d{1,2})(?:st|nd|rd|th)\s+century\s+(?:BCE|CE)?/i;
-
-    let periods = [];
-    
-    // Try to match date range format
-    const rangeMatch = periodString.match(dateRangeRegex);
-    if (rangeMatch) {
-      const [_, start, end] = rangeMatch;
-      periods.push({
-        start: parseInt(start),
-        end: parseInt(end),
-        label: periodString,
-        type: 'range'
-      });
-      return periods;
-    }
-
-    // Try to match century format
-    const centuryMatch = periodString.match(centuryRegex);
-    if (centuryMatch) {
-      const century = parseInt(centuryMatch[1]);
-      const startYear = (century - 1) * 100;
-      const endYear = century * 100;
-      periods.push({
-        start: startYear,
-        end: endYear,
-        label: periodString,
-        type: 'century'
-      });
-      return periods;
-    }
-
-    // Try to match single date
-    const singleMatch = periodString.match(singleDateRegex);
-    if (singleMatch) {
-      const year = parseInt(singleMatch[1]);
-      periods.push({
-        start: year,
-        end: year,
-        label: periodString,
-        type: 'year'
-      });
-      return periods;
-    }
-
-    // Fallback for unparseable dates
-    periods.push({
-      start: 0,
-      end: 0,
-      label: periodString,
-      type: 'unknown'
-    });
-
-    return periods;
-  }, []);
-
-  const processLocationsIntoTimeline = useCallback((locs) => {
-    const periodMap = new Map();
-    
-    locations.forEach(location => {
-      if (!location.period) return;
-      
-      const periodInfo = extractPeriodInfo(location.period);
-      
-      periodInfo.forEach(period => {
-        const key = `${period.start}-${period.end}`;
-        if (!periodMap.has(key)) {
-          periodMap.set(key, {
-            start: period.start,
-            end: period.end,
-            label: period.label,
-            type: period.type,
-            locations: [],
-            dynasties: new Set()
-          });
-        }
-        
-        const periodData = periodMap.get(key);
-        periodData.locations.push(location);
-        if (location.dynasty) {
-          periodData.dynasties.add(location.dynasty);
-        }
-      });
-    });
-    
-    // Convert to array and sort by start year
-    return Array.from(periodMap.values())
-      .sort((a, b) => a.start - b.start)
-      .map(period => ({
-        ...period,
-        dynasties: Array.from(period.dynasties)
-      }));
-  }, [extractPeriodInfo]);
-
+  // Process locations into timeline periods
   useEffect(() => {
     if (locations.length > 0) {
       const periods = processLocationsIntoTimeline(locations);
       setTimelinePeriods(periods);
     }
-  }, [locations, processLocationsIntoTimeline]);
+  }, [locations]);
+
+  const processLocationsIntoTimeline = (locations) => {
+    const periodMap = new Map();
+    
+    locations.forEach(location => {
+      if (!location.period) return;
+      
+      // Extract period information
+      const periodInfo = extractPeriodInfo(location.period);
+      
+      periodInfo.forEach(period => {
+        const key = period.label;
+        if (!periodMap.has(key)) {
+          periodMap.set(key, {
+            ...period,
+            locations: []
+          });
+        }
+        periodMap.get(key).locations.push(location);
+      });
+    });
+    
+    // Convert to array and sort by start year
+    const periodsArray = Array.from(periodMap.values());
+    periodsArray.sort((a, b) => a.startYear - b.startYear);
+    
+    return periodsArray;
+  };
+
+  const extractPeriodInfo = (periodString) => {
+    const periods = [];
+    
+    // Handle different period formats
+    const patterns = [
+      // "1336 CE - 1646 CE"
+      {
+        regex: /(\d{1,4})\s*CE\s*-\s*(\d{1,4})\s*CE/i,
+        handler: (match) => ({
+          startYear: parseInt(match[1]),
+          endYear: parseInt(match[2]),
+          label: `${match[1]} CE - ${match[2]} CE`,
+          era: 'CE'
+        })
+      },
+      // "13th century CE"
+      {
+        regex: /(\d{1,2})(?:st|nd|rd|th)\s*century\s*CE/i,
+        handler: (match) => {
+          const century = parseInt(match[1]);
+          const startYear = (century - 1) * 100 + 1;
+          const endYear = century * 100;
+          return {
+            startYear,
+            endYear,
+            label: `${match[1]}th Century CE`,
+            era: 'CE'
+          };
+        }
+      },
+      // "950 CE - 1050 CE"
+      {
+        regex: /(\d{1,4})\s*-\s*(\d{1,4})\s*CE/i,
+        handler: (match) => ({
+          startYear: parseInt(match[1]),
+          endYear: parseInt(match[2]),
+          label: `${match[1]} - ${match[2]} CE`,
+          era: 'CE'
+        })
+      },
+      // Single year "1632 CE"
+      {
+        regex: /(\d{1,4})\s*CE/i,
+        handler: (match) => ({
+          startYear: parseInt(match[1]),
+          endYear: parseInt(match[1]) + 50, // Approximate
+          label: `${match[1]} CE`,
+          era: 'CE'
+        })
+      }
+    ];
+    
+    for (const pattern of patterns) {
+      const match = periodString.match(pattern.regex);
+      if (match) {
+        periods.push(pattern.handler(match));
+        break;
+      }
+    }
+    
+    // Fallback: create a general period
+    if (periods.length === 0) {
+      periods.push({
+        startYear: 1000, // Default
+        endYear: 2000,
+        label: periodString,
+        era: 'Unknown'
+      });
+    }
+    
+    return periods;
+  };
 
   const handlePeriodClick = (period) => {
     if (selectedPeriod?.label === period.label) {

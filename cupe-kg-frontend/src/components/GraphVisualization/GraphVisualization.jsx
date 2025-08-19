@@ -17,9 +17,8 @@ const GraphVisualization = ({ isVisible, onNodeClick, onClose }) => {
   const animationRef = useRef(null);
   const [showLegend, setShowLegend] = useState(true);
   const [filterBy, setFilterBy] = useState('all'); // all, dynasty, category, period
-
-  // Drawing functions and utilities
-  const colors = React.useMemo(() => ({
+  
+  const colors = {
     dynasty: {
       'Mughal Empire': '#ff9800',
       'Vijayanagara Empire': '#4caf50', 
@@ -36,381 +35,31 @@ const GraphVisualization = ({ isVisible, onNodeClick, onClose }) => {
       'cultural': '#ff9800',
       'default': '#757575'
     },
-    edge: {
-      default: 'rgba(255, 255, 255, 0.3)',
-      dynasty: 'rgba(255, 152, 0, 0.6)',
-      category: 'rgba(63, 81, 181, 0.4)',
-      cultural: 'rgba(233, 30, 99, 0.4)'
-    },
+    edge: 'rgba(255, 255, 255, 0.3)',
     text: '#ffffff',
     selectedNode: '#ffeb3b',
     hoveredNode: '#fff'
-  }), []);
+  };
 
-  // Functions for showing nodes and edges based on filters
-  const shouldShowNode = useCallback((node) => {
-    if (filterBy === 'all') return true;
-    if (filterBy === 'dynasty') return node.dynasty;
-    if (filterBy === 'category') return node.category;
-    if (filterBy === 'period') return node.period;
-    return true;
-  }, [filterBy]);
-
-  const shouldShowEdge = useCallback((edge) => {
-    return shouldShowNode(edge.sourceNode) && shouldShowNode(edge.targetNode);
-  }, [shouldShowNode]);
-
-  // Drawing functions
-  const drawEdge = useCallback((ctx, edge) => {
-    const { sourceNode, targetNode, strength, type } = edge;
-    
-    ctx.beginPath();
-    ctx.moveTo(sourceNode.x, sourceNode.y);
-    ctx.lineTo(targetNode.x, targetNode.y);
-    
-    // Edge styling based on type
-    let strokeStyle = colors.edge.default;
-    let lineWidth = 2;
-    
-    if (type.includes('dynasty')) {
-      strokeStyle = colors.edge.dynasty;
-      lineWidth = 3;
-    } else if (type.includes('category')) {
-      strokeStyle = colors.edge.category;
-      lineWidth = 2;
-    } else if (type.includes('cultural')) {
-      strokeStyle = colors.edge.cultural;
-      lineWidth = 2;
+  // Initialize graph data
+  useEffect(() => {
+    if (locations.length > 0) {
+      initializeGraph();
     }
-    
-    ctx.strokeStyle = strokeStyle;
-    ctx.lineWidth = lineWidth * strength;
-    ctx.stroke();
-  }, [colors]);
+  }, [locations]);
 
-  const drawNode = useCallback((ctx, node) => {
-    const isSelected = selectedLocation?.id === node.id;
-    const isHovered = hoveredNode?.id === node.id;
-    
-    // Node color based on current filter
-    let nodeColor = colors.category.default;
-    if (filterBy === 'dynasty') {
-      nodeColor = colors.dynasty[node.dynasty] || colors.dynasty.default;
-    } else if (filterBy === 'category') {
-      nodeColor = colors.category[node.category] || colors.category.default;
-    } else {
-      nodeColor = colors.category[node.category] || colors.category.default;
-    }
-    
-    // Draw node circle
-    ctx.beginPath();
-    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-    
-    if (isSelected) {
-      ctx.fillStyle = colors.selectedNode;
-      ctx.shadowBlur = 20;
-      ctx.shadowColor = colors.selectedNode;
-    } else if (isHovered) {
-      ctx.fillStyle = colors.hoveredNode;
-      ctx.shadowBlur = 15;
-      ctx.shadowColor = nodeColor;
-    } else {
-      ctx.fillStyle = nodeColor;
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = nodeColor;
-    }
-    
-    ctx.fill();
-    ctx.shadowBlur = 0;
-    
-    // Draw border
-    ctx.beginPath();
-    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-    ctx.strokeStyle = isSelected ? '#fff' : 'rgba(255, 255, 255, 0.8)';
-    ctx.lineWidth = isSelected ? 3 : 2;
-    ctx.stroke();
-    
-    // Draw node label
-    ctx.fillStyle = colors.text;
-    ctx.font = `${isHovered || isSelected ? '14px' : '12px'} Arial`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    
-    // Text with shadow for readability
-    ctx.shadowBlur = 3;
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-    ctx.fillText(node.name, node.x, node.y);
-    ctx.shadowBlur = 0;
-    
-    // Draw connection count
-    if (isHovered || isSelected) {
-      ctx.font = '10px Arial';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      ctx.fillText(
-        `${node.connections} connections`, 
-        node.x, 
-        node.y + node.radius + 15
-      );
-    }
-  }, [colors, filterBy, selectedLocation, hoveredNode]);
-
-  // Define main draw function
-  const draw = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Apply transform
-    ctx.save();
-    ctx.translate(viewTransform.x, viewTransform.y);
-    ctx.scale(viewTransform.scale, viewTransform.scale);
-    
-    // Draw edges
-    edges.forEach(edge => {
-      if (shouldShowEdge(edge)) {
-        drawEdge(ctx, edge);
-      }
-    });
-    
-    // Draw nodes
-    nodes.forEach(node => {
-      if (shouldShowNode(node)) {
-        drawNode(ctx, node);
-      }
-    });
-    
-    ctx.restore();
-  }, [nodes, edges, viewTransform, shouldShowEdge, shouldShowNode, drawEdge, drawNode]);
-
-  const updatePhysics = useCallback(() => {
-    if (!canvasRef.current) return;
-
-    const damping = 0.95;
-    const repulsionStrength = 2000;
-    const attractionStrength = 0.05;
-    const centeringForce = 0.02;
-
-    setNodes(prevNodes => {
-      const newNodes = [...prevNodes];
-      
-      newNodes.forEach((node, i) => {
-        if (node.id === draggedNode?.id) return;
-        
-        let fx = 0, fy = 0;
-        
-        // Repulsion from other nodes
-        newNodes.forEach((other, j) => {
-          if (i === j) return;
-          const dx = node.x - other.x;
-          const dy = node.y - other.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (distance > 0) {
-            const force = repulsionStrength / (distance * distance);
-            fx += (dx / distance) * force;
-            fy += (dy / distance) * force;
-          }
-        });
-        
-        // Attraction along edges
-        edges.forEach(edge => {
-          let other = null;
-          let direction = 1;
-          
-          if (edge.sourceNode.id === node.id) {
-            other = edge.targetNode;
-          } else if (edge.targetNode.id === node.id) {
-            other = edge.sourceNode;
-            direction = -1;
-          }
-          
-          if (other) {
-            const dx = other.x - node.x;
-            const dy = other.y - node.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const idealDistance = 150 * (1 - edge.strength * 0.5);
-            
-            if (distance > idealDistance) {
-              const force = attractionStrength * edge.strength * (distance - idealDistance);
-              fx += (dx / distance) * force * direction;
-              fy += (dy / distance) * force * direction;
-            }
-          }
-        });
-        
-        // Centering force
-        const canvas = canvasRef.current;
-        if (canvas) {
-          const centerX = canvas.width / 2;
-          const centerY = canvas.height / 2;
-          const dx = centerX - node.x;
-          const dy = centerY - node.y;
-          fx += dx * centeringForce;
-          fy += dy * centeringForce;
-        }
-        
-        // Update velocity and position
-        node.vx = (node.vx + fx) * damping;
-        node.vy = (node.vy + fy) * damping;
-        
-        node.x += node.vx;
-        node.y += node.vy;
-        
-        // Boundary constraints
-        if (canvas) {
-          const margin = node.radius;
-          node.x = Math.max(margin, Math.min(canvas.width - margin, node.x));
-          node.y = Math.max(margin, Math.min(canvas.height - margin, node.y));
-        }
-      });
-      
-      return newNodes;
-    });
-  }, [draggedNode, edges]);
-
-  const startAnimation = useCallback(() => {
-    if (animationRef.current) return;
-
-    const animate = () => {
-      updatePhysics();
-      draw();
-      animationRef.current = requestAnimationFrame(animate);
-    };
-    
-    animate();
-  }, [updatePhysics, draw]);
-
-  const stopAnimation = useCallback(() => {
-    if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current);
-      animationRef.current = null;
-    }
-  }, []);
-
+  // Start animation loop
   useEffect(() => {
     if (isVisible && nodes.length > 0) {
       startAnimation();
     } else {
       stopAnimation();
     }
+    
     return () => stopAnimation();
-  }, [isVisible, nodes.length, startAnimation, stopAnimation]);
+  }, [isVisible, nodes.length]);
 
-  // Mouse event handlers
-  const handleMouseDown = useCallback((e) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    const rect = canvas.getBoundingClientRect();
-    const x = (e.clientX - rect.left - viewTransform.x) / viewTransform.scale;
-    const y = (e.clientY - rect.top - viewTransform.y) / viewTransform.scale;
-    
-    // Check if clicking on a node
-    const clickedNode = nodes.find(node => {
-      const dx = x - node.x;
-      const dy = y - node.y;
-      return Math.sqrt(dx * dx + dy * dy) < node.radius;
-    });
-    
-    if (clickedNode) {
-      setDraggedNode(clickedNode);
-      selectLocation(clickedNode.data);
-      if (onNodeClick) {
-        onNodeClick(clickedNode.data);
-      }
-    } else {
-      setIsDragging(true);
-      setLastMousePos({ x: e.clientX, y: e.clientY });
-    }
-  }, [nodes, viewTransform, selectLocation, onNodeClick]);
-
-  const handleMouseMove = useCallback((e) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    if (isDragging) {
-      const dx = e.clientX - lastMousePos.x;
-      const dy = e.clientY - lastMousePos.y;
-      
-      setViewTransform(prev => ({
-        ...prev,
-        x: prev.x + dx,
-        y: prev.y + dy
-      }));
-      
-      setLastMousePos({ x: e.clientX, y: e.clientY });
-    } else if (draggedNode) {
-      const rect = canvas.getBoundingClientRect();
-      const x = (e.clientX - rect.left - viewTransform.x) / viewTransform.scale;
-      const y = (e.clientY - rect.top - viewTransform.y) / viewTransform.scale;
-      
-      setNodes(prev => prev.map(node => 
-        node.id === draggedNode.id 
-          ? { ...node, x, y, vx: 0, vy: 0 }
-          : node
-      ));
-    } else {
-      // Check for hover
-      const rect = canvas.getBoundingClientRect();
-      const x = (e.clientX - rect.left - viewTransform.x) / viewTransform.scale;
-      const y = (e.clientY - rect.top - viewTransform.y) / viewTransform.scale;
-      
-      const hoveredNode = nodes.find(node => {
-        const dx = x - node.x;
-        const dy = y - node.y;
-        return Math.sqrt(dx * dx + dy * dy) < node.radius;
-      });
-      
-      setHoveredNode(hoveredNode || null);
-      canvas.style.cursor = hoveredNode ? 'pointer' : 'default';
-    }
-  }, [isDragging, draggedNode, lastMousePos, nodes, viewTransform]);
-
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
-    setDraggedNode(null);
-  }, []);
-
-  const handleWheel = useCallback((e) => {
-    e.preventDefault();
-    const scaleChange = e.deltaY > 0 ? 0.9 : 1.1;
-    
-    setViewTransform(prev => ({
-      ...prev,
-      scale: Math.max(0.1, Math.min(3, prev.scale * scaleChange))
-    }));
-  }, []);
-
-  const periodsOverlap = useCallback((period1, period2) => {
-    if (!period1 || !period2) return false;
-    
-    // Extract years from periods (simplified)
-    const extractYear = (period) => {
-      const match = period.match(/(\d{1,4})/);
-      return match ? parseInt(match[1]) : null;
-    };
-    
-    const year1 = extractYear(period1);
-    const year2 = extractYear(period2);
-    
-    if (!year1 || !year2) return false;
-    
-    // Consider periods overlapping if within 200 years
-    return Math.abs(year1 - year2) < 200;
-  }, []);
-
-  const calculateCulturalSimilarity = useCallback((loc1, loc2) => {
-    const tags1 = loc1.tags || [];
-    const tags2 = loc2.tags || [];
-    
-    if (tags1.length === 0 || tags2.length === 0) return 0;
-    
-    const commonTags = tags1.filter(tag => tags2.includes(tag));
-    return commonTags.length / Math.max(tags1.length, tags2.length);
-  }, []);
-
-  const initializeGraph = useCallback(() => {
+  const initializeGraph = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -500,7 +149,355 @@ const GraphVisualization = ({ isVisible, onNodeClick, onClose }) => {
 
     setNodes(newNodes);
     setEdges(newEdges);
-  }, [locations, periodsOverlap, calculateCulturalSimilarity]);
+  };
+
+  const periodsOverlap = (period1, period2) => {
+    if (!period1 || !period2) return false;
+    
+    // Extract years from periods (simplified)
+    const extractYear = (period) => {
+      const match = period.match(/(\d{1,4})/);
+      return match ? parseInt(match[1]) : null;
+    };
+    
+    const year1 = extractYear(period1);
+    const year2 = extractYear(period2);
+    
+    if (!year1 || !year2) return false;
+    
+    // Consider periods overlapping if within 200 years
+    return Math.abs(year1 - year2) < 200;
+  };
+
+  const calculateCulturalSimilarity = (loc1, loc2) => {
+    const tags1 = loc1.tags || [];
+    const tags2 = loc2.tags || [];
+    
+    if (tags1.length === 0 || tags2.length === 0) return 0;
+    
+    const commonTags = tags1.filter(tag => tags2.includes(tag));
+    return commonTags.length / Math.max(tags1.length, tags2.length);
+  };
+
+  const startAnimation = () => {
+    const animate = () => {
+      updatePhysics();
+      draw();
+      animationRef.current = requestAnimationFrame(animate);
+    };
+    animate();
+  };
+
+  const stopAnimation = () => {
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
+  };
+
+  const updatePhysics = () => {
+    const damping = 0.95;
+    const repulsionStrength = 2000;
+    const attractionStrength = 0.05;
+    const centeringForce = 0.02;
+
+    setNodes(prevNodes => {
+      const newNodes = [...prevNodes];
+      
+      // Apply forces
+      newNodes.forEach((node, i) => {
+        if (node.id === draggedNode?.id) return; // Skip dragged node
+        
+        let fx = 0, fy = 0;
+        
+        // Repulsion from other nodes
+        newNodes.forEach((other, j) => {
+          if (i === j) return;
+          const dx = node.x - other.x;
+          const dy = node.y - other.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance > 0) {
+            const force = repulsionStrength / (distance * distance);
+            fx += (dx / distance) * force;
+            fy += (dy / distance) * force;
+          }
+        });
+        
+        // Attraction along edges
+        edges.forEach(edge => {
+          let other = null;
+          let direction = 1;
+          
+          if (edge.sourceNode.id === node.id) {
+            other = edge.targetNode;
+          } else if (edge.targetNode.id === node.id) {
+            other = edge.sourceNode;
+            direction = -1;
+          }
+          
+          if (other) {
+            const dx = other.x - node.x;
+            const dy = other.y - node.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const idealDistance = 150 * (1 - edge.strength * 0.5);
+            
+            if (distance > idealDistance) {
+              const force = attractionStrength * edge.strength * (distance - idealDistance);
+              fx += (dx / distance) * force * direction;
+              fy += (dy / distance) * force * direction;
+            }
+          }
+        });
+        
+        // Centering force
+        const canvas = canvasRef.current;
+        if (canvas) {
+          const centerX = canvas.width / 2;
+          const centerY = canvas.height / 2;
+          const dx = centerX - node.x;
+          const dy = centerY - node.y;
+          fx += dx * centeringForce;
+          fy += dy * centeringForce;
+        }
+        
+        // Update velocity and position
+        node.vx = (node.vx + fx) * damping;
+        node.vy = (node.vy + fy) * damping;
+        
+        node.x += node.vx;
+        node.y += node.vy;
+        
+        // Boundary constraints
+        if (canvas) {
+          const margin = node.radius;
+          node.x = Math.max(margin, Math.min(canvas.width - margin, node.x));
+          node.y = Math.max(margin, Math.min(canvas.height - margin, node.y));
+        }
+      });
+      
+      return newNodes;
+    });
+  };
+
+  const draw = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Apply transform
+    ctx.save();
+    ctx.translate(viewTransform.x, viewTransform.y);
+    ctx.scale(viewTransform.scale, viewTransform.scale);
+    
+    // Draw edges
+    edges.forEach(edge => {
+      if (shouldShowEdge(edge)) {
+        drawEdge(ctx, edge);
+      }
+    });
+    
+    // Draw nodes
+    nodes.forEach(node => {
+      if (shouldShowNode(node)) {
+        drawNode(ctx, node);
+      }
+    });
+    
+    ctx.restore();
+  };
+
+  const shouldShowNode = (node) => {
+    if (filterBy === 'all') return true;
+    if (filterBy === 'dynasty') return node.dynasty;
+    if (filterBy === 'category') return node.category;
+    if (filterBy === 'period') return node.period;
+    return true;
+  };
+
+  const shouldShowEdge = (edge) => {
+    return shouldShowNode(edge.sourceNode) && shouldShowNode(edge.targetNode);
+  };
+
+  const drawEdge = (ctx, edge) => {
+    const { sourceNode, targetNode, strength, type } = edge;
+    
+    ctx.beginPath();
+    ctx.moveTo(sourceNode.x, sourceNode.y);
+    ctx.lineTo(targetNode.x, targetNode.y);
+    
+    // Edge styling based on type
+    let strokeStyle = colors.edge;
+    let lineWidth = 2;
+    
+    if (type.includes('dynasty')) {
+      strokeStyle = 'rgba(255, 152, 0, 0.6)';
+      lineWidth = 3;
+    } else if (type.includes('category')) {
+      strokeStyle = 'rgba(63, 81, 181, 0.4)';
+      lineWidth = 2;
+    } else if (type.includes('cultural')) {
+      strokeStyle = 'rgba(233, 30, 99, 0.4)';
+      lineWidth = 2;
+    }
+    
+    ctx.strokeStyle = strokeStyle;
+    ctx.lineWidth = lineWidth * strength;
+    ctx.stroke();
+  };
+
+  const drawNode = (ctx, node) => {
+    const isSelected = selectedLocation?.id === node.id;
+    const isHovered = hoveredNode?.id === node.id;
+    
+    // Node color based on current filter
+    let nodeColor = colors.category.default;
+    if (filterBy === 'dynasty') {
+      nodeColor = colors.dynasty[node.dynasty] || colors.dynasty.default;
+    } else if (filterBy === 'category') {
+      nodeColor = colors.category[node.category] || colors.category.default;
+    } else {
+      nodeColor = colors.category[node.category] || colors.category.default;
+    }
+    
+    // Draw node circle
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+    
+    if (isSelected) {
+      ctx.fillStyle = colors.selectedNode;
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = colors.selectedNode;
+    } else if (isHovered) {
+      ctx.fillStyle = colors.hoveredNode;
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = nodeColor;
+    } else {
+      ctx.fillStyle = nodeColor;
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = nodeColor;
+    }
+    
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    
+    // Draw border
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+    ctx.strokeStyle = isSelected ? '#fff' : 'rgba(255, 255, 255, 0.8)';
+    ctx.lineWidth = isSelected ? 3 : 2;
+    ctx.stroke();
+    
+    // Draw node label
+    ctx.fillStyle = colors.text;
+    ctx.font = `${isHovered || isSelected ? '14px' : '12px'} Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    
+    // Text with shadow for readability
+    ctx.shadowBlur = 3;
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+    ctx.fillText(node.name, node.x, node.y);
+    ctx.shadowBlur = 0;
+    
+    // Draw connection count
+    if (isHovered || isSelected) {
+      ctx.font = '10px Arial';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.fillText(
+        `${node.connections} connections`, 
+        node.x, 
+        node.y + node.radius + 15
+      );
+    }
+  };
+
+  // Mouse event handlers
+  const handleMouseDown = useCallback((e) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX - rect.left - viewTransform.x) / viewTransform.scale;
+    const y = (e.clientY - rect.top - viewTransform.y) / viewTransform.scale;
+    
+    // Check if clicking on a node
+    const clickedNode = nodes.find(node => {
+      const dx = x - node.x;
+      const dy = y - node.y;
+      return Math.sqrt(dx * dx + dy * dy) < node.radius;
+    });
+    
+    if (clickedNode) {
+      setDraggedNode(clickedNode);
+      selectLocation(clickedNode.data);
+      if (onNodeClick) {
+        onNodeClick(clickedNode.data);
+      }
+    } else {
+      setIsDragging(true);
+      setLastMousePos({ x: e.clientX, y: e.clientY });
+    }
+  }, [nodes, viewTransform, selectLocation, onNodeClick]);
+
+  const handleMouseMove = useCallback((e) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    if (isDragging) {
+      const dx = e.clientX - lastMousePos.x;
+      const dy = e.clientY - lastMousePos.y;
+      
+      setViewTransform(prev => ({
+        ...prev,
+        x: prev.x + dx,
+        y: prev.y + dy
+      }));
+      
+      setLastMousePos({ x: e.clientX, y: e.clientY });
+    } else if (draggedNode) {
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX - rect.left - viewTransform.x) / viewTransform.scale;
+      const y = (e.clientY - rect.top - viewTransform.y) / viewTransform.scale;
+      
+      setNodes(prev => prev.map(node => 
+        node.id === draggedNode.id 
+          ? { ...node, x, y, vx: 0, vy: 0 }
+          : node
+      ));
+    } else {
+      // Check for hover
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX - rect.left - viewTransform.x) / viewTransform.scale;
+      const y = (e.clientY - rect.top - viewTransform.y) / viewTransform.scale;
+      
+      const hoveredNode = nodes.find(node => {
+        const dx = x - node.x;
+        const dy = y - node.y;
+        return Math.sqrt(dx * dx + dy * dy) < node.radius;
+      });
+      
+      setHoveredNode(hoveredNode || null);
+      canvas.style.cursor = hoveredNode ? 'pointer' : 'default';
+    }
+  }, [isDragging, draggedNode, lastMousePos, nodes, viewTransform]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+    setDraggedNode(null);
+  }, []);
+
+  const handleWheel = useCallback((e) => {
+    e.preventDefault();
+    const scaleChange = e.deltaY > 0 ? 0.9 : 1.1;
+    
+    setViewTransform(prev => ({
+      ...prev,
+      scale: Math.max(0.1, Math.min(3, prev.scale * scaleChange))
+    }));
+  }, []);
 
   // Setup event listeners
   useEffect(() => {
@@ -520,14 +517,7 @@ const GraphVisualization = ({ isVisible, onNodeClick, onClose }) => {
     };
   }, [handleMouseDown, handleMouseMove, handleMouseUp, handleWheel]);
 
-  // Initialize graph data when locations change
-  useEffect(() => {
-    if (locations.length > 0) {
-      initializeGraph();
-    }
-  }, [locations, initializeGraph]);
-
-  // Reset view handler
+  // Reset view
   const resetView = () => {
     setViewTransform({ x: 0, y: 0, scale: 1 });
   };
