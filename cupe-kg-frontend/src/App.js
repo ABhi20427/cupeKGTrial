@@ -8,7 +8,6 @@ import './components/ChatInterface/ChatInterface.css';
 import './components/ChatInterface/MessageGroup.css';
 import './styles/variables.css';
 import './styles/animations.css';
-
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [theme, setTheme] = useState('light');
