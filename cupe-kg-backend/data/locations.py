@@ -254,5 +254,133 @@ def get_expanded_locations():
                 }
             ],
             "tags": ["UNESCO Heritage", "Buddhist", "Stupa", "Ashoka", "Ancient Architecture"]
+        },
+        
+
+        {
+            "id": "jaipur",
+            "name": "Jaipur",
+            "description": "The Pink City, capital of Rajasthan known for its royal palaces and forts",
+            "coordinates": {"lat": 26.9124, "lng": 75.7873},
+            "category": "historical",
+            "history": "Founded in 1727 by Maharaja Sawai Jai Singh II, Jaipur was one of the earliest planned cities of modern India. The city was painted pink in 1876 to welcome the Prince of Wales (later King Edward VII) and has maintained this distinctive color ever since. It represents the pinnacle of Rajput architecture and urban planning.",
+            "period": "1727 CE - Present",
+            "dynasty": "Kachwaha Rajputs",
+            "culturalFacts": [
+                "UNESCO World Heritage Site since 2019",
+                "Part of India's Golden Triangle tourist circuit",
+                "Home to Hawa Mahal (Palace of Winds) with 953 windows",
+                "Features the world's largest stone sundial at Jantar Mantar",
+                "Known for traditional crafts like blue pottery and jewelry"
+            ],
+            "legends": [
+                {
+                    "title": "The Pink City Legend",
+                    "description": "Legend says the city was painted pink overnight by thousands of workers before the Prince of Wales' visit, as pink represents hospitality in Rajput culture. The color has been maintained by law ever since."
+                }
+            ],
+            "tags": ["UNESCO Heritage", "Pink City", "Rajput", "Royal Architecture", "Golden Triangle"]
+        },
+
+        {
+            "id": "bodh-gaya",
+            "name": "Bodh Gaya",
+            "description": "The holiest site in Buddhism where Prince Siddhartha attained enlightenment",
+            "coordinates": {"lat": 24.6959, "lng": 84.9920},
+            "category": "religious",
+            "history": "Bodh Gaya is where Prince Siddhartha meditated under a Bodhi tree and attained enlightenment, becoming the Buddha around 528 BCE. The Mahabodhi Temple, built in the 5th-6th century CE, marks this sacred spot. The site has been a pilgrimage destination for Buddhists worldwide for over 2,500 years.",
+            "period": "6th century BCE (enlightenment), 5th-6th century CE (temple)",
+            "dynasty": "Various Buddhist kingdoms",
+            "culturalFacts": [
+                "UNESCO World Heritage Site since 2002",
+                "The Bodhi Tree here is said to be a direct descendant of the original",
+                "Features temples and monasteries from many Buddhist countries",
+                "The Mahabodhi Temple is the oldest brick temple in India",
+                "Attracts pilgrims from Tibet, Sri Lanka, Myanmar, Thailand, and Japan"
+            ],
+            "legends": [
+                {
+                    "title": "The Bodhi Tree Miracle",
+                    "description": "Legend states that when the Buddha achieved enlightenment, the earth trembled, flowers rained from the sky, and the Bodhi tree's leaves shimmered with golden light."
+                }
+            ],
+            "tags": ["UNESCO Heritage", "Buddhism", "Enlightenment", "Mahabodhi Temple", "Pilgrimage"]
+        },
+
+        {
+            "id": "varanasi",
+            "name": "Varanasi",
+            "description": "One of the world's oldest living cities and holiest place in Hinduism",
+            "coordinates": {"lat": 25.3176, "lng": 82.9739},
+            "category": "religious",
+            "history": "Varanasi, also known as Kashi or Benares, is one of the oldest continuously inhabited cities in the world, with settlements dating back to the 11th century BCE. It has been a major center of learning, spirituality, and culture for over 3,000 years. Mark Twain called it 'older than history, older than tradition, older even than legend.'",
+            "period": "11th century BCE - Present",
+            "dynasty": "Various Hindu kingdoms, Mughal Empire, British Raj",
+            "culturalFacts": [
+                "Over 80 ghats (stone steps) along the Ganges River",
+                "Home to Banaras Hindu University, one of Asia's largest universities",
+                "Famous for Banarasi silk sarees and classical music",
+                "Over 2,000 temples in the city",
+                "Birthplace of the tabla musical instrument"
+            ],
+            "legends": [
+                {
+                    "title": "The City of Shiva",
+                    "description": "Hindu mythology states that Varanasi stands on the trident of Lord Shiva, making it the spiritual capital of Hinduism where dying here ensures liberation from the cycle of rebirth."
+                }
+            ],
+            "tags": ["Ancient City", "Hinduism", "Ganges", "Spiritual Capital", "Classical Music"]
+        },
+
+        {
+            "id": "madurai",
+            "name": "Madurai",
+            "description": "Ancient city famous for the magnificent Meenakshi Amman Temple",
+            "coordinates": {"lat": 9.9252, "lng": 78.1198},
+            "category": "religious",
+            "history": "Madurai is one of Tamil Nadu's oldest cities, mentioned in ancient Tamil literature dating back to the 3rd century BCE. It was the capital of the Pandya Kingdom and later ruled by various dynasties. The city is famous for the Meenakshi Amman Temple, rebuilt in the 17th century during the Nayak period.",
+            "period": "3rd century BCE - Present",
+            "dynasty": "Pandya Kingdom, Nayak Dynasty",
+            "culturalFacts": [
+                "Known as the 'Temple City' and 'Athens of the East'",
+                "The Meenakshi Temple has 14 gopurams (towers), the tallest being 52 meters",
+                "Ancient center of Tamil literature and culture",
+                "Famous for its night-blooming jasmine flowers",
+                "Traditional center for classical dance and music"
+            ],
+            "legends": [
+                {
+                    "title": "The Fish-Eyed Goddess",
+                    "description": "Legend tells of Princess Meenakshi, born with three breasts, who would lose the third when she met her future husband. She met Lord Shiva and became the presiding deity of the magnificent temple."
+                }
+            ],
+            "tags": ["Temple City", "Dravidian Architecture", "Tamil Culture", "Meenakshi Temple", "Pandya Kingdom"]
+        },
+
+        {
+            "id": "amritsar",
+            "name": "Amritsar",
+            "description": "Holy city of Sikhism, home to the Golden Temple",
+            "coordinates": {"lat": 31.6340, "lng": 74.8723},
+            "category": "religious",
+            "history": "Amritsar was founded in 1577 by the fourth Sikh Guru, Ram Das. The Golden Temple (Harmandir Sahib) was built by the fifth Guru, Arjan Dev, in 1604. The city has been central to Sikh history and is the spiritual and cultural center of the Sikh community worldwide.",
+            "period": "1577 CE - Present",
+            "dynasty": "Sikh Gurus, Sikh Empire",
+            "culturalFacts": [
+                "The Golden Temple serves free meals to 100,000+ visitors daily",
+                "The temple is surrounded by the sacred Amrit Sarovar (Pool of Nectar)",
+                "Features the world's largest community kitchen (langar)",
+                "The temple has four entrances, symbolizing openness to all religions",
+                "Made famous globally through its inclusive philosophy"
+            ],
+            "legends": [
+                {
+                    "title": "The Pool of Immortality",
+                    "description": "Legend states that the sacred pool around the Golden Temple has healing powers, and bathing in its waters can cure diseases and purify the soul."
+                }
+            ],
+            "tags": ["Golden Temple", "Sikhism", "Community Kitchen", "Religious Harmony", "Sikh Heritage"]
         }
+        
+        
     ]

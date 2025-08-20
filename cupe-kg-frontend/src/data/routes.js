@@ -1,23 +1,16 @@
-/**
- * Routes data for CuPe-KG tourism application
- * Defines cultural and historical routes across India
- */
-
 export const routes = [
+  // ENHANCED EXISTING ROUTE 1 - Buddhist Trail (now with actual markers)
   {
     id: 'buddhist',
     name: 'Buddhist Trail',
     description: 'Follow the footsteps of Buddha and explore key sites of Buddhist heritage',
     color: '#FF5722',
-    // Path is defined as array of [lat, lng] coordinates
     path: [
       [28.7041, 77.1025], // Delhi
-      [27.5006, 77.6714], // Mathura
       [25.3176, 82.9739], // Varanasi
-      [24.6959, 84.9920], // Bodh Gaya
+      [24.6959, 84.9920], // Bodh Gaya (now has marker data)
       [25.2048, 85.8910], // Nalanda
-      [25.5941, 85.1376], // Patna (Pataliputra)
-      [24.1913, 88.2683]  // Rajgir
+      [20.5523, 75.7033], // Ajanta Caves (now connected)
     ],
     locations: [
       { 
@@ -26,17 +19,24 @@ export const routes = [
         description: 'Starting point with Buddhist monuments like Ashokan pillars'
       },
       { 
-        name: 'Bodh Gaya', 
-        coordinates: [24.6959, 84.9920],
-        description: 'Where Buddha attained enlightenment under the Bodhi Tree'
+        name: 'Varanasi', 
+        coordinates: [25.3176, 82.9739],
+        description: 'Ancient spiritual city where Buddha gave his first sermon'
       },
       { 
-        name: 'Nalanda', 
-        coordinates: [25.2048, 85.8910],
-        description: 'Ancient Buddhist university and center of learning'
+        name: 'Bodh Gaya', 
+        coordinates: [24.6959, 84.9920],
+        description: 'Sacred site where Buddha attained enlightenment under the Bodhi Tree'
+      },
+      { 
+        name: 'Ajanta Caves', 
+        coordinates: [20.5523, 75.7033],
+        description: 'Buddhist cave monuments with ancient paintings and sculptures'
       }
     ]
   },
+
+  // ENHANCED EXISTING ROUTE 2 - Mughal Architecture (now with Jaipur marker)
   {
     id: 'mughal',
     name: 'Mughal Architecture',
@@ -45,11 +45,9 @@ export const routes = [
     dashArray: '5, 10',
     path: [
       [28.7041, 77.1025], // Delhi
-      [27.1767, 78.0081], // Agra
-      [26.9124, 75.7873], // Jaipur
-      [26.2124, 78.1772], // Gwalior
+      [27.1751, 78.0421], // Taj Mahal (Agra)
+      [26.9124, 75.7873], // Jaipur (now has marker data)
       [25.3176, 82.9739], // Varanasi
-      [26.8467, 80.9462]  // Lucknow
     ],
     locations: [
       { 
@@ -58,17 +56,24 @@ export const routes = [
         description: 'Home to Red Fort, Jama Masjid, and Humayun\'s Tomb'
       },
       { 
-        name: 'Agra', 
-        coordinates: [27.1767, 78.0081],
+        name: 'Taj Mahal', 
+        coordinates: [27.1751, 78.0421],
         description: 'Location of the iconic Taj Mahal and Agra Fort'
       },
       { 
-        name: 'Fatehpur Sikri', 
-        coordinates: [27.0940, 77.6700],
-        description: 'Abandoned Mughal capital city with well-preserved architecture'
+        name: 'Jaipur', 
+        coordinates: [26.9124, 75.7873],
+        description: 'The Pink City with Hawa Mahal and City Palace'
+      },
+      { 
+        name: 'Varanasi', 
+        coordinates: [25.3176, 82.9739],
+        description: 'Ancient city with Mughal influence and Ganga Aarti'
       }
     ]
   },
+
+  // ENHANCED EXISTING ROUTE 3 - Temple Route (now with Madurai marker)
   {
     id: 'temple',
     name: 'Temple Route',
@@ -76,18 +81,27 @@ export const routes = [
     color: '#9C27B0',
     path: [
       [19.8876, 86.0945], // Konark
-      [19.8135, 85.8312], // Puri
-      [20.2399, 85.8320], // Bhubaneswar
+      [20.0258, 75.1790], // Ellora Caves
+      [20.5523, 75.7033], // Ajanta Caves
+      [24.8318, 79.9199], // Khajuraho
       [15.3350, 76.4600], // Hampi
-      [13.0827, 75.2579], // Belur
-      [10.9435, 79.8380], // Thanjavur
-      [9.9195, 78.1193]   // Madurai
+      [9.9252, 78.1198],  // Madurai (now has marker data)
     ],
     locations: [
       { 
         name: 'Konark', 
         coordinates: [19.8876, 86.0945],
-        description: 'Famous for the Sun Temple, an architectural marvel'
+        description: 'Famous Sun Temple designed as a massive chariot'
+      },
+      { 
+        name: 'Ellora Caves', 
+        coordinates: [20.0258, 75.1790],
+        description: 'Multi-religious rock-cut temples including Kailasa Temple'
+      },
+      { 
+        name: 'Khajuraho', 
+        coordinates: [24.8318, 79.9199],
+        description: 'Medieval temples with intricate sculptures'
       },
       { 
         name: 'Hampi', 
@@ -96,8 +110,105 @@ export const routes = [
       },
       { 
         name: 'Madurai', 
-        coordinates: [9.9195, 78.1193],
+        coordinates: [9.9252, 78.1198],
         description: 'Home to the magnificent Meenakshi Amman Temple'
+      }
+    ]
+  },
+
+  // NEW ROUTE 4 - Rajasthan Royal Route
+  {
+    id: 'rajasthan-royal',
+    name: 'Rajasthan Royal Route',
+    description: 'Explore the majestic palaces, forts, and royal heritage of Rajasthan',
+    color: '#E91E63',
+    path: [
+      [28.7041, 77.1025], // Delhi (starting point)
+      [26.9124, 75.7873], // Jaipur
+      [24.5854, 73.7125], // Udaipur
+    ],
+    locations: [
+      { 
+        name: 'Delhi', 
+        coordinates: [28.7041, 77.1025],
+        description: 'Gateway to Rajasthan with Red Fort and India Gate'
+      },
+      { 
+        name: 'Jaipur', 
+        coordinates: [26.9124, 75.7873],
+        description: 'The Pink City with Hawa Mahal and Amber Fort'
+      },
+      { 
+        name: 'Udaipur', 
+        coordinates: [24.5854, 73.7125],
+        description: 'City of Lakes with romantic palaces and stunning views'
+      }
+    ]
+  },
+
+  // NEW ROUTE 5 - Spiritual Confluence Route
+  {
+    id: 'spiritual-confluence',
+    name: 'Spiritual Confluence',
+    description: 'Journey through India\'s diverse spiritual traditions and sacred sites',
+    color: '#FF9800',
+    dashArray: '10, 5',
+    path: [
+      [31.6340, 74.8723], // Amritsar (Sikhism)
+      [28.7041, 77.1025], // Delhi
+      [25.3176, 82.9739], // Varanasi (Hinduism)
+      [24.6959, 84.9920], // Bodh Gaya (Buddhism)
+      [20.5523, 75.7033], // Ajanta Caves (Buddhism)
+    ],
+    locations: [
+      { 
+        name: 'Amritsar', 
+        coordinates: [31.6340, 74.8723],
+        description: 'Golden Temple - holiest shrine of Sikhism'
+      },
+      { 
+        name: 'Delhi', 
+        coordinates: [28.7041, 77.1025],
+        description: 'Multi-religious heritage with Jama Masjid and temples'
+      },
+      { 
+        name: 'Varanasi', 
+        coordinates: [25.3176, 82.9739],
+        description: 'Spiritual capital of Hinduism on the banks of Ganges'
+      },
+      { 
+        name: 'Bodh Gaya', 
+        coordinates: [24.6959, 84.9920],
+        description: 'Where Buddha attained enlightenment'
+      },
+      { 
+        name: 'Ajanta Caves', 
+        coordinates: [20.5523, 75.7033],
+        description: 'Ancient Buddhist monasteries and art'
+      }
+    ]
+  },
+
+  // NEW ROUTE 6 - Heritage Coast Route
+  {
+    id: 'heritage-coast',
+    name: 'Heritage Coast',
+    description: 'Discover India\'s coastal heritage and maritime history',
+    color: '#00BCD4',
+    path: [
+      [19.8876, 86.0945], // Konark (eastern coast)
+      [12.6269, 80.1927], // Mahabalipuram (southern coast)
+    ],
+    locations: [
+      { 
+        name: 'Konark', 
+        coordinates: [19.8876, 86.0945],
+        description: 'Sun Temple on the eastern coast of India'
+      },
+      { 
+        name: 'Mahabalipuram', 
+        coordinates: [12.6269, 80.1927],
+        description: 'Ancient port city with stone temples by the sea'
       }
     ]
   }

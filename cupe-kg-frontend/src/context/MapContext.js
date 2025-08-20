@@ -71,6 +71,7 @@ export const MapProvider = ({ children }) => {
         
         // Fallback to original placeholder data
         const fallbackLocations = [
+          // EXISTING LOCATION 1
           { 
             id: 'hampi', 
             name: 'Hampi', 
@@ -78,6 +79,7 @@ export const MapProvider = ({ children }) => {
             category: 'historical',
             description: 'Ancient capital of the Vijayanagara Empire'
           },
+          // EXISTING LOCATION 2
           { 
             id: 'delhi', 
             name: 'Delhi', 
@@ -85,12 +87,101 @@ export const MapProvider = ({ children }) => {
             category: 'cultural',
             description: 'Historic capital with layers of civilization'
           },
+          // EXISTING LOCATION 3
           { 
             id: 'konark', 
             name: 'Konark', 
             coordinates: { lat: 19.8876, lng: 86.0945 },
             category: 'religious',
             description: '13th-century Sun Temple designed as a chariot'
+          },
+          // EXISTING LOCATION 4
+          { 
+            id: 'taj-mahal', 
+            name: 'Taj Mahal', 
+            coordinates: { lat: 27.1751, lng: 78.0421 },
+            category: 'cultural',
+            description: 'Iconic marble mausoleum, symbol of eternal love'
+          },
+          // EXISTING LOCATION 5
+          { 
+            id: 'khajuraho', 
+            name: 'Khajuraho', 
+            coordinates: { lat: 24.8318, lng: 79.9199 },
+            category: 'religious',
+            description: 'Medieval temples famous for intricate sculptures'
+          },
+          // EXISTING LOCATION 6
+          { 
+            id: 'ajanta', 
+            name: 'Ajanta Caves', 
+            coordinates: { lat: 20.5523, lng: 75.7033 },
+            category: 'religious',
+            description: 'Buddhist cave monuments with ancient paintings'
+          },
+          // EXISTING LOCATION 7
+          { 
+            id: 'ellora', 
+            name: 'Ellora Caves', 
+            coordinates: { lat: 20.0258, lng: 75.1790 },
+            category: 'religious',
+            description: 'Multi-religious rock-cut temples including Kailasa Temple'
+          },
+          // NEW LOCATION 8 - JAIPUR
+          { 
+            id: 'jaipur', 
+            name: 'Jaipur', 
+            coordinates: { lat: 26.9124, lng: 75.7873 },
+            category: 'historical',
+            description: 'The Pink City, capital of Rajasthan with royal palaces'
+          },
+          // NEW LOCATION 9 - BODH GAYA
+          { 
+            id: 'bodh-gaya', 
+            name: 'Bodh Gaya', 
+            coordinates: { lat: 24.6959, lng: 84.9920 },
+            category: 'religious',
+            description: 'Sacred site where Buddha attained enlightenment'
+          },
+          // NEW LOCATION 10 - VARANASI
+          { 
+            id: 'varanasi', 
+            name: 'Varanasi', 
+            coordinates: { lat: 25.3176, lng: 82.9739 },
+            category: 'religious',
+            description: 'One of the world\'s oldest cities, holiest place in Hinduism'
+          },
+          // NEW LOCATION 11 - MADURAI
+          { 
+            id: 'madurai', 
+            name: 'Madurai', 
+            coordinates: { lat: 9.9252, lng: 78.1198 },
+            category: 'religious',
+            description: 'Ancient city famous for Meenakshi Amman Temple'
+          },
+          // NEW LOCATION 12 - AMRITSAR
+          { 
+            id: 'amritsar', 
+            name: 'Amritsar', 
+            coordinates: { lat: 31.6340, lng: 74.8723 },
+            category: 'religious',
+            description: 'Holy city of Sikhism, home to the Golden Temple'
+          },
+          // NEW LOCATION 13 - UDAIPUR
+          { 
+            id: 'udaipur', 
+            name: 'Udaipur', 
+            coordinates: { lat: 24.5854, lng: 73.7125 },
+            category: 'historical',
+            description: 'The City of Lakes with romantic palaces and stunning views'
+          },
+          // NEW LOCATION 14 - MAHABALIPURAM
+          { 
+            id: 'mahabalipuram', 
+            name: 'Mahabalipuram', 
+            coordinates: { lat: 12.6269, lng: 80.1927 },
+            category: 'historical',
+            description: 'Ancient port city famous for stone temples and rock sculptures'
           }
         ];
         

@@ -86,5 +86,171 @@ export const placeholderData = {
       }
     ],
     tags: ['Sun Temple', 'UNESCO Heritage', 'Sculpture', 'Ancient Architecture', 'Hindu']
+  },
+jaipur: {
+    id: 'jaipur',
+    name: 'Jaipur',
+    description: 'The Pink City, capital of Rajasthan known for its royal palaces and forts',
+    history: 'Founded in 1727 by Maharaja Sawai Jai Singh II, Jaipur was one of the earliest planned cities of modern India. The city was painted pink in 1876 to welcome the Prince of Wales (later King Edward VII) and has maintained this distinctive color ever since. It represents the pinnacle of Rajput architecture and urban planning.',
+    period: '1727 CE - Present',
+    dynasty: 'Kachwaha Rajputs',
+    culturalFacts: [
+      'UNESCO World Heritage Site since 2019',
+      'Part of India\'s Golden Triangle tourist circuit',
+      'Home to Hawa Mahal (Palace of Winds) with 953 windows',
+      'Features the world\'s largest stone sundial at Jantar Mantar',
+      'Known for traditional crafts like blue pottery and jewelry'
+    ],
+    legends: [
+      {
+        title: 'The Pink City Legend',
+        description: 'Legend says the city was painted pink overnight by thousands of workers before the Prince of Wales\' visit, as pink represents hospitality in Rajput culture. The color has been maintained by law ever since.'
+      }
+    ],
+    tags: ['UNESCO Heritage', 'Pink City', 'Rajput', 'Royal Architecture', 'Golden Triangle']
+  },
+
+  // NEW LOCATION 2 - BODH GAYA
+  'bodh-gaya': {
+    id: 'bodh-gaya',
+    name: 'Bodh Gaya',
+    description: 'The holiest site in Buddhism where Prince Siddhartha attained enlightenment',
+    history: 'Bodh Gaya is where Prince Siddhartha meditated under a Bodhi tree and attained enlightenment, becoming the Buddha around 528 BCE. The Mahabodhi Temple, built in the 5th-6th century CE, marks this sacred spot. The site has been a pilgrimage destination for Buddhists worldwide for over 2,500 years.',
+    period: '6th century BCE (enlightenment), 5th-6th century CE (temple)',
+    dynasty: 'Various Buddhist kingdoms',
+    culturalFacts: [
+      'UNESCO World Heritage Site since 2002',
+      'The Bodhi Tree here is said to be a direct descendant of the original',
+      'Features temples and monasteries from many Buddhist countries',
+      'The Mahabodhi Temple is the oldest brick temple in India',
+      'Attracts pilgrims from Tibet, Sri Lanka, Myanmar, Thailand, and Japan'
+    ],
+    legends: [
+      {
+        title: 'The Bodhi Tree Miracle',
+        description: 'Legend states that when the Buddha achieved enlightenment, the earth trembled, flowers rained from the sky, and the Bodhi tree\'s leaves shimmered with golden light.'
+      }
+    ],
+    tags: ['UNESCO Heritage', 'Buddhism', 'Enlightenment', 'Mahabodhi Temple', 'Pilgrimage']
+  },
+
+  // NEW LOCATION 3 - VARANASI
+  varanasi: {
+    id: 'varanasi',
+    name: 'Varanasi',
+    description: 'One of the world\'s oldest living cities and holiest place in Hinduism',
+    history: 'Varanasi, also known as Kashi or Benares, is one of the oldest continuously inhabited cities in the world, with settlements dating back to the 11th century BCE. It has been a major center of learning, spirituality, and culture for over 3,000 years. Mark Twain called it \'older than history, older than tradition, older even than legend.\'',
+    period: '11th century BCE - Present',
+    dynasty: 'Various Hindu kingdoms, Mughal Empire, British Raj',
+    culturalFacts: [
+      'Over 80 ghats (stone steps) along the Ganges River',
+      'Home to Banaras Hindu University, one of Asia\'s largest universities',
+      'Famous for Banarasi silk sarees and classical music',
+      'Over 2,000 temples in the city',
+      'Birthplace of the tabla musical instrument'
+    ],
+    legends: [
+      {
+        title: 'The City of Shiva',
+        description: 'Hindu mythology states that Varanasi stands on the trident of Lord Shiva, making it the spiritual capital of Hinduism where dying here ensures liberation from the cycle of rebirth.'
+      }
+    ],
+    tags: ['Ancient City', 'Hinduism', 'Ganges', 'Spiritual Capital', 'Classical Music']
+  },
+
+  // NEW LOCATION 4 - MADURAI
+  madurai: {
+    id: 'madurai',
+    name: 'Madurai',
+    description: 'Ancient city famous for the magnificent Meenakshi Amman Temple',
+    history: 'Madurai is one of Tamil Nadu\'s oldest cities, mentioned in ancient Tamil literature dating back to the 3rd century BCE. It was the capital of the Pandya Kingdom and later ruled by various dynasties. The city is famous for the Meenakshi Amman Temple, rebuilt in the 17th century during the Nayak period.',
+    period: '3rd century BCE - Present',
+    dynasty: 'Pandya Kingdom, Nayak Dynasty',
+    culturalFacts: [
+      'Known as the \'Temple City\' and \'Athens of the East\'',
+      'The Meenakshi Temple has 14 gopurams (towers), the tallest being 52 meters',
+      'Ancient center of Tamil literature and culture',
+      'Famous for its night-blooming jasmine flowers',
+      'Traditional center for classical dance and music'
+    ],
+    legends: [
+      {
+        title: 'The Fish-Eyed Goddess',
+        description: 'Legend tells of Princess Meenakshi, born with three breasts, who would lose the third when she met her future husband. She met Lord Shiva and became the presiding deity of the magnificent temple.'
+      }
+    ],
+    tags: ['Temple City', 'Dravidian Architecture', 'Tamil Culture', 'Meenakshi Temple', 'Pandya Kingdom']
+  },
+
+  // NEW LOCATION 5 - AMRITSAR
+  amritsar: {
+    id: 'amritsar',
+    name: 'Amritsar',
+    description: 'Holy city of Sikhism, home to the Golden Temple',
+    history: 'Amritsar was founded in 1577 by the fourth Sikh Guru, Ram Das. The Golden Temple (Harmandir Sahib) was built by the fifth Guru, Arjan Dev, in 1604. The city has been central to Sikh history and is the spiritual and cultural center of the Sikh community worldwide.',
+    period: '1577 CE - Present',
+    dynasty: 'Sikh Gurus, Sikh Empire',
+    culturalFacts: [
+      'The Golden Temple serves free meals to 100,000+ visitors daily',
+      'The temple is surrounded by the sacred Amrit Sarovar (Pool of Nectar)',
+      'Features the world\'s largest community kitchen (langar)',
+      'The temple has four entrances, symbolizing openness to all religions',
+      'Made famous globally through its inclusive philosophy'
+    ],
+    legends: [
+      {
+        title: 'The Pool of Immortality',
+        description: 'Legend states that the sacred pool around the Golden Temple has healing powers, and bathing in its waters can cure diseases and purify the soul.'
+      }
+    ],
+    tags: ['Golden Temple', 'Sikhism', 'Community Kitchen', 'Religious Harmony', 'Sikh Heritage']
+  },
+
+  // NEW LOCATION 6 - UDAIPUR
+  udaipur: {
+    id: 'udaipur',
+    name: 'Udaipur',
+    description: 'The City of Lakes, known for its romantic palaces and stunning lake views',
+    history: 'Founded in 1559 by Maharana Udai Singh II, Udaipur became the capital of the erstwhile kingdom of Mewar. Known as the \'Venice of the East\', the city is famous for its artificial lakes, palaces, and romantic setting. The city palace complex overlooks Lake Pichola and is one of the largest palace complexes in the world.',
+    period: '1559 CE - Present',
+    dynasty: 'Mewar Kingdom (Sisodia Rajputs)',
+    culturalFacts: [
+      'Often called the \'Most Romantic City in India\'',
+      'Features interconnected lakes created by Maharana Udai Singh',
+      'The City Palace is built on a hilltop and offers panoramic views',
+      'Famous for miniature paintings and traditional Rajasthani crafts',
+      'Popular filming location for many Bollywood movies'
+    ],
+    legends: [
+      {
+        title: 'The Sage\'s Blessing',
+        description: 'Legend says that a sage blessed Maharana Udai Singh, telling him to build his capital where he met the sage. This spot became Udaipur, and the blessing ensured the city would never face water scarcity despite being in a desert state.'
+      }
+    ],
+    tags: ['City of Lakes', 'Romantic', 'Mewar', 'Palaces', 'Rajput Heritage']
+  },
+
+  // NEW LOCATION 7 - MAHABALIPURAM
+  mahabalipuram: {
+    id: 'mahabalipuram',
+    name: 'Mahabalipuram',
+    description: 'Ancient port city famous for its stone temples and rock-cut sculptures',
+    history: 'Mahabalipuram, also known as Mamallapuram, was a major port city of the Pallava kingdom during the 7th and 8th centuries CE. The town is famous for its stone temples and sculptures created during the reign of Narasimhavarman I. It served as an important center for art, culture, and maritime trade.',
+    period: '7th-8th century CE',
+    dynasty: 'Pallava Dynasty',
+    culturalFacts: [
+      'UNESCO World Heritage Site since 1984',
+      'Famous for the Shore Temple, one of the oldest stone temples in South India',
+      'Home to Arjuna\'s Penance, the world\'s largest bas-relief',
+      'Features the Five Rathas (chariot-shaped temples) carved from single rocks',
+      'Annual Mamallapuram Dance Festival showcases classical Indian dance'
+    ],
+    legends: [
+      {
+        title: 'The Seven Pagodas',
+        description: 'Local legend speaks of seven magnificent temples that once stood by the shore. Six were submerged by the sea due to their extraordinary beauty, which made the gods jealous. Only the Shore Temple remains visible.'
+      }
+    ],
+    tags: ['UNESCO Heritage', 'Shore Temple', 'Pallava', 'Rock-Cut Art', 'Coastal Heritage']
   }
-};
+  };
