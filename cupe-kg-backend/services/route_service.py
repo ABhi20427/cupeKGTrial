@@ -541,49 +541,54 @@ class RouteService:
         if not selected_locations:
             raise ValueError("No locations selected for route")
         
-        # Create route locations
+        # Create route locations and path with robust coordinate extraction
         route_locations = []
+        path = []  # This will store the coordinate path
         for location, score in selected_locations:
-            # Handle different coordinate formats
             coords = location.coordinates
-            if isinstance(coords, dict):
-                coord_list = [coords.get('lat', 0), coords.get('lng', 0)]
-            elif isinstance(coords, (list, tuple)):
-                coord_list = list(coords)[:2]
+            # FIXED: Proper coordinate extraction
+            if hasattr(coords, 'lat') and hasattr(coords, 'lng'):
+                # Coordinates object with lat/lng properties
+                coord_list = [float(coords.lat), float(coords.lng)]
+            elif isinstance(coords, dict):
+                # Dictionary format
+                coord_list = [float(coords.get('lat', 0)), float(coords.get('lng', 0))]
+            elif isinstance(coords, (list, tuple)) and len(coords) >= 2:
+                # Array format
+                coord_list = [float(coords[0]), float(coords[1])]
             else:
+                # Fallback - this should not happen if data is correct
+                print(f"Warning: Could not extract coordinates for {location.name}: {coords}")
                 coord_list = [0, 0]
-                
+            # Debug: Print actual coordinates being used
+            print(f"Location {location.name}: coordinates {coords} -> path coordinate {coord_list}")
+            # Add to path
+            path.append(coord_list)
+            # Create RouteLocation object
             route_location = RouteLocation(
                 name=location.name,
                 coordinates=coord_list,
                 description=f"{getattr(location, 'description', '')[:100]}... (Score: {score:.2f})"
             )
             route_locations.append(route_location)
-        
         # Optimize order based on geographical proximity
         optimized_locations = self._optimize_route_order(route_locations, prefs.start_location)
-        
-        # Create path for the route
-        path = []
+        # Create optimized path (reorder path to match optimized locations)
+        optimized_path = []
         for loc in optimized_locations:
             if isinstance(loc.coordinates, (list, tuple)) and len(loc.coordinates) >= 2:
-                path.append(loc.coordinates)
-        
+                optimized_path.append(loc.coordinates)
+        # Debug: Print final path
+        print(f"Final optimized path: {optimized_path}")
         # Create route object
         route = Route(
             id=f"personalized_{random.randint(1000, 9999)}",
             name=f"Personalized {'/'.join(str(i) for i in prefs.interests[:2])} Route",
             description=f"Custom route for {prefs.max_travel_days} days based on your preferences",
             color="#e91e63",  # Pink color for personalized routes
-            path=path,
-            locations=optimized_locations,
-            metadata={
-                'preferences_used': prefs.to_dict(),
-                'total_locations': len(optimized_locations),
-                'estimated_days': prefs.max_travel_days
-            }
+            path=optimized_path,  # Use optimized path
+            locations=optimized_locations
         )
-        
         return route
     
     def _optimize_route_order(self, locations: List[RouteLocation], start_point: Optional[Dict[str, float]]) -> List[RouteLocation]:

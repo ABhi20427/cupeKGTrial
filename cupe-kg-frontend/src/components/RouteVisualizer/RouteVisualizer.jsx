@@ -1,23 +1,95 @@
-import React, { useEffect, useState } from 'react';
+// Replace your RouteVisualizer component with this fixed version
+
+import React, { useState, useEffect } from 'react';
 import { Polyline, Circle } from 'react-leaflet';
-import './RouteVisualizer.css';
 
 const RouteVisualizer = ({ route }) => {
+  const [isAnimating, setIsAnimating] = useState(false);
   const [animationProgress, setAnimationProgress] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(true);
-  
+
+  // Helper function to safely extract coordinates
+  const extractCoordinates = (coord) => {
+    if (!coord) return null;
+    
+    // Handle different coordinate formats
+    if (Array.isArray(coord) && coord.length >= 2) {
+      // Ensure coordinates are numbers
+      const lat = parseFloat(coord[0]);
+      const lng = parseFloat(coord[1]);
+      
+      // Validate coordinates
+      if (isNaN(lat) || isNaN(lng)) {
+        console.warn('Invalid coordinates:', coord);
+        return null;
+      }
+      
+      return [lat, lng];
+    }
+    
+    if (coord.lat !== undefined && coord.lng !== undefined) {
+      const lat = parseFloat(coord.lat);
+      const lng = parseFloat(coord.lng);
+      
+      if (isNaN(lat) || isNaN(lng)) {
+        console.warn('Invalid coordinates:', coord);
+        return null;
+      }
+      
+      return [lat, lng];
+    }
+    
+    console.warn('Unknown coordinate format:', coord);
+    return null;
+  };
+
+  // Convert route path to valid coordinates
+  const getValidPath = () => {
+    if (!route || !route.path) {
+      console.warn('Route or route.path is missing');
+      return [];
+    }
+    
+    const validPath = route.path
+      .map(coord => extractCoordinates(coord))
+      .filter(coord => coord !== null);
+    
+    console.log('Original path:', route.path);
+    console.log('Valid path:', validPath);
+    
+    return validPath;
+  };
+
+  // Convert route locations to valid coordinates
+  const getValidLocations = () => {
+    if (!route || !route.locations) {
+      console.warn('Route or route.locations is missing');
+      return [];
+    }
+    
+    const validLocations = route.locations
+      .map(location => {
+        const coords = extractCoordinates(location.coordinates);
+        return coords ? { ...location, coordinates: coords } : null;
+      })
+      .filter(location => location !== null);
+    
+    console.log('Original locations:', route.locations);
+    console.log('Valid locations:', validLocations);
+    
+    return validLocations;
+  };
+
+  // Animation effect
   useEffect(() => {
-    // Reset animation when route changes
-    setAnimationProgress(0);
+    if (!route) return;
+    
     setIsAnimating(true);
+    const duration = 3000; // 3 seconds
+    const startTime = Date.now();
     
-    let startTime = null;
-    const animationDuration = 2000; // 2 seconds for full animation
-    
-    const animate = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const progress = Math.min(elapsed / animationDuration, 1);
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
       
       setAnimationProgress(progress);
       
@@ -28,131 +100,89 @@ const RouteVisualizer = ({ route }) => {
       }
     };
     
-    const animationFrame = requestAnimationFrame(animate);
-    
-    return () => {
-      cancelAnimationFrame(animationFrame);
-    };
+    animate();
   }, [route]);
-  
-  // Get the portion of the route path that should be visible based on animation progress
+
+  // Get visible path based on animation progress
   const getVisiblePath = () => {
-    if (!route || !route.path || route.path.length < 2) return [];
+    const fullPath = getValidPath();
+    if (fullPath.length === 0) return [];
     
-    if (animationProgress >= 1) return route.path;
+    if (!isAnimating) return fullPath;
     
-    const totalSegments = route.path.length - 1;
-    const segmentsToShow = Math.ceil(totalSegments * animationProgress);
-    
-    return route.path.slice(0, segmentsToShow + 1);
+    const visiblePointCount = Math.floor(fullPath.length * animationProgress);
+    return fullPath.slice(0, Math.max(visiblePointCount, 1));
   };
-  
-  // Get the position for the "travel dot" that moves along the route
+
+  // Get travel dot position
   const getTravelDotPosition = () => {
-    if (!route || !route.path || route.path.length < 2) return null;
+    const fullPath = getValidPath();
+    if (fullPath.length === 0 || !isAnimating) return null;
     
-    if (animationProgress >= 1) return route.path[route.path.length - 1];
-    
-    const totalDistance = calculateTotalDistance(route.path);
-    const targetDistance = totalDistance * animationProgress;
-    
-    let coveredDistance = 0;
-    
-    for (let i = 0; i < route.path.length - 1; i++) {
-      const segmentDistance = calculateDistance(route.path[i], route.path[i + 1]);
-      
-      if (coveredDistance + segmentDistance >= targetDistance) {
-        // We found the segment where the dot should be
-        const remainingDistance = targetDistance - coveredDistance;
-        const segmentProgress = remainingDistance / segmentDistance;
-        
-        // Interpolate position
-        const lat = route.path[i][0] + (route.path[i + 1][0] - route.path[i][0]) * segmentProgress;
-        const lng = route.path[i][1] + (route.path[i + 1][1] - route.path[i][1]) * segmentProgress;
-        
-        return [lat, lng];
-      }
-      
-      coveredDistance += segmentDistance;
-    }
-    
-    return route.path[route.path.length - 1];
+    const targetIndex = Math.floor((fullPath.length - 1) * animationProgress);
+    return fullPath[targetIndex];
   };
+
+  if (!route) {
+    console.warn('RouteVisualizer: No route provided');
+    return null;
+  }
+
+  const validPath = getValidPath();
+  const validLocations = getValidLocations();
   
-  // Calculate distance between two points using the Haversine formula
-  const calculateDistance = (point1, point2) => {
-    const [lat1, lon1] = point1;
-    const [lat2, lon2] = point2;
-    
-    const R = 6371; // Earth radius in km
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    
-    const a = 
-      Math.sin(dLat/2) * Math.sin(dLat/2) +
-      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-      Math.sin(dLon/2) * Math.sin(dLon/2);
-    
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    const distance = R * c;
-    
-    return distance;
-  };
-  
-  // Calculate total distance of the route
-  const calculateTotalDistance = (path) => {
-    let totalDistance = 0;
-    
-    for (let i = 0; i < path.length - 1; i++) {
-      totalDistance += calculateDistance(path[i], path[i + 1]);
-    }
-    
-    return totalDistance;
-  };
-  
-  if (!route || !route.path || route.path.length < 2) return null;
-  
+  if (validPath.length === 0) {
+    console.error('RouteVisualizer: No valid path coordinates found');
+    return null;
+  }
+
   const visiblePath = getVisiblePath();
   const travelDotPosition = getTravelDotPosition();
-  
-  // Define Polyline style
+
+  // Define styles
   const polylineOptions = {
-    color: route.color || '#3f51b5',
+    color: route.color || '#e91e63',
     weight: 4,
     opacity: 0.8,
     lineJoin: 'round',
     dashArray: route.dashArray || null,
     className: 'route-path'
   };
-  
-  // Define location dots style
+
   const stationCircleOptions = {
     radius: 6,
     fillColor: '#fff',
-    color: route.color || '#3f51b5',
+    color: route.color || '#e91e63',
     weight: 2,
     opacity: 1,
     fillOpacity: 1
   };
-  
-  // Define travel dot style
+
   const travelDotOptions = {
     radius: 8,
-    fillColor: route.color || '#3f51b5',
+    fillColor: route.color || '#e91e63',
     color: '#fff',
     weight: 2,
     opacity: 1,
     fillOpacity: 1,
     className: isAnimating ? 'travel-dot pulsing' : 'travel-dot'
   };
-  
+
+  console.log('RouteVisualizer rendering:', {
+    routeName: route.name,
+    pathLength: validPath.length,
+    locationsLength: validLocations.length,
+    isAnimating,
+    animationProgress
+  });
+
   return (
     <>
       {/* The route path */}
       <Polyline positions={visiblePath} {...polylineOptions} />
       
       {/* Location dots along the route */}
-      {route.locations && route.locations.map((location, index) => (
+      {validLocations.map((location, index) => (
         <Circle 
           key={`station-${index}`}
           center={location.coordinates} 

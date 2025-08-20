@@ -138,12 +138,11 @@ const MapContent = () => {
   );
 };
 
+// In your Map.jsx file, find the Map component at the bottom and replace it with this:
+
 const Map = () => {
-  return (
-    <MapProvider>
-      <MapContent />
-    </MapProvider>
-  );
+  // Remove the MapProvider wrapper - use the existing context from App.js
+  return <MapContent />;
 };
 
 export default Map;

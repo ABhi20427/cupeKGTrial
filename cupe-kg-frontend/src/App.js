@@ -72,13 +72,30 @@ function AppContent() {
     setShowRoutePreferences(false);
   };
 
-  const handleRouteCreated = (route) => {
-    console.log('New personalized route created:', route);
-    selectRoute(route);
-    if (route.metadata && route.metadata.preferences_used) {
-      setUserInterests(route.metadata.preferences_used.interests || []);
-    }
-  };
+// Replace the handleRouteCreated function in your App.js
+
+  // Replace the handleRouteCreated function in your App.js
+
+  // Replace the handleRouteCreated function in your App.js
+
+const handleRouteCreated = (responseData) => {
+  console.log('New personalized route created:', responseData);
+  
+  // The route object is passed directly
+  const route = responseData;
+  
+  // Debug the route structure
+  console.log('Route ID:', route?.id);
+  console.log('Route name:', route?.name);
+  console.log('Route path:', route?.path);
+  console.log('Route locations:', route?.locations);
+  console.log('Route color:', route?.color);
+  
+  // Select the route to display it on the map
+  selectRoute(route);
+  
+  console.log('selectRoute called with:', route);
+};
 
   const toggleNearbyPlaces = () => {
     setShowNearbyPlaces(!showNearbyPlaces);
