@@ -1,5 +1,3 @@
-# app.py
-
 import datetime
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -10,6 +8,25 @@ import uuid
 import os
 import logging
 
+# Try to import advanced preference models
+try:
+    from models.user_preferences import UserPreferences
+    # from models.interest_type import InterestType
+    HAS_USER_PREFERENCES = True
+except ImportError:
+    print("UserPreferences or InterestType not found. Using fallback.")
+    HAS_USER_PREFERENCES = False
+    class InterestType:
+        HISTORICAL = "historical"
+        RELIGIOUS = "religious"
+        ARCHITECTURAL = "architectural"
+        CULTURAL = "cultural"
+        ARCHAEOLOGICAL = "archaeological"
+        ROYAL_HERITAGE = "royal_heritage"
+        ANCIENT_TEMPLES = "ancient_temples"
+        FORTS_PALACES = "forts_palaces"
+        UNESCO_SITES = "unesco_sites"
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -19,43 +36,36 @@ logging.basicConfig(
         logging.FileHandler('app.log')
     ]
 )
-
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)
 
-# Initialize services with proper error handling
+# Initialize services
 try:
-    # Check if we should use placeholder data
     use_placeholder = os.environ.get('USE_PLACEHOLDER', 'true').lower() == 'true'
     logger.info(f"Initializing services with use_placeholder={use_placeholder}")
-    
     kg_service = KnowledgeGraphService(use_placeholder=use_placeholder)
     route_service = RouteService(kg_service)
     chatbot_service = ChatbotService(kg_service, route_service)
-    
     logger.info("Services initialized successfully")
 except Exception as e:
     logger.error(f"Error initializing services: {e}")
     raise
 
-# Session management (simplified; use a proper session management in production)
 active_sessions = {}
 
 @app.route('/api/health')
 def health_check():
-    """Health check endpoint"""
     return jsonify({
-        'status': 'healthy', 
+        'status': 'healthy',
         'service': 'cupe-kg-backend',
         'timestamp': datetime.datetime.now().isoformat()
     })
 
-# Location Endpoints
+# ------------------ Location Endpoints ------------------
 @app.route('/api/locations', methods=['GET'])
 def get_locations():
-    """Get all available locations"""
     try:
         locations = kg_service.get_all_locations()
         return jsonify([loc.to_dict() for loc in locations])
@@ -65,23 +75,16 @@ def get_locations():
 
 @app.route('/api/place-info', methods=['GET'])
 def get_place_info():
-    """Get detailed info about a specific location"""
     location_name = request.args.get('name')
     if not location_name:
         return jsonify({'error': 'No location name provided'}), 400
-    
     try:
         location = kg_service.get_location_by_id(location_name)
         if not location:
             return jsonify({'error': 'Location not found'}), 404
-        
-        # Get related locations
         related = kg_service.get_related_locations(location_name)
-        
-        # Combine location data with related locations
         response = location.to_dict()
         response['relatedLocations'] = related
-        
         return jsonify(response)
     except Exception as e:
         logger.error(f"Error fetching place info for {location_name}: {e}")
@@ -89,7 +92,6 @@ def get_place_info():
 
 @app.route('/api/locations/period/<period>', methods=['GET'])
 def get_locations_by_period(period):
-    """Get locations from a specific historical period"""
     try:
         locations = kg_service.get_locations_by_period(period)
         return jsonify([loc.to_dict() for loc in locations])
@@ -99,7 +101,6 @@ def get_locations_by_period(period):
 
 @app.route('/api/locations/category/<category>', methods=['GET'])
 def get_locations_by_category(category):
-    """Get locations filtered by category"""
     try:
         locations = kg_service.get_locations_by_category(category)
         return jsonify([location.to_dict() for location in locations])
@@ -109,7 +110,6 @@ def get_locations_by_category(category):
 
 @app.route('/api/related-locations/<location_id>', methods=['GET'])
 def get_related_locations(location_id):
-    """Get locations related to a specific location"""
     try:
         related = kg_service.get_related_locations(location_id)
         return jsonify(related)
@@ -117,10 +117,9 @@ def get_related_locations(location_id):
         logger.error(f"Error fetching related locations for {location_id}: {e}")
         return jsonify({'error': 'Failed to fetch related locations'}), 500
 
-# Route Endpoints
+# ------------------ Route Endpoints ------------------
 @app.route('/api/routes', methods=['GET'])
 def get_routes():
-    """Get all predefined routes"""
     try:
         routes = route_service.get_all_routes()
         return jsonify([route.to_dict() for route in routes])
@@ -130,12 +129,10 @@ def get_routes():
 
 @app.route('/api/routes/<route_id>', methods=['GET'])
 def get_route(route_id):
-    """Get a specific route by ID"""
     try:
         route = route_service.get_route_by_id(route_id)
         if not route:
             return jsonify({'error': 'Route not found'}), 404
-        
         return jsonify(route.to_dict())
     except Exception as e:
         logger.error(f"Error fetching route {route_id}: {e}")
@@ -143,7 +140,6 @@ def get_route(route_id):
 
 @app.route('/api/routes/theme/<theme>', methods=['GET'])
 def get_routes_by_theme(theme):
-    """Get routes matching a specific theme"""
     try:
         routes = route_service.get_routes_by_theme(theme)
         return jsonify([route.to_dict() for route in routes])
@@ -153,18 +149,13 @@ def get_routes_by_theme(theme):
 
 @app.route('/api/personalized-route', methods=['POST'])
 def create_personalized_route():
-    """Create a personalized route based on preferences"""
     if not request.json:
         return jsonify({'error': 'No preferences provided'}), 400
-    
     preferences = request.json
     required_fields = ['interests', 'startLocation', 'maxDays']
-    
-    # Check for required fields
     for field in required_fields:
         if field not in preferences:
             return jsonify({'error': f'Missing required field: {field}'}), 400
-    
     try:
         route = route_service.create_personalized_route(preferences)
         return jsonify(route.to_dict())
@@ -172,14 +163,115 @@ def create_personalized_route():
         logger.error(f"Error creating personalized route: {e}")
         return jsonify({'error': str(e)}), 500
 
-# Search Endpoints
+if HAS_USER_PREFERENCES:
+    @app.route('/api/personalized-route-advanced', methods=['POST'])
+    def create_personalized_route_advanced():
+        if not request.json:
+            return jsonify({'error': 'No preferences provided'}), 400
+        try:
+            preferences = UserPreferences.from_dict(request.json)
+            route = route_service.create_personalized_route_with_preferences(preferences)
+            return jsonify({
+                'route': route.to_dict(),
+                'preferences_applied': preferences.to_dict(),
+                'total_locations': len(route.locations),
+                'estimated_duration_days': preferences.max_travel_days
+            })
+        except ValueError as e:
+            logger.error(f"Error creating personalized route: {e}")
+            return jsonify({'error': str(e)}), 400
+        except Exception as e:
+            logger.error(f"Unexpected error creating personalized route: {e}")
+            return jsonify({'error': 'Failed to create personalized route'}), 500
+
+@app.route('/api/nearby-places', methods=['GET'])
+def get_nearby_places():
+    try:
+        lat = float(request.args.get('lat'))
+        lng = float(request.args.get('lng'))
+        radius_km = int(request.args.get('radius', 50))
+        interests = request.args.get('interests', '').split(',') if request.args.get('interests') else []
+        location = {'lat': lat, 'lng': lng}
+        interest_list = [i.strip() for i in interests if i.strip()]
+        nearby_places = route_service.get_nearby_historical_places(location, radius_km, interest_list)
+        return jsonify({
+            'location': location,
+            'radius_km': radius_km,
+            'interests': interest_list,
+            'nearby_places': nearby_places,
+            'total_found': len(nearby_places)
+        })
+    except (ValueError, TypeError):
+        return jsonify({'error': 'Invalid parameters provided'}), 400
+    except Exception as e:
+        logger.error(f"Error fetching nearby places: {e}")
+        return jsonify({'error': 'Failed to fetch nearby places'}), 500
+
+@app.route('/api/preference-suggestions', methods=['GET'])
+def get_preference_suggestions():
+    try:
+        all_locations = kg_service.get_all_locations()
+        periods, dynasties, categories = set(), set(), set()
+        for location in all_locations:
+            if getattr(location, 'period', None):
+                periods.add(location.period)
+            if getattr(location, 'dynasty', None):
+                dynasties.add(location.dynasty)
+            if getattr(location, 'category', None):
+                categories.add(location.category)
+        available_interests = [i.value for i in InterestType] if HAS_USER_PREFERENCES else [
+            InterestType.HISTORICAL,
+            InterestType.RELIGIOUS,
+            InterestType.ARCHITECTURAL,
+            InterestType.CULTURAL,
+            InterestType.ARCHAEOLOGICAL,
+            InterestType.ROYAL_HERITAGE,
+            InterestType.ANCIENT_TEMPLES,
+            InterestType.FORTS_PALACES,
+            InterestType.UNESCO_SITES
+        ]
+        return jsonify({
+            'available_interests': available_interests,
+            'available_periods': sorted(list(periods)),
+            'available_dynasties': sorted(list(dynasties)),
+            'available_categories': sorted(list(categories)),
+            'transport_modes': ['car', 'train', 'bus', 'flight', 'mixed'],
+            'budget_ranges': ['low', 'medium', 'high'],
+            'crowd_preferences': ['low', 'medium', 'high'],
+            'difficulty_levels': ['easy', 'medium', 'difficult']
+        })
+    except Exception as e:
+        logger.error(f"Error fetching preference suggestions: {e}")
+        return jsonify({'error': 'Failed to fetch suggestions'}), 500
+
+@app.route('/api/route-optimization', methods=['POST'])
+def optimize_existing_route():
+    if not request.json:
+        return jsonify({'error': 'No optimization parameters provided'}), 400
+    try:
+        route_id = request.json.get('route_id')
+        optimization_params = request.json.get('optimization_params', {})
+        if not route_id:
+            return jsonify({'error': 'Route ID is required'}), 400
+        existing_route = route_service.get_route_by_id(route_id)
+        if not existing_route:
+            return jsonify({'error': 'Route not found'}), 404
+        optimized_route = route_service.optimize_route(existing_route, optimization_params)
+        return jsonify({
+            'original_route': existing_route.to_dict(),
+            'optimized_route': optimized_route.to_dict(),
+            'optimization_applied': optimization_params
+        })
+    except Exception as e:
+        logger.error(f"Error optimizing route: {e}")
+        return jsonify({'error': 'Failed to optimize route'}), 500
+
+# ------------------ Search Endpoints ------------------
 @app.route('/api/search', methods=['GET'])
 def search():
-    """Basic search for locations by keyword"""
     query = request.args.get('q')
     if not query:
         return jsonify({'error': 'No search query provided'}), 400
-    
     try:
         results = kg_service.search_locations(query)
         return jsonify([location.to_dict() for location in results])
@@ -189,94 +281,51 @@ def search():
 
 @app.route('/api/advanced-search', methods=['POST'])
 def advanced_search():
-    """Advanced search with multiple criteria"""
     if not request.json:
         return jsonify({'error': 'No search criteria provided'}), 400
-    
     try:
         criteria = request.json
         all_locations = kg_service.get_all_locations()
         results = all_locations
-        
-        # Apply filters
         if 'category' in criteria and criteria['category']:
             results = [loc for loc in results if loc.category == criteria['category']]
-        
         if 'period' in criteria and criteria['period']:
             results = [loc for loc in results if criteria['period'] in loc.period]
-        
         if 'dynasty' in criteria and criteria['dynasty']:
             results = [loc for loc in results if criteria['dynasty'] in loc.dynasty]
-        
         if 'tags' in criteria and criteria['tags']:
-            # Filter locations that contain ANY of the specified tags
-            tag_results = []
-            for loc in results:
-                if hasattr(loc, 'tags'):
-                    for tag in criteria['tags']:
-                        if tag in loc.tags:
-                            tag_results.append(loc)
-                            break
-            results = tag_results
-        
+            results = [loc for loc in results if any(tag in getattr(loc, 'tags', []) for tag in criteria['tags'])]
         if 'query' in criteria and criteria['query']:
-            # Text search similar to simple search
             query = criteria['query'].lower()
-            query_results = []
-            
-            for location in results:
-                search_text = f"{location.name} {location.description} {location.history}".lower()
-                if query in search_text:
-                    query_results.append(location)
-            
-            results = query_results
-        
+            results = [loc for loc in results if query in f"{loc.name} {loc.description} {loc.history}".lower()]
         return jsonify([location.to_dict() for location in results])
     except Exception as e:
         logger.error(f"Error in advanced search: {e}")
         return jsonify({'error': 'Advanced search operation failed'}), 500
 
-# Chatbot Endpoints
+# ------------------ Chatbot Endpoints ------------------
 @app.route('/api/chatbot/ask', methods=['POST'])
-def ask_question():
-    """Answer a question from the chatbot"""
+def chatbot_ask():
     if not request.json or 'question' not in request.json:
         return jsonify({'error': 'No question provided'}), 400
-    
     try:
         question = request.json['question']
+        session_id = request.json.get('sessionId', str(uuid.uuid4()))
         location_id = request.json.get('locationId')
-        
-        # Get or create session ID
-        session_id = request.json.get('sessionId')
-        if not session_id:
-            session_id = str(uuid.uuid4())
-            active_sessions[session_id] = {'created_at': datetime.datetime.now()}
-        
-        # Process the query
-        result = chatbot_service.process_query(session_id, question, location_id)
-        
-        # Add session ID to response
+        result = chatbot_service.process_query(question, location_id, session_id)
         result['sessionId'] = session_id
-        
         return jsonify(result)
     except Exception as e:
         logger.error(f"Error processing chatbot query: {e}")
-        return jsonify({
-            'error': 'Failed to process your question', 
-            'sessionId': session_id if 'session_id' in locals() else str(uuid.uuid4())
-        }), 500
+        return jsonify({'error': 'Failed to process query'}), 500
 
 @app.route('/api/chatbot/recommend', methods=['POST'])
 def get_recommendations():
-    """Get personalized location recommendations"""
     if not request.json:
         return jsonify({'error': 'No preferences provided'}), 400
-    
     try:
         preferences = request.json
         recommendations = chatbot_service.get_recommendations(preferences)
-        
         return jsonify(recommendations)
     except Exception as e:
         logger.error(f"Error getting recommendations: {e}")
@@ -285,9 +334,6 @@ def get_recommendations():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('FLASK_ENV', 'development') == 'development'
-    
-    # Print startup message
     logger.info(f"Starting CuPe-KG backend on port {port}, debug={debug}")
-    
-    # Run the Flask app
+    print(f"User Preferences Model Available: {HAS_USER_PREFERENCES}")
     app.run(debug=debug, host='0.0.0.0', port=port)

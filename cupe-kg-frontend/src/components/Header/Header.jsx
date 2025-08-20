@@ -1,7 +1,17 @@
+// src/components/Header/Header.jsx (Updated with Route Planner Buttons)
+
 import React, { useState } from 'react';
 import './Header.css';
 
-const Header = ({ onSearch, onThemeToggle, theme }) => {
+const Header = ({ 
+  onSearch, 
+  onThemeToggle, 
+  theme,
+  onOpenRoutePreferences,
+  onToggleNearbyPlaces,
+  showNearbyPlaces,
+  userLocation
+}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -40,6 +50,32 @@ const Header = ({ onSearch, onThemeToggle, theme }) => {
         </form>
 
         <div className="header-controls">
+          {/* NEW: Route Planner Button */}
+          <button 
+            className="control-button route-planner-btn"
+            onClick={onOpenRoutePreferences}
+            title="Create Personalized Route"
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="currentColor" d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2M12 12L11.47 14.76L9 15L11.47 15.24L12 18L12.53 15.24L15 15L12.53 14.76L12 12Z"/>
+            </svg>
+            <span>Create Route</span>
+          </button>
+
+          {/* NEW: Nearby Places Button */}
+          <button 
+            className={`control-button nearby-btn ${showNearbyPlaces ? 'active' : ''}`}
+            onClick={onToggleNearbyPlaces}
+            title="Find Nearby Places"
+            disabled={!userLocation}
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="currentColor" d="M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8M3.05,13H1V11H3.05C3.5,6.83 6.83,3.5 11,3.05V1H13V3.05C17.17,3.5 20.5,6.83 20.95,11H23V13H20.95C20.5,17.17 17.17,20.5 13,20.95V23H11V20.95C6.83,20.5 3.5,17.17 3.05,13M12,5A7,7 0 0,0 5,12A7,7 0 0,0 12,19A7,7 0 0,0 19,12A7,7 0 0,0 12,5Z"/>
+            </svg>
+            <span>Nearby</span>
+            {!userLocation && <span className="location-indicator">📍</span>}
+          </button>
+
           <button 
             className="theme-toggle" 
             onClick={onThemeToggle}
@@ -60,6 +96,14 @@ const Header = ({ onSearch, onThemeToggle, theme }) => {
             <span className="menu-icon"></span>
           </button>
         </div>
+
+        {/* NEW: Location Status */}
+        {userLocation && (
+          <div className="location-status">
+            <span className="location-dot"></span>
+            <small>Location detected</small>
+          </div>
+        )}
       </div>
 
       <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`}>

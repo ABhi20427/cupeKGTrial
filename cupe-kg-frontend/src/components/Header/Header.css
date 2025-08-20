@@ -307,3 +307,129 @@
     display: none;
   }
 }
+
+/* ------------------- NEW STYLES ------------------- */
+
+/* Route Planner and Nearby Places Buttons */
+.control-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 12px;
+}
+
+.control-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.control-button:active {
+  transform: translateY(0);
+}
+
+.control-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Route Planner Button Specific */
+.route-planner-btn {
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+}
+
+.route-planner-btn:hover {
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+}
+
+/* Nearby Places Button Specific */
+.nearby-btn {
+  background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+}
+
+.nearby-btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3);
+}
+
+.nearby-btn.active {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
+}
+
+.nearby-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.nearby-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Location Status */
+.location-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  background: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.location-dot {
+  width: 8px;
+  height: 8px;
+  background: #4caf50;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.location-indicator {
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .control-button span {
+    display: none;
+  }
+  
+  .control-button {
+    padding: 8px;
+    margin-right: 8px;
+  }
+  
+  .location-status {
+    position: static;
+    margin-top: 8px;
+    margin-right: auto;
+  }
+}

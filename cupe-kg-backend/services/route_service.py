@@ -1,10 +1,21 @@
-# services/route_service.py
+# services/route_service.py (Complete Enhanced Version)
 
 import numpy as np
 from scipy.spatial.distance import pdist, squareform
 from scipy.optimize import linear_sum_assignment
 import random
+import math
+from typing import List, Dict, Any, Optional, Tuple
 from models.route import Route, RouteLocation
+from models.location import Location
+
+# Import the new UserPreferences model if it exists, otherwise use basic dict
+try:
+    from models.user_preferences import UserPreferences, InterestType
+    HAS_USER_PREFERENCES = True
+except ImportError:
+    HAS_USER_PREFERENCES = False
+    print("UserPreferences model not found. Using basic preference handling.")
 
 class RouteService:
     def __init__(self, kg_service):
@@ -180,6 +191,431 @@ class RouteService:
                 matching_routes.append(route)
                 
         return matching_routes
+
+    # ===== NEW ENHANCED PREFERENCE-BASED ROUTING =====
+    
+    def create_personalized_route_with_preferences(self, preferences) -> Route:
+        """Create a personalized route based on detailed user preferences"""
+        
+        # Handle both UserPreferences object and dict
+        if HAS_USER_PREFERENCES and isinstance(preferences, UserPreferences):
+            prefs = preferences
+        else:
+            # Convert dict to pseudo-UserPreferences for compatibility
+            prefs = self._dict_to_preferences(preferences)
+        
+        # Step 1: Get all locations and filter by preferences
+        all_locations = self.kg_service.get_all_locations()
+        suitable_locations = self._filter_locations_by_preferences(all_locations, prefs)
+        
+        if not suitable_locations:
+            raise ValueError("No suitable locations found for your preferences")
+        
+        # Step 2: Score and rank locations
+        scored_locations = self._score_locations(suitable_locations, prefs)
+        
+        # Step 3: Create optimal route
+        optimal_route = self._create_optimal_route(scored_locations, prefs)
+        
+        return optimal_route
+    
+    def _dict_to_preferences(self, preferences_dict):
+        """Convert dict to preferences object for compatibility"""
+        class SimplePreferences:
+            def __init__(self, data):
+                self.interests = data.get('interests', [])
+                self.max_travel_days = data.get('max_travel_days', 7)
+                self.budget_range = data.get('budget_range', 'medium')
+                self.transport_mode = data.get('transport_mode', 'car')
+                self.start_location = data.get('start_location')
+                self.preferred_regions = data.get('preferred_regions', [])
+                self.max_distance_km = data.get('max_distance_km', 500)
+                self.preferred_periods = data.get('preferred_periods', [])
+                self.preferred_dynasties = data.get('preferred_dynasties', [])
+                self.crowd_preference = data.get('crowd_preference', 'medium')
+                self.accommodation_type = data.get('accommodation_type', 'medium')
+                self.cultural_activities = data.get('cultural_activities', [])
+                self.accessibility_required = data.get('accessibility_required', False)
+                self.physical_difficulty_preference = data.get('physical_difficulty_preference', 'medium')
+            
+            def to_dict(self):
+                return {
+                    'interests': self.interests,
+                    'max_travel_days': self.max_travel_days,
+                    'budget_range': self.budget_range,
+                    'transport_mode': self.transport_mode,
+                    'start_location': self.start_location,
+                    'preferred_regions': self.preferred_regions,
+                    'max_distance_km': self.max_distance_km,
+                    'preferred_periods': self.preferred_periods,
+                    'preferred_dynasties': self.preferred_dynasties,
+                    'crowd_preference': self.crowd_preference,
+                    'accommodation_type': self.accommodation_type,
+                    'cultural_activities': self.cultural_activities,
+                    'accessibility_required': self.accessibility_required,
+                    'physical_difficulty_preference': self.physical_difficulty_preference
+                }
+        
+        return SimplePreferences(preferences_dict)
+    
+    def _filter_locations_by_preferences(self, locations: List[Location], prefs) -> List[Location]:
+        """Filter locations based on user preferences"""
+        filtered = []
+        
+        for location in locations:
+            # Check interest alignment
+            if not self._matches_interests(location, prefs.interests):
+                continue
+                
+            # Check period preferences
+            if prefs.preferred_periods and not self._matches_periods(location, prefs.preferred_periods):
+                continue
+                
+            # Check dynasty preferences
+            if prefs.preferred_dynasties and not self._matches_dynasties(location, prefs.preferred_dynasties):
+                continue
+                
+            # Check distance constraints
+            if prefs.start_location and prefs.max_distance_km:
+                distance = self._calculate_distance(
+                    prefs.start_location, 
+                    location.coordinates
+                )
+                if distance > prefs.max_distance_km:
+                    continue
+            
+            # Check regional preferences
+            if prefs.preferred_regions and not self._matches_regions(location, prefs.preferred_regions):
+                continue
+                
+            filtered.append(location)
+        
+        return filtered
+    
+    def _matches_interests(self, location: Location, interests) -> bool:
+        """Check if location matches user interests"""
+        if not interests:
+            return True
+            
+        location_tags = [tag.lower() for tag in getattr(location, 'tags', [])]
+        location_category = getattr(location, 'category', '').lower()
+        location_description = getattr(location, 'description', '').lower()
+        
+        for interest in interests:
+            interest_keywords = self._get_interest_keywords(interest)
+            
+            # Check if any interest keyword matches location tags, category, or description
+            for keyword in interest_keywords:
+                if (keyword in location_tags or 
+                    keyword in location_category or
+                    keyword in location_description):
+                    return True
+        
+        return False
+    
+    def _get_interest_keywords(self, interest) -> List[str]:
+        """Get keywords associated with each interest type"""
+        # Handle both string and enum interests
+        if HAS_USER_PREFERENCES and hasattr(interest, 'value'):
+            interest_str = interest.value
+        else:
+            interest_str = str(interest)
+            
+        keyword_map = {
+            'historical': ["historical", "heritage", "monument", "ancient", "medieval"],
+            'religious': ["temple", "church", "mosque", "religious", "spiritual", "sacred"],
+            'architectural': ["architecture", "palace", "fort", "building", "construction"],
+            'cultural': ["cultural", "traditional", "folk", "art", "craft"],
+            'archaeological': ["archaeological", "ruins", "excavation", "artifact"],
+            'royal_heritage': ["royal", "king", "queen", "empire", "dynasty", "palace"],
+            'ancient_temples': ["temple", "shrine", "ancient", "deity", "worship"],
+            'forts_palaces': ["fort", "palace", "castle", "citadel", "fortress"],
+            'unesco_sites': ["unesco", "world heritage", "protected"]
+        }
+        
+        return keyword_map.get(interest_str.lower(), [interest_str.lower()])
+    
+    def _matches_periods(self, location: Location, preferred_periods: List[str]) -> bool:
+        """Check if location matches preferred historical periods"""
+        location_period = getattr(location, 'period', '').lower() if hasattr(location, 'period') else ""
+        
+        for period in preferred_periods:
+            if period.lower() in location_period:
+                return True
+        
+        return False
+    
+    def _matches_dynasties(self, location: Location, preferred_dynasties: List[str]) -> bool:
+        """Check if location matches preferred dynasties"""
+        location_dynasty = getattr(location, 'dynasty', '').lower() if hasattr(location, 'dynasty') else ""
+        
+        for dynasty in preferred_dynasties:
+            if dynasty.lower() in location_dynasty:
+                return True
+        
+        return False
+    
+    def _matches_regions(self, location: Location, preferred_regions: List[str]) -> bool:
+        """Check if location is in preferred regions"""
+        # This would need to be implemented based on your regional classification
+        # For now, returning True as placeholder
+        return True
+    
+    def _calculate_distance(self, point1: Dict[str, float], point2) -> float:
+        """Calculate distance between two points in kilometers"""
+        # Handle different coordinate formats
+        if isinstance(point2, dict):
+            lat2, lon2 = point2.get('lat', 0), point2.get('lng', 0)
+        elif hasattr(point2, 'coordinates'):
+            coords = point2.coordinates
+            if isinstance(coords, dict):
+                lat2, lon2 = coords.get('lat', 0), coords.get('lng', 0)
+            elif isinstance(coords, (list, tuple)) and len(coords) >= 2:
+                lat2, lon2 = coords[0], coords[1]
+            else:
+                return float('inf')
+        else:
+            return float('inf')
+            
+        lat1, lon1 = point1['lat'], point1['lng']
+        
+        # Haversine formula
+        R = 6371  # Earth's radius in kilometers
+        
+        lat1_rad = math.radians(lat1)
+        lat2_rad = math.radians(lat2)
+        delta_lat = math.radians(lat2 - lat1)
+        delta_lon = math.radians(lon2 - lon1)
+        
+        a = (math.sin(delta_lat/2) * math.sin(delta_lat/2) +
+             math.cos(lat1_rad) * math.cos(lat2_rad) *
+             math.sin(delta_lon/2) * math.sin(delta_lon/2))
+        
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
+        distance = R * c
+        
+        return distance
+    
+    def _score_locations(self, locations: List[Location], prefs) -> List[Tuple[Location, float]]:
+        """Score locations based on preference alignment"""
+        scored = []
+        
+        for location in locations:
+            score = 0.0
+            
+            # Interest alignment score (40% weight)
+            interest_score = self._calculate_interest_score(location, prefs.interests)
+            score += interest_score * 0.4
+            
+            # Historical significance score (20% weight)
+            historical_score = self._calculate_historical_score(location, prefs)
+            score += historical_score * 0.2
+            
+            # Accessibility score (20% weight)
+            accessibility_score = self._calculate_accessibility_score(location, prefs)
+            score += accessibility_score * 0.2
+            
+            # Distance score (20% weight)
+            distance_score = self._calculate_distance_score(location, prefs)
+            score += distance_score * 0.2
+            
+            scored.append((location, score))
+        
+        # Sort by score descending
+        scored.sort(key=lambda x: x[1], reverse=True)
+        return scored
+    
+    def _calculate_interest_score(self, location: Location, interests) -> float:
+        """Calculate how well location matches interests (0-1 scale)"""
+        if not interests:
+            return 0.5
+        
+        matches = 0
+        for interest in interests:
+            if self._matches_interests(location, [interest]):
+                matches += 1
+        
+        return min(matches / len(interests), 1.0)
+    
+    def _calculate_historical_score(self, location: Location, prefs) -> float:
+        """Calculate historical significance score"""
+        score = 0.5  # Base score
+        
+        # Bonus for preferred periods
+        if prefs.preferred_periods and self._matches_periods(location, prefs.preferred_periods):
+            score += 0.3
+        
+        # Bonus for preferred dynasties
+        if prefs.preferred_dynasties and self._matches_dynasties(location, prefs.preferred_dynasties):
+            score += 0.2
+        
+        return min(score, 1.0)
+    
+    def _calculate_accessibility_score(self, location: Location, prefs) -> float:
+        """Calculate accessibility score based on preferences"""
+        # This would be enhanced with real accessibility data
+        base_score = 0.7
+        
+        if prefs.accessibility_required:
+            # Check if location has accessibility features
+            # For now, returning reduced score as placeholder
+            return 0.3
+        
+        return base_score
+    
+    def _calculate_distance_score(self, location: Location, prefs) -> float:
+        """Calculate distance score - closer locations get higher scores"""
+        if not prefs.start_location:
+            return 0.5
+        
+        distance = self._calculate_distance(prefs.start_location, location)
+        max_preferred_distance = prefs.max_distance_km or 500
+        
+        # Score decreases with distance
+        score = max(0, 1 - (distance / max_preferred_distance))
+        return score
+    
+    def _create_optimal_route(self, scored_locations: List[Tuple[Location, float]], prefs) -> Route:
+        """Create optimal route from scored locations"""
+        
+        # Select top locations based on travel days
+        max_locations = min(prefs.max_travel_days * 2, len(scored_locations))  # 2 locations per day max
+        selected_locations = scored_locations[:max_locations]
+        
+        if not selected_locations:
+            raise ValueError("No locations selected for route")
+        
+        # Create route locations
+        route_locations = []
+        for location, score in selected_locations:
+            # Handle different coordinate formats
+            coords = location.coordinates
+            if isinstance(coords, dict):
+                coord_list = [coords.get('lat', 0), coords.get('lng', 0)]
+            elif isinstance(coords, (list, tuple)):
+                coord_list = list(coords)[:2]
+            else:
+                coord_list = [0, 0]
+                
+            route_location = RouteLocation(
+                name=location.name,
+                coordinates=coord_list,
+                description=f"{getattr(location, 'description', '')[:100]}... (Score: {score:.2f})"
+            )
+            route_locations.append(route_location)
+        
+        # Optimize order based on geographical proximity
+        optimized_locations = self._optimize_route_order(route_locations, prefs.start_location)
+        
+        # Create path for the route
+        path = []
+        for loc in optimized_locations:
+            if isinstance(loc.coordinates, (list, tuple)) and len(loc.coordinates) >= 2:
+                path.append(loc.coordinates)
+        
+        # Create route object
+        route = Route(
+            id=f"personalized_{random.randint(1000, 9999)}",
+            name=f"Personalized {'/'.join(str(i) for i in prefs.interests[:2])} Route",
+            description=f"Custom route for {prefs.max_travel_days} days based on your preferences",
+            color="#e91e63",  # Pink color for personalized routes
+            path=path,
+            locations=optimized_locations,
+            metadata={
+                'preferences_used': prefs.to_dict(),
+                'total_locations': len(optimized_locations),
+                'estimated_days': prefs.max_travel_days
+            }
+        )
+        
+        return route
+    
+    def _optimize_route_order(self, locations: List[RouteLocation], start_point: Optional[Dict[str, float]]) -> List[RouteLocation]:
+        """Optimize the order of locations to minimize travel distance"""
+        if len(locations) <= 2:
+            return locations
+        
+        # Create distance matrix
+        n = len(locations)
+        distances = np.zeros((n, n))
+        
+        for i in range(n):
+            for j in range(n):
+                if i != j:
+                    # Handle coordinate format
+                    coord_i = locations[i].coordinates
+                    coord_j = locations[j].coordinates
+                    
+                    if isinstance(coord_i, (list, tuple)) and isinstance(coord_j, (list, tuple)):
+                        point_i = {'lat': coord_i[0], 'lng': coord_i[1]}
+                        point_j = {'lat': coord_j[0], 'lng': coord_j[1]}
+                        dist = self._calculate_distance(point_i, point_j)
+                        distances[i][j] = dist
+        
+        # Simple nearest neighbor heuristic
+        visited = [False] * n
+        route_order = []
+        
+        # Start from location closest to start_point if provided
+        if start_point:
+            start_idx = 0
+            min_start_dist = float('inf')
+            for i in range(n):
+                coord = locations[i].coordinates
+                if isinstance(coord, (list, tuple)) and len(coord) >= 2:
+                    point = {'lat': coord[0], 'lng': coord[1]}
+                    dist = self._calculate_distance(start_point, point)
+                    if dist < min_start_dist:
+                        min_start_dist = dist
+                        start_idx = i
+        else:
+            start_idx = 0
+        
+        current = start_idx
+        visited[current] = True
+        route_order.append(current)
+        
+        while len(route_order) < n:
+            next_idx = None
+            min_dist = float('inf')
+            
+            for i in range(n):
+                if not visited[i] and distances[current][i] < min_dist:
+                    min_dist = distances[current][i]
+                    next_idx = i
+            
+            if next_idx is not None:
+                visited[next_idx] = True
+                route_order.append(next_idx)
+                current = next_idx
+        
+        return [locations[i] for i in route_order]
+    
+    def get_nearby_historical_places(self, location: Dict[str, float], radius_km: int = 50, 
+                                   interests = None) -> List[Dict[str, Any]]:
+        """Get nearby historical places based on location and interests"""
+        all_locations = self.kg_service.get_all_locations()
+        nearby = []
+        
+        for loc in all_locations:
+            distance = self._calculate_distance(location, loc)
+            
+            if distance <= radius_km:
+                # Check interest match if specified
+                if interests and not self._matches_interests(loc, interests):
+                    continue
+                
+                nearby.append({
+                    'location': loc.to_dict(),
+                    'distance_km': round(distance, 1),
+                    'interest_match': self._calculate_interest_score(loc, interests or [])
+                })
+        
+        # Sort by distance
+        nearby.sort(key=lambda x: x['distance_km'])
+        return nearby
+
+    # ===== EXISTING FUNCTIONALITY (PRESERVED) =====
         
     def create_personalized_route(self, preferences):
         """
@@ -189,7 +625,7 @@ class RouteService:
         Parameters:
         - preferences: dict with keys:
             - interests: list of interests
-            - startLocation:starting point ID
+            - startLocation: starting point ID
             - endLocation: ending point ID (optional)
             - maxDays: maximum duration in days
             - mustVisit: list of location IDs that must be included (optional)
@@ -197,6 +633,13 @@ class RouteService:
         Returns:
         - A Route object with optimized path
         """
+        # Check if this is a new-style preferences call
+        if ('max_travel_days' in preferences or 
+            'start_location' in preferences or 
+            HAS_USER_PREFERENCES and isinstance(preferences, UserPreferences)):
+            return self.create_personalized_route_with_preferences(preferences)
+            
+        # Original functionality for backward compatibility
         # Extract preferences
         interests = preferences.get('interests', [])
         start_location_id = preferences.get('startLocation')
@@ -264,14 +707,28 @@ class RouteService:
         route_color = self._get_theme_color(interests)
         
         # Create path from location coordinates
-        path = [[loc.coordinates['lat'], loc.coordinates['lng']] for loc in optimal_route]
+        path = []
+        for loc in optimal_route:
+            coords = loc.coordinates
+            if isinstance(coords, dict):
+                path.append([coords['lat'], coords['lng']])
+            elif isinstance(coords, (list, tuple)):
+                path.append(list(coords))
         
         # Create RouteLocation objects
         route_locations = []
         for location in optimal_route:
+            coords = location.coordinates
+            if isinstance(coords, dict):
+                coord_list = [coords['lat'], coords['lng']]
+            elif isinstance(coords, (list, tuple)):
+                coord_list = list(coords)
+            else:
+                coord_list = [0, 0]
+                
             route_locations.append(RouteLocation(
                 name=location.name,
-                coordinates=[location.coordinates['lat'], location.coordinates['lng']],
+                coordinates=coord_list,
                 description=location.description[:100] + '...' if len(location.description) > 100 else location.description
             ))
             
@@ -299,28 +756,34 @@ class RouteService:
             score = 0
             
             # Score based on tags matching interests
+            location_tags = getattr(location, 'tags', [])
             for interest in interests:
                 interest_lower = interest.lower()
-                for tag in location.tags:
+                for tag in location_tags:
                     if interest_lower in tag.lower():
                         score += 2
                         break
             
             # Score based on category
+            location_category = getattr(location, 'category', '')
             for interest in interests:
-                if interest.lower() in location.category.lower():
+                if interest.lower() in location_category.lower():
                     score += 2
                     break
                     
             # Score based on dynasty/period match
+            location_dynasty = getattr(location, 'dynasty', '')
+            location_period = getattr(location, 'period', '')
             for interest in interests:
-                if (interest.lower() in location.dynasty.lower() or 
-                    interest.lower() in location.period.lower()):
+                if (interest.lower() in location_dynasty.lower() or 
+                    interest.lower() in location_period.lower()):
                     score += 1.5
                     break
                     
             # Score based on description and history (text matching)
-            text = f"{location.description} {location.history}"
+            location_description = getattr(location, 'description', '')
+            location_history = getattr(location, 'history', '')
+            text = f"{location_description} {location_history}"
             for interest in interests:
                 if interest.lower() in text.lower():
                     score += 1
@@ -357,22 +820,27 @@ class RouteService:
             score = 0
             
             # UNESCO sites get a significance boost
-            if any('unesco' in tag.lower() for tag in location.tags):
+            location_tags = getattr(location, 'tags', [])
+            if any('unesco' in tag.lower() for tag in location_tags):
                 score += 3
                 
             # Score based on interest match
             for interest in interests:
                 interest_lower = interest.lower()
                 # Check tags
-                if any(interest_lower in tag.lower() for tag in location.tags):
+                if any(interest_lower in tag.lower() for tag in location_tags):
                     score += 2
                 
                 # Check category, dynasty, description
-                if interest_lower in location.category.lower():
+                location_category = getattr(location, 'category', '')
+                location_dynasty = getattr(location, 'dynasty', '')
+                location_description = getattr(location, 'description', '')
+                
+                if interest_lower in location_category.lower():
                     score += 1.5
-                if interest_lower in location.dynasty.lower():
+                if interest_lower in location_dynasty.lower():
                     score += 1
-                if interest_lower in location.description.lower():
+                if interest_lower in location_description.lower():
                     score += 0.5
             
             # Add a small random factor for diversity
@@ -396,8 +864,13 @@ class RouteService:
         coords = np.zeros((n, 2))
         
         for i, loc in enumerate(locations):
-            coords[i, 0] = loc.coordinates['lat']
-            coords[i, 1] = loc.coordinates['lng']
+            location_coords = loc.coordinates
+            if isinstance(location_coords, dict):
+                coords[i, 0] = location_coords['lat']
+                coords[i, 1] = location_coords['lng']
+            elif isinstance(location_coords, (list, tuple)) and len(location_coords) >= 2:
+                coords[i, 0] = location_coords[0]
+                coords[i, 1] = location_coords[1]
             
         # Calculate pairwise distances
         distances = np.zeros((n, n))
@@ -515,7 +988,7 @@ class RouteService:
         return [locations[i] for i in path]
     
     def _get_theme_color(self, interests):
-        """Get a appropriate color based on interests"""
+        """Get an appropriate color based on interests"""
         # Map common interests to colors
         interest_colors = {
             'temple': '#9C27B0',  # Purple
@@ -543,10 +1016,19 @@ class RouteService:
         
         # Check if any interest matches our predefined themes
         for interest in interests:
-            interest_lower = interest.lower()
+            interest_lower = str(interest).lower()
             for key, color in interest_colors.items():
                 if key in interest_lower or interest_lower in key:
                     return color
                     
         # Default color if no match found
         return '#3f51b5'  # Indigo blue
+    
+    def optimize_route(self, existing_route, optimization_params):
+        """Optimize an existing route based on new parameters"""
+        # This method can be implemented to modify existing routes
+        # based on new constraints like time, budget, accessibility
+        
+        # For now, return the existing route
+        # You can enhance this with actual optimization logic
+        return existing_route
