@@ -258,37 +258,40 @@ class RouteService:
         
         return SimplePreferences(preferences_dict)
     
+    # Replace your _filter_locations_by_preferences method in route_service.py
+
     def _filter_locations_by_preferences(self, locations: List[Location], prefs) -> List[Location]:
-        """Filter locations based on user preferences"""
+        """Filter locations based on user preferences (LESS STRICT VERSION)"""
         filtered = []
         
         for location in locations:
-            # Check interest alignment
-            if not self._matches_interests(location, prefs.interests):
+            should_include = True
+            
+            # Check interest alignment (REQUIRED - must match at least one interest)
+            if prefs.interests and not self._matches_interests(location, prefs.interests):
+                should_include = False
                 continue
                 
-            # Check period preferences
-            if prefs.preferred_periods and not self._matches_periods(location, prefs.preferred_periods):
-                continue
-                
-            # Check dynasty preferences
-            if prefs.preferred_dynasties and not self._matches_dynasties(location, prefs.preferred_dynasties):
-                continue
-                
-            # Check distance constraints
+            # Check distance constraints (REQUIRED if specified)
             if prefs.start_location and prefs.max_distance_km:
                 distance = self._calculate_distance(
                     prefs.start_location, 
                     location.coordinates
                 )
                 if distance > prefs.max_distance_km:
+                    should_include = False
                     continue
             
-            # Check regional preferences
+            # Period and dynasty preferences are now OPTIONAL filters
+            # If specified, they add bonus points but don't exclude locations
+            
+            # Check regional preferences (OPTIONAL)
             if prefs.preferred_regions and not self._matches_regions(location, prefs.preferred_regions):
-                continue
+                # Don't exclude, just lower priority in scoring
+                pass
                 
-            filtered.append(location)
+            if should_include:
+                filtered.append(location)
         
         return filtered
     

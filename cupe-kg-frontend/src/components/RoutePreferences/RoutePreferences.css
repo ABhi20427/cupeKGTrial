@@ -337,3 +337,32 @@
     font-size: 16px;
   }
 }
+/* Add this to your RoutePreferences.css */
+
+.no-data {
+  padding: 12px;
+  text-align: center;
+  color: #9ca3af;
+  font-style: italic;
+  font-size: 13px;
+}
+
+/* Debug info styling (remove in production) */
+details {
+  margin-top: 8px;
+}
+
+details summary {
+  cursor: pointer;
+  padding: 4px 8px;
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+details pre {
+  background: #f9fafb;
+  padding: 8px;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 10px;
+}

@@ -461,3 +461,214 @@
 2025-08-20 15:01:06,351 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:01:06] "GET /api/routes HTTP/1.1" 200 -
 2025-08-20 15:01:06,370 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:01:06] "GET /api/routes HTTP/1.1" 200 -
 2025-08-20 15:01:13,781 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:01:13] "GET /api/place-info?name=sanchi-stupa HTTP/1.1" 200 -
+2025-08-20 15:07:53,164 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 15:07:53,166 - services.data_loader - INFO - Successfully loaded 9 locations from data module
+2025-08-20 15:07:53,167 - services.kg_service - INFO - Loaded 9 locations
+2025-08-20 15:07:53,167 - services.kg_service - INFO - Location statistics: {'total_locations': 9, 'categories': {'cultural': 1, 'historical': 2, 'religious': 6}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1}, 'total_cultural_facts': 45, 'total_legends': 18, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 2.0}
+2025-08-20 15:07:54,767 - __main__ - INFO - Services initialized successfully
+2025-08-20 15:07:54,772 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 15:07:54,788 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-20 15:07:54,789 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-20 15:07:54,790 - werkzeug - INFO -  * Restarting with stat
+2025-08-20 15:08:00,414 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 15:08:00,416 - services.data_loader - INFO - Successfully loaded 9 locations from data module
+2025-08-20 15:08:00,417 - services.kg_service - INFO - Loaded 9 locations
+2025-08-20 15:08:00,417 - services.kg_service - INFO - Location statistics: {'total_locations': 9, 'categories': {'cultural': 1, 'historical': 2, 'religious': 6}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1}, 'total_cultural_facts': 45, 'total_legends': 18, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 2.0}
+2025-08-20 15:08:03,990 - __main__ - INFO - Services initialized successfully
+2025-08-20 15:08:03,997 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 15:08:04,013 - werkzeug - WARNING -  * Debugger is active!
+2025-08-20 15:08:04,017 - werkzeug - INFO -  * Debugger PIN: 516-391-292
+2025-08-20 15:08:04,141 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:08:04] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:08:04,144 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:08:04] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:08:04,460 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:08:04] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:08:04,717 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:08:04] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:08:04,781 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:08:04] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:08:04,796 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:08:04] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:09:42,790 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:09:42] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:09:43,042 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:09:43] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:09:43,105 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:09:43] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:09:43,109 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:09:43] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:09:43,437 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:09:43] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:09:43,703 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:09:43] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:25:35,924 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:35] "[33mGET /main.4b7b8fae72ffd795f742.hot-update.json HTTP/1.1[0m" 404 -
+2025-08-20 15:25:36,408 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:36] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:25:36,674 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:36] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:25:36,722 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:36] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:25:36,726 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:36] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:25:36,990 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:36] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:25:37,046 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:37] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:25:37,049 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:37] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:25:37,057 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:37] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:25:37,315 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:37] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:25:37,362 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:37] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:25:37,420 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:37] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:25:37,625 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:25:37] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:26:26,516 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 15:26:26,518 - services.data_loader - INFO - Successfully loaded 9 locations from data module
+2025-08-20 15:26:26,519 - services.kg_service - INFO - Loaded 9 locations
+2025-08-20 15:26:26,519 - services.kg_service - INFO - Location statistics: {'total_locations': 9, 'categories': {'cultural': 1, 'historical': 2, 'religious': 6}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1}, 'total_cultural_facts': 45, 'total_legends': 18, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 2.0}
+2025-08-20 15:26:28,088 - __main__ - INFO - Services initialized successfully
+2025-08-20 15:26:28,093 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 15:26:28,115 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-20 15:26:28,115 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-20 15:26:28,117 - werkzeug - INFO -  * Restarting with stat
+2025-08-20 15:26:33,793 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 15:26:33,795 - services.data_loader - INFO - Successfully loaded 9 locations from data module
+2025-08-20 15:26:33,796 - services.kg_service - INFO - Loaded 9 locations
+2025-08-20 15:26:33,796 - services.kg_service - INFO - Location statistics: {'total_locations': 9, 'categories': {'cultural': 1, 'historical': 2, 'religious': 6}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1}, 'total_cultural_facts': 45, 'total_legends': 18, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 2.0}
+2025-08-20 15:26:35,334 - __main__ - INFO - Services initialized successfully
+2025-08-20 15:26:35,338 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 15:26:35,353 - werkzeug - WARNING -  * Debugger is active!
+2025-08-20 15:26:35,356 - werkzeug - INFO -  * Debugger PIN: 516-391-292
+2025-08-20 15:27:57,626 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:27:57] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:27:57,890 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:27:57] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:27:57,941 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:27:57] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:27:57,954 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:27:57] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:27:58,286 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:27:58] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:27:58,552 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:27:58] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:27:59,029 - __main__ - ERROR - Error fetching preference suggestions: name 'InterestType' is not defined
+2025-08-20 15:27:59,030 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:27:59] "[35m[1mGET /api/preference-suggestions HTTP/1.1[0m" 500 -
+2025-08-20 15:28:16,128 - __main__ - ERROR - Error creating personalized route: No suitable locations found for your preferences
+2025-08-20 15:28:16,129 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:28:16] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:36:11,698 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\app_backend.py', reloading
+2025-08-20 15:36:12,363 - werkzeug - INFO -  * Restarting with stat
+2025-08-20 15:36:18,456 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 15:36:18,458 - services.data_loader - INFO - Successfully loaded 9 locations from data module
+2025-08-20 15:36:18,458 - services.kg_service - INFO - Loaded 9 locations
+2025-08-20 15:36:18,459 - services.kg_service - INFO - Location statistics: {'total_locations': 9, 'categories': {'cultural': 1, 'historical': 2, 'religious': 6}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1}, 'total_cultural_facts': 45, 'total_legends': 18, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 2.0}
+2025-08-20 15:36:20,036 - __main__ - INFO - Services initialized successfully
+2025-08-20 15:36:20,041 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 15:36:20,055 - werkzeug - WARNING -  * Debugger is active!
+2025-08-20 15:36:20,059 - werkzeug - INFO -  * Debugger PIN: 516-391-292
+2025-08-20 15:36:28,575 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:36:28] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:36:28,829 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:36:28] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:36:28,892 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:36:28] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:36:28,898 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:36:28] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:36:29,239 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:36:29] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:36:29,506 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:36:29] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:37:55,317 - __main__ - INFO - Preference suggestions: 9 periods, 9 dynasties
+2025-08-20 15:37:55,319 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:37:55] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-20 15:39:56,109 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 800, 'preferred_periods': ['1632 CE - 1643 CE', '1336 CE - 1646 CE'], 'preferred_dynasties': ['Mughal Empire'], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': [], 'accessibility_required': False, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:39:56,110 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:39:56,112 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:39:56] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:40:05,718 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 800, 'preferred_periods': ['1632 CE - 1643 CE', '1336 CE - 1646 CE'], 'preferred_dynasties': ['Mughal Empire'], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': [], 'accessibility_required': True, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:40:05,719 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:40:05,720 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:40:05] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:40:11,190 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 800, 'preferred_periods': ['1632 CE - 1643 CE', '1336 CE - 1646 CE'], 'preferred_dynasties': ['Mughal Empire'], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': ['music', 'crafts', 'local_food', 'festivals', 'markets', 'dance'], 'accessibility_required': True, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:40:11,191 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:40:11,192 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:40:11] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:40:20,837 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 800, 'preferred_periods': ['1632 CE - 1643 CE', '1336 CE - 1646 CE'], 'preferred_dynasties': ['Mughal Empire', 'Delhi Sultanate (Mamluk Dynasty)', 'Chandela Dynasty'], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': ['music', 'crafts', 'local_food', 'festivals', 'markets', 'dance'], 'accessibility_required': True, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:40:20,837 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:40:20,838 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:40:20] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:40:31,137 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 1050, 'preferred_periods': ['1632 CE - 1643 CE', '1336 CE - 1646 CE'], 'preferred_dynasties': ['Mughal Empire', 'Delhi Sultanate (Mamluk Dynasty)', 'Chandela Dynasty'], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': ['music', 'crafts', 'local_food', 'festivals', 'markets', 'dance'], 'accessibility_required': True, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:40:31,138 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:40:31,138 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:40:31] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:41:42,178 - __main__ - INFO - Preference suggestions: 9 periods, 9 dynasties
+2025-08-20 15:41:42,179 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:41:42] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-20 15:41:43,064 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 1050, 'preferred_periods': ['1632 CE - 1643 CE', '1336 CE - 1646 CE'], 'preferred_dynasties': ['Mughal Empire', 'Delhi Sultanate (Mamluk Dynasty)', 'Chandela Dynasty'], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': ['music', 'crafts', 'local_food', 'festivals', 'markets', 'dance'], 'accessibility_required': True, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:41:43,065 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:41:43,066 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:41:43] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:41:50,648 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 1050, 'preferred_periods': ['1632 CE - 1643 CE', '1336 CE - 1646 CE'], 'preferred_dynasties': ['Mughal Empire', 'Delhi Sultanate (Mamluk Dynasty)', 'Chandela Dynasty'], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': ['music', 'crafts', 'local_food', 'festivals', 'markets', 'dance'], 'accessibility_required': True, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:41:50,648 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:41:50,649 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:41:50] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:42:59,767 - __main__ - INFO - Preference suggestions: 9 periods, 9 dynasties
+2025-08-20 15:42:59,768 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:42:59] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-20 15:43:00,310 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 1050, 'preferred_periods': ['1632 CE - 1643 CE', '1336 CE - 1646 CE'], 'preferred_dynasties': ['Mughal Empire', 'Delhi Sultanate (Mamluk Dynasty)', 'Chandela Dynasty'], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': ['music', 'crafts', 'local_food', 'festivals', 'markets', 'dance'], 'accessibility_required': True, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:43:00,311 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:43:00,312 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:43:00] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:45:46,902 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\app_backend.py', reloading
+2025-08-20 15:45:47,507 - werkzeug - INFO -  * Restarting with stat
+2025-08-20 15:45:54,068 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 15:45:54,071 - services.data_loader - INFO - Successfully loaded 9 locations from data module
+2025-08-20 15:45:54,072 - services.kg_service - INFO - Loaded 9 locations
+2025-08-20 15:45:54,072 - services.kg_service - INFO - Location statistics: {'total_locations': 9, 'categories': {'cultural': 1, 'historical': 2, 'religious': 6}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1}, 'total_cultural_facts': 45, 'total_legends': 18, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 2.0}
+2025-08-20 15:45:55,753 - __main__ - INFO - Services initialized successfully
+2025-08-20 15:45:55,758 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 15:45:55,770 - werkzeug - WARNING -  * Debugger is active!
+2025-08-20 15:45:55,774 - werkzeug - INFO -  * Debugger PIN: 516-391-292
+2025-08-20 15:46:00,407 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\app_backend.py', reloading
+2025-08-20 15:46:01,013 - werkzeug - INFO -  * Restarting with stat
+2025-08-20 15:46:08,717 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 15:46:08,722 - services.data_loader - INFO - Successfully loaded 9 locations from data module
+2025-08-20 15:46:08,723 - services.kg_service - INFO - Loaded 9 locations
+2025-08-20 15:46:08,724 - services.kg_service - INFO - Location statistics: {'total_locations': 9, 'categories': {'cultural': 1, 'historical': 2, 'religious': 6}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1}, 'total_cultural_facts': 45, 'total_legends': 18, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 2.0}
+2025-08-20 15:46:10,833 - __main__ - INFO - Services initialized successfully
+2025-08-20 15:46:10,845 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 15:46:10,881 - werkzeug - WARNING -  * Debugger is active!
+2025-08-20 15:46:10,894 - werkzeug - INFO -  * Debugger PIN: 516-391-292
+2025-08-20 15:47:24,041 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:47:24] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:47:24,308 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:47:24] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 15:47:24,354 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:47:24] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:47:24,358 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:47:24] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 15:47:24,687 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:47:24] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:47:24,924 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:47:24] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 15:49:16,547 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:49:16] "POST /api/debug-locations HTTP/1.1" 200 -
+2025-08-20 15:53:14,306 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\route_service.py', reloading
+2025-08-20 15:53:14,963 - werkzeug - INFO -  * Restarting with stat
+2025-08-20 15:53:20,649 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 15:53:20,652 - services.data_loader - INFO - Successfully loaded 9 locations from data module
+2025-08-20 15:53:20,652 - services.kg_service - INFO - Loaded 9 locations
+2025-08-20 15:53:20,653 - services.kg_service - INFO - Location statistics: {'total_locations': 9, 'categories': {'cultural': 1, 'historical': 2, 'religious': 6}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1}, 'total_cultural_facts': 45, 'total_legends': 18, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 2.0}
+2025-08-20 15:53:22,222 - __main__ - INFO - Services initialized successfully
+2025-08-20 15:53:22,226 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 15:53:22,238 - werkzeug - WARNING -  * Debugger is active!
+2025-08-20 15:53:22,241 - werkzeug - INFO -  * Debugger PIN: 516-391-292
+2025-08-20 15:53:34,651 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\route_service.py', reloading
+2025-08-20 15:53:35,251 - werkzeug - INFO -  * Restarting with stat
+2025-08-20 15:53:41,093 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 15:53:41,095 - services.data_loader - INFO - Successfully loaded 9 locations from data module
+2025-08-20 15:53:41,095 - services.kg_service - INFO - Loaded 9 locations
+2025-08-20 15:53:41,095 - services.kg_service - INFO - Location statistics: {'total_locations': 9, 'categories': {'cultural': 1, 'historical': 2, 'religious': 6}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1}, 'total_cultural_facts': 45, 'total_legends': 18, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 2.0}
+2025-08-20 15:53:42,626 - __main__ - INFO - Services initialized successfully
+2025-08-20 15:53:42,631 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 15:53:42,645 - werkzeug - WARNING -  * Debugger is active!
+2025-08-20 15:53:42,648 - werkzeug - INFO -  * Debugger PIN: 516-391-292
+2025-08-20 15:53:46,196 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\route_service.py', reloading
+2025-08-20 15:53:46,758 - werkzeug - INFO -  * Restarting with stat
+2025-08-20 15:53:52,698 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 15:53:52,700 - services.data_loader - INFO - Successfully loaded 9 locations from data module
+2025-08-20 15:53:52,701 - services.kg_service - INFO - Loaded 9 locations
+2025-08-20 15:53:52,701 - services.kg_service - INFO - Location statistics: {'total_locations': 9, 'categories': {'cultural': 1, 'historical': 2, 'religious': 6}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1}, 'total_cultural_facts': 45, 'total_legends': 18, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 2.0}
+2025-08-20 15:53:54,247 - __main__ - INFO - Services initialized successfully
+2025-08-20 15:53:54,252 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 15:53:54,263 - werkzeug - WARNING -  * Debugger is active!
+2025-08-20 15:53:54,267 - werkzeug - INFO -  * Debugger PIN: 516-391-292
+2025-08-20 15:53:57,780 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\route_service.py', reloading
+2025-08-20 15:53:58,305 - werkzeug - INFO -  * Restarting with stat
+2025-08-20 15:54:04,125 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 15:54:04,127 - services.data_loader - INFO - Successfully loaded 9 locations from data module
+2025-08-20 15:54:04,128 - services.kg_service - INFO - Loaded 9 locations
+2025-08-20 15:54:04,128 - services.kg_service - INFO - Location statistics: {'total_locations': 9, 'categories': {'cultural': 1, 'historical': 2, 'religious': 6}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1}, 'total_cultural_facts': 45, 'total_legends': 18, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 2.0}
+2025-08-20 15:54:05,683 - __main__ - INFO - Services initialized successfully
+2025-08-20 15:54:05,688 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 15:54:05,700 - werkzeug - WARNING -  * Debugger is active!
+2025-08-20 15:54:05,704 - werkzeug - INFO -  * Debugger PIN: 516-391-292
+2025-08-20 15:55:19,132 - __main__ - INFO - Preference suggestions: 9 periods, 9 dynasties
+2025-08-20 15:55:19,134 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:55:19] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-20 15:55:35,404 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 7, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 500, 'preferred_periods': [], 'preferred_dynasties': ['Chandela Dynasty'], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': [], 'accessibility_required': False, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:55:35,405 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:55:35,407 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:55:35] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:57:08,528 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 7, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 2000, 'preferred_periods': [], 'preferred_dynasties': ['Chandela Dynasty'], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': [], 'accessibility_required': False, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:57:08,529 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:57:08,531 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:57:08] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:57:14,797 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 7, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 2000, 'preferred_periods': [], 'preferred_dynasties': [], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': [], 'accessibility_required': False, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:57:14,797 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:57:14,798 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:57:14] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:57:26,614 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 2000, 'preferred_periods': [], 'preferred_dynasties': [], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': [], 'accessibility_required': False, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:57:26,615 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:57:26,616 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:57:26] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:57:37,607 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'low', 'transport_mode': 'car', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 2000, 'preferred_periods': [], 'preferred_dynasties': [], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': [], 'accessibility_required': False, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:57:37,608 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:57:37,610 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:57:37] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:57:42,685 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'medium', 'transport_mode': 'train', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 2000, 'preferred_periods': [], 'preferred_dynasties': [], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': [], 'accessibility_required': False, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:57:42,686 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:57:42,687 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:57:42] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -
+2025-08-20 15:57:51,501 - __main__ - INFO - Received advanced route preferences: {'interests': ['historical', 'religious'], 'max_travel_days': 5, 'budget_range': 'medium', 'transport_mode': 'train', 'start_location': {'lat': 12.9007616, 'lng': 77.6667136}, 'preferred_regions': [], 'max_distance_km': 2000, 'preferred_periods': [], 'preferred_dynasties': [], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': [], 'accessibility_required': False, 'physical_difficulty_preference': 'medium'}
+2025-08-20 15:57:51,501 - __main__ - ERROR - ValueError creating advanced route: No suitable locations found for your preferences
+2025-08-20 15:57:51,502 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 15:57:51] "[31m[1mPOST /api/personalized-route-advanced HTTP/1.1[0m" 400 -

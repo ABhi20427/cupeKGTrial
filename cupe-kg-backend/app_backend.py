@@ -163,26 +163,37 @@ def create_personalized_route():
         logger.error(f"Error creating personalized route: {e}")
         return jsonify({'error': str(e)}), 500
 
-if HAS_USER_PREFERENCES:
-    @app.route('/api/personalized-route-advanced', methods=['POST'])
-    def create_personalized_route_advanced():
-        if not request.json:
-            return jsonify({'error': 'No preferences provided'}), 400
-        try:
-            preferences = UserPreferences.from_dict(request.json)
-            route = route_service.create_personalized_route_with_preferences(preferences)
-            return jsonify({
-                'route': route.to_dict(),
-                'preferences_applied': preferences.to_dict(),
-                'total_locations': len(route.locations),
-                'estimated_duration_days': preferences.max_travel_days
-            })
-        except ValueError as e:
-            logger.error(f"Error creating personalized route: {e}")
-            return jsonify({'error': str(e)}), 400
-        except Exception as e:
-            logger.error(f"Unexpected error creating personalized route: {e}")
-            return jsonify({'error': 'Failed to create personalized route'}), 500
+# ------------------ Improved: Personalized Route Advanced ------------------
+@app.route('/api/personalized-route-advanced', methods=['POST'])
+def create_personalized_route_advanced():
+    """Create a personalized route based on detailed user preferences"""
+    if not request.json:
+        return jsonify({'error': 'No preferences provided'}), 400
+    
+    try:
+        logger.info(f"Received advanced route preferences: {request.json}")
+        
+        # Use the enhanced route service method directly
+        route = route_service.create_personalized_route_with_preferences(request.json)
+        
+        response_data = {
+            'route': route.to_dict(),
+            'preferences_applied': request.json,
+            'total_locations': len(route.locations),
+            'estimated_duration_days': request.json.get('max_travel_days', 7)
+        }
+        
+        logger.info(f"Advanced route created successfully with {len(route.locations)} locations")
+        return jsonify(response_data)
+    
+    except ValueError as e:
+        logger.error(f"ValueError creating advanced route: {e}")
+        return jsonify({'error': str(e)}), 400
+    except Exception as e:
+        logger.error(f"Unexpected error creating advanced route: {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': 'Failed to create personalized route'}), 500
 
 @app.route('/api/nearby-places', methods=['GET'])
 def get_nearby_places():
@@ -207,30 +218,34 @@ def get_nearby_places():
         logger.error(f"Error fetching nearby places: {e}")
         return jsonify({'error': 'Failed to fetch nearby places'}), 500
 
+# ------------------ Improved: Preference Suggestions ------------------
 @app.route('/api/preference-suggestions', methods=['GET'])
 def get_preference_suggestions():
+    """Get suggestions for user preferences based on available data"""
     try:
         all_locations = kg_service.get_all_locations()
-        periods, dynasties, categories = set(), set(), set()
+        
+        # Extract available periods
+        periods = set()
+        dynasties = set()
+        categories = set()
+        
         for location in all_locations:
-            if getattr(location, 'period', None):
+            if hasattr(location, 'period') and location.period:
                 periods.add(location.period)
-            if getattr(location, 'dynasty', None):
+            if hasattr(location, 'dynasty') and location.dynasty:
                 dynasties.add(location.dynasty)
-            if getattr(location, 'category', None):
+            if hasattr(location, 'category') and location.category:
                 categories.add(location.category)
-        available_interests = [i.value for i in InterestType] if HAS_USER_PREFERENCES else [
-            InterestType.HISTORICAL,
-            InterestType.RELIGIOUS,
-            InterestType.ARCHITECTURAL,
-            InterestType.CULTURAL,
-            InterestType.ARCHAEOLOGICAL,
-            InterestType.ROYAL_HERITAGE,
-            InterestType.ANCIENT_TEMPLES,
-            InterestType.FORTS_PALACES,
-            InterestType.UNESCO_SITES
+        
+        # Fixed interests list (simplified, no dependency on enum fallback)
+        available_interests = [
+            'historical', 'religious', 'architectural', 'cultural',
+            'archaeological', 'royal_heritage', 'ancient_temples', 
+            'forts_palaces', 'unesco_sites'
         ]
-        return jsonify({
+        
+        suggestions = {
             'available_interests': available_interests,
             'available_periods': sorted(list(periods)),
             'available_dynasties': sorted(list(dynasties)),
@@ -239,10 +254,80 @@ def get_preference_suggestions():
             'budget_ranges': ['low', 'medium', 'high'],
             'crowd_preferences': ['low', 'medium', 'high'],
             'difficulty_levels': ['easy', 'medium', 'difficult']
-        })
+        }
+        
+        logger.info(f"Preference suggestions: {len(periods)} periods, {len(dynasties)} dynasties")
+        return jsonify(suggestions)
+    
     except Exception as e:
         logger.error(f"Error fetching preference suggestions: {e}")
         return jsonify({'error': 'Failed to fetch suggestions'}), 500
+# Add this debug endpoint to your app_backend.py
+
+@app.route('/api/debug-locations', methods=['POST'])
+def debug_locations():
+    """Debug endpoint to see what locations match preferences"""
+    if not request.json:
+        return jsonify({'error': 'No preferences provided'}), 400
+    
+    try:
+        preferences = request.json
+        all_locations = kg_service.get_all_locations()
+        
+        debug_info = {
+            'total_locations': len(all_locations),
+            'preferences_received': preferences,
+            'location_details': []
+        }
+        
+        # Check each location against preferences
+        for location in all_locations:
+            location_info = {
+                'name': location.name,
+                'category': getattr(location, 'category', 'N/A'),
+                'dynasty': getattr(location, 'dynasty', 'N/A'), 
+                'period': getattr(location, 'period', 'N/A'),
+                'tags': getattr(location, 'tags', []),
+                'description': getattr(location, 'description', 'N/A')[:100] + '...',
+                'matches_interests': False,
+                'matches_periods': False,
+                'matches_dynasties': False
+            }
+            
+            # Check interest matches
+            for interest in preferences.get('interests', []):
+                interest_lower = interest.lower()
+                location_tags = [tag.lower() for tag in getattr(location, 'tags', [])]
+                location_category = getattr(location, 'category', '').lower()
+                location_description = getattr(location, 'description', '').lower()
+                
+                if (interest_lower in location_tags or 
+                    interest_lower in location_category or 
+                    interest_lower in location_description):
+                    location_info['matches_interests'] = True
+                    break
+            
+            # Check period matches
+            location_period = getattr(location, 'period', '').lower()
+            for period in preferences.get('preferred_periods', []):
+                if period.lower() in location_period:
+                    location_info['matches_periods'] = True
+                    break
+            
+            # Check dynasty matches
+            location_dynasty = getattr(location, 'dynasty', '').lower()
+            for dynasty in preferences.get('preferred_dynasties', []):
+                if dynasty.lower() in location_dynasty:
+                    location_info['matches_dynasties'] = True
+                    break
+            
+            debug_info['location_details'].append(location_info)
+        
+        return jsonify(debug_info)
+    
+    except Exception as e:
+        logger.error(f"Debug error: {e}")
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/route-optimization', methods=['POST'])
 def optimize_existing_route():

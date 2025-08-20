@@ -21,7 +21,12 @@ const RoutePreferences = ({ onCreateRoute, onClose, isVisible }) => {
     physical_difficulty_preference: 'medium'
   });
 
-  const [suggestions, setSuggestions] = useState({});
+  const [suggestions, setSuggestions] = useState({
+    available_interests: [],
+    available_periods: [],
+    available_dynasties: [],
+    available_categories: []
+  });
   const [currentLocation, setCurrentLocation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,10 +40,29 @@ const RoutePreferences = ({ onCreateRoute, onClose, isVisible }) => {
   const fetchSuggestions = async () => {
     try {
       const response = await fetch('/api/preference-suggestions');
-      const data = await response.json();
-      setSuggestions(data);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Suggestions received:', data); // Debug log
+        setSuggestions(data);
+      } else {
+        console.error('Failed to fetch suggestions');
+        // Fallback data
+        setSuggestions({
+          available_interests: ['historical', 'religious', 'architectural', 'cultural'],
+          available_periods: ['Ancient', 'Medieval', 'Mughal', 'Colonial', 'Modern'],
+          available_dynasties: ['Mughal Empire', 'Vijayanagara Empire', 'Mauryan Empire', 'Gupta Empire'],
+          available_categories: ['historical', 'religious', 'cultural']
+        });
+      }
     } catch (error) {
       console.error('Error fetching suggestions:', error);
+      // Fallback data
+      setSuggestions({
+        available_interests: ['historical', 'religious', 'architectural', 'cultural'],
+        available_periods: ['Ancient', 'Medieval', 'Mughal', 'Colonial', 'Modern'],
+        available_dynasties: ['Mughal Empire', 'Vijayanagara Empire', 'Mauryan Empire', 'Gupta Empire'],
+        available_categories: ['historical', 'religious', 'cultural']
+      });
     }
   };
 
@@ -73,12 +97,20 @@ const RoutePreferences = ({ onCreateRoute, onClose, isVisible }) => {
   };
 
   const handleMultiSelectToggle = (field, value) => {
-    setPreferences(prev => ({
-      ...prev,
-      [field]: prev[field].includes(value)
-        ? prev[field].filter(item => item !== value)
-        : [...prev[field], value]
-    }));
+    console.log(`Toggling ${field} with value:`, value); // Debug log
+    setPreferences(prev => {
+      const currentArray = prev[field] || [];
+      const newArray = currentArray.includes(value)
+        ? currentArray.filter(item => item !== value)
+        : [...currentArray, value];
+
+      console.log(`Updated ${field}:`, newArray); // Debug log
+
+      return {
+        ...prev,
+        [field]: newArray
+      };
+    });
   };
 
   const handleInputChange = (field, value) => {
@@ -94,6 +126,8 @@ const RoutePreferences = ({ onCreateRoute, onClose, isVisible }) => {
       return;
     }
 
+    console.log('Submitting preferences:', preferences); // Debug log
+
     setIsLoading(true);
     try {
       const response = await fetch('/api/personalized-route-advanced', {
@@ -106,6 +140,7 @@ const RoutePreferences = ({ onCreateRoute, onClose, isVisible }) => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log('Route created:', data); // Debug log
         onCreateRoute(data.route);
         onClose();
       } else {
@@ -204,38 +239,46 @@ const RoutePreferences = ({ onCreateRoute, onClose, isVisible }) => {
             </div>
           </div>
 
-          {/* Historical Preferences */}
+          {/* Historical Preferences - Safe Rendering */}
           <div className="preference-section">
             <h3>Historical Preferences</h3>
             <div className="two-column">
               <div className="input-group">
                 <label>Preferred Periods:</label>
                 <div className="multi-select">
-                  {suggestions.available_periods?.slice(0, 8).map(period => (
-                    <label key={period} className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        checked={preferences.preferred_periods.includes(period)}
-                        onChange={() => handleMultiSelectToggle('preferred_periods', period)}
-                      />
-                      {period}
-                    </label>
-                  ))}
+                  {suggestions.available_periods && suggestions.available_periods.length > 0 ? (
+                    suggestions.available_periods.slice(0, 8).map(period => (
+                      <label key={period} className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={preferences.preferred_periods.includes(period)}
+                          onChange={() => handleMultiSelectToggle('preferred_periods', period)}
+                        />
+                        {period}
+                      </label>
+                    ))
+                  ) : (
+                    <div className="no-data">No historical periods available</div>
+                  )}
                 </div>
               </div>
               <div className="input-group">
                 <label>Preferred Dynasties:</label>
                 <div className="multi-select">
-                  {suggestions.available_dynasties?.slice(0, 8).map(dynasty => (
-                    <label key={dynasty} className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        checked={preferences.preferred_dynasties.includes(dynasty)}
-                        onChange={() => handleMultiSelectToggle('preferred_dynasties', dynasty)}
-                      />
-                      {dynasty}
-                    </label>
-                  ))}
+                  {suggestions.available_dynasties && suggestions.available_dynasties.length > 0 ? (
+                    suggestions.available_dynasties.slice(0, 8).map(dynasty => (
+                      <label key={dynasty} className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={preferences.preferred_dynasties.includes(dynasty)}
+                          onChange={() => handleMultiSelectToggle('preferred_dynasties', dynasty)}
+                        />
+                        {dynasty}
+                      </label>
+                    ))
+                  ) : (
+                    <div className="no-data">No dynasties available</div>
+                  )}
                 </div>
               </div>
             </div>
@@ -331,6 +374,19 @@ const RoutePreferences = ({ onCreateRoute, onClose, isVisible }) => {
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Debug Info (can remove in production) */}
+          <div className="preference-section" style={{fontSize: '12px', color: '#666'}}>
+            <details>
+              <summary>Debug Info (Click to expand)</summary>
+              <pre>{JSON.stringify({
+                'Selected Periods': preferences.preferred_periods,
+                'Selected Dynasties': preferences.preferred_dynasties,
+                'Available Periods': suggestions.available_periods,
+                'Available Dynasties': suggestions.available_dynasties
+              }, null, 2)}</pre>
+            </details>
           </div>
         </div>
 
