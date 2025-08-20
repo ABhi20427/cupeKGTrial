@@ -260,83 +260,136 @@ class RouteService:
     
     # Replace your _filter_locations_by_preferences method in route_service.py
 
+# Replace this method in your route_service.py
+
     def _filter_locations_by_preferences(self, locations: List[Location], prefs) -> List[Location]:
-        """Filter locations based on user preferences (LESS STRICT VERSION)"""
+        """Filter locations based on user preferences - COMPLETELY FIXED VERSION"""
+        print(f"\n=== FILTERING {len(locations)} LOCATIONS ===")
+        print(f"User interests: {prefs.interests}")
+        
         filtered = []
         
         for location in locations:
-            should_include = True
+            print(f"\n--- Checking {location.name} ---")
             
-            # Check interest alignment (REQUIRED - must match at least one interest)
-            if prefs.interests and not self._matches_interests(location, prefs.interests):
-                should_include = False
-                continue
-                
-            # Check distance constraints (REQUIRED if specified)
-            if prefs.start_location and prefs.max_distance_km:
-                distance = self._calculate_distance(
-                    prefs.start_location, 
-                    location.coordinates
-                )
-                if distance > prefs.max_distance_km:
-                    should_include = False
-                    continue
-            
-            # Period and dynasty preferences are now OPTIONAL filters
-            # If specified, they add bonus points but don't exclude locations
-            
-            # Check regional preferences (OPTIONAL)
-            if prefs.preferred_regions and not self._matches_regions(location, prefs.preferred_regions):
-                # Don't exclude, just lower priority in scoring
-                pass
-                
-            if should_include:
+            # If no interests specified, include all locations
+            if not prefs.interests:
+                print(f"✅ No interests specified, including {location.name}")
                 filtered.append(location)
+                continue
+            
+            # Check if location matches any interest
+            matches_interest = self._matches_interests(location, prefs.interests)
+            
+            if matches_interest:
+                print(f"✅ Including {location.name} - matches interests")
+                filtered.append(location)
+            else:
+                print(f"❌ Excluding {location.name} - no interest match")
+        
+        print(f"\n=== FILTERING COMPLETE ===")
+        print(f"Filtered locations: {[loc.name for loc in filtered]}")
+        print(f"Total: {len(filtered)} out of {len(locations)}")
         
         return filtered
     
     def _matches_interests(self, location: Location, interests) -> bool:
-        """Check if location matches user interests"""
+        """Check if location matches user interests - IMPROVED VERSION"""
         if not interests:
             return True
-            
+
+        print(f"Checking location: {location.name}")  # Debug
+        print(f"User interests: {interests}")  # Debug
+
+        # Get location data
         location_tags = [tag.lower() for tag in getattr(location, 'tags', [])]
         location_category = getattr(location, 'category', '').lower()
         location_description = getattr(location, 'description', '').lower()
-        
+        location_name = getattr(location, 'name', '').lower()
+
+        print(f"Location category: {location_category}")  # Debug
+        print(f"Location tags: {location_tags}")  # Debug
+
         for interest in interests:
-            interest_keywords = self._get_interest_keywords(interest)
-            
-            # Check if any interest keyword matches location tags, category, or description
-            for keyword in interest_keywords:
-                if (keyword in location_tags or 
-                    keyword in location_category or
-                    keyword in location_description):
+            interest_lower = str(interest).lower()
+            print(f"Checking interest: {interest_lower}")  # Debug
+
+            # Direct category match
+            if interest_lower == location_category:
+                print(f"✅ Category match: {interest_lower} == {location_category}")
+                return True
+
+            # Check if interest is in category (partial match)
+            if interest_lower in location_category:
+                print(f"✅ Category contains: {interest_lower} in {location_category}")
+                return True
+
+            # Check tags
+            for tag in location_tags:
+                if interest_lower in tag or tag in interest_lower:
+                    print(f"✅ Tag match: {interest_lower} <-> {tag}")
                     return True
-        
+
+            # Check description for keywords
+            if interest_lower in location_description:
+                print(f"✅ Description contains: {interest_lower}")
+                return True
+
+            # Check name
+            if interest_lower in location_name:
+                print(f"✅ Name contains: {interest_lower}")
+                return True
+
+            # Special interest matching
+            interest_keywords = self._get_interest_keywords(interest_lower)
+            print(f"Interest keywords for {interest_lower}: {interest_keywords}")
+
+            for keyword in interest_keywords:
+                # Check category
+                if keyword in location_category:
+                    print(f"✅ Keyword in category: {keyword} in {location_category}")
+                    return True
+
+                # Check tags
+                for tag in location_tags:
+                    if keyword in tag:
+                        print(f"✅ Keyword in tag: {keyword} in {tag}")
+                        return True
+
+                # Check description
+                if keyword in location_description:
+                    print(f"✅ Keyword in description: {keyword}")
+                    return True
+
+        print(f"❌ No match found for {location.name}")
         return False
     
     def _get_interest_keywords(self, interest) -> List[str]:
-        """Get keywords associated with each interest type"""
+        """Get keywords associated with each interest type - IMPROVED VERSION"""
+        
         # Handle both string and enum interests
-        if HAS_USER_PREFERENCES and hasattr(interest, 'value'):
+        if hasattr(interest, 'value'):
             interest_str = interest.value
         else:
             interest_str = str(interest)
-            
+        
+        # More comprehensive keyword mapping
         keyword_map = {
-            'historical': ["historical", "heritage", "monument", "ancient", "medieval"],
-            'religious': ["temple", "church", "mosque", "religious", "spiritual", "sacred"],
-            'architectural': ["architecture", "palace", "fort", "building", "construction"],
-            'cultural': ["cultural", "traditional", "folk", "art", "craft"],
-            'archaeological': ["archaeological", "ruins", "excavation", "artifact"],
-            'royal_heritage': ["royal", "king", "queen", "empire", "dynasty", "palace"],
-            'ancient_temples': ["temple", "shrine", "ancient", "deity", "worship"],
-            'forts_palaces': ["fort", "palace", "castle", "citadel", "fortress"],
-            'unesco_sites': ["unesco", "world heritage", "protected"]
+            'historical': ["historical", "history", "heritage", "monument", "ancient", "medieval", "empire", "kingdom", "dynasty", "archaeological", "ruins"],
+            'religious': ["religious", "temple", "church", "mosque", "gurdwara", "monastery", "shrine", "sacred", "holy", "pilgrimage", "spiritual", "buddhist", "hindu", "islamic", "christian", "sikh", "jain"],
+            'architectural': ["architecture", "palace", "fort", "building", "construction", "minaret", "dome", "tower", "castle", "citadel"],
+            'cultural': ["cultural", "traditional", "folk", "art", "craft", "festival", "dance", "music"],
+            'archaeological': ["archaeological", "ruins", "excavation", "artifact", "ancient", "prehistoric"],
+            'royal_heritage': ["royal", "king", "queen", "emperor", "empire", "dynasty", "palace", "court"],
+            'ancient_temples': ["temple", "shrine", "ancient", "deity", "worship", "sacred", "religious"],
+            'forts_palaces': ["fort", "palace", "castle", "citadel", "fortress", "royal"],
+            'unesco_sites': ["unesco", "world heritage", "protected", "heritage"]
         }
         
-        return keyword_map.get(interest_str.lower(), [interest_str.lower()])
+        interest_lower = interest_str.lower()
+        
+        # Return keywords for the interest, or just the interest itself if not found
+        return keyword_map.get(interest_lower, [interest_lower])
     
     def _matches_periods(self, location: Location, preferred_periods: List[str]) -> bool:
         """Check if location matches preferred historical periods"""
