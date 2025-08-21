@@ -1,8 +1,12 @@
 # api/routes.py
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
 from services.kg_service import KnowledgeGraphService
 from services.route_service import RouteService
 from api.chatbot_api import register_chatbot_routes
+from models.user import UserPreferences
+
+# Flag to check if UserPreferences class is available
+HAS_USER_PREFERENCES = True
 
 # Create blueprint
 api_bp = Blueprint('api', __name__, url_prefix='/api')
@@ -131,3 +135,132 @@ def advanced_search():
         results = query_results
     
     return jsonify([location.to_dict() for location in results])
+
+# Advanced personalized route creation
+@api_bp.route('/personalized-route-advanced', methods=['POST'])
+def create_advanced_personalized_route():
+    """Create an advanced personalized route with enhanced preferences"""
+    try:
+        if not request.json:
+            return jsonify({'error': 'No preferences provided'}), 400
+        
+        preferences_data = request.json
+        current_app.logger.info(f"Received advanced route preferences: {preferences_data}")
+        
+        # Convert to UserPreferences object
+        try:
+            if HAS_USER_PREFERENCES:
+                user_prefs = UserPreferences(**preferences_data)
+            else:
+                # Fallback for basic dict handling
+                user_prefs = type('UserPreferences', (), preferences_data)()
+                
+        except Exception as e:
+            current_app.logger.error(f"Error creating UserPreferences object: {e}")
+            return jsonify({'error': f'Invalid preferences format: {str(e)}'}), 400
+        
+        # Create the route
+        try:
+            route = route_service.create_personalized_route_with_preferences(user_prefs)
+            
+            if not route:
+                raise ValueError("Route service returned None")
+                
+            if not route.locations or len(route.locations) == 0:
+                raise ValueError("No locations in generated route")
+            
+        except ValueError as ve:
+            current_app.logger.error(f"ValueError creating advanced route: {ve}")
+            
+            # Try with relaxed preferences
+            current_app.logger.info("Trying with relaxed preferences...")
+            
+            # Create relaxed preferences
+            relaxed_prefs_data = preferences_data.copy()
+            relaxed_prefs_data['preferred_dynasties'] = []  # Clear dynasty filter
+            relaxed_prefs_data['preferred_periods'] = []    # Clear period filter
+            relaxed_prefs_data['max_distance_km'] = 2000    # Increase distance
+            
+            if HAS_USER_PREFERENCES:
+                relaxed_prefs = UserPreferences(**relaxed_prefs_data)
+            else:
+                relaxed_prefs = type('UserPreferences', (), relaxed_prefs_data)()
+            
+            try:
+                route = route_service.create_personalized_route_with_preferences(relaxed_prefs)
+                current_app.logger.info("Successfully created route with relaxed preferences")
+            except Exception as relaxed_error:
+                current_app.logger.error(f"Even relaxed preferences failed: {relaxed_error}")
+                return jsonify({
+                    'error': 'No suitable locations found for your preferences',
+                    'suggestion': 'Try selecting broader interests or increasing your travel distance',
+                    'debug_info': {
+                        'original_error': str(ve),
+                        'relaxed_error': str(relaxed_error),
+                        'received_preferences': preferences_data
+                    }
+                }), 400
+        
+        # Convert route to API response format
+        response_data = {
+            'id': route.id,
+            'name': route.name,
+            'description': route.description,
+            'color': route.color,
+            'path': route.path,
+            'locations': [
+                {
+                    'name': loc.name,
+                    'coordinates': loc.coordinates,
+                    'description': loc.description
+                } for loc in route.locations
+            ],
+            'total_days': len(route.locations) * 2,  # Estimate 2 days per location
+            'total_cost': 15000 * len(route.locations),  # Estimate cost
+            'optimization_metrics': {
+                'total_locations': len(route.locations),
+                'estimated_distance': sum([100] * (len(route.locations) - 1)) if len(route.locations) > 1 else 0
+            }
+        }
+        
+        current_app.logger.info(f"Successfully created advanced route with {len(route.locations)} locations")
+        return jsonify(response_data), 200
+        
+    except Exception as e:
+        current_app.logger.error(f"Unexpected error in advanced route creation: {e}")
+        import traceback
+        traceback.print_exc()
+        
+        return jsonify({
+            'error': 'Internal server error while creating route',
+            'message': str(e),
+            'suggestion': 'Please try again with different preferences'
+        }), 500
+
+
+# Debug endpoint for location data
+@api_bp.route('/debug/locations', methods=['GET'])
+def debug_locations():
+    """Debug endpoint to check location data"""
+    try:
+        all_locations = kg_service.get_all_locations()
+        
+        location_summary = []
+        for loc in all_locations[:10]:  # Show first 10 locations
+            location_summary.append({
+                'name': loc.name,
+                'category': getattr(loc, 'category', 'N/A'),
+                'dynasty': getattr(loc, 'dynasty', 'N/A'),
+                'tags': getattr(loc, 'tags', []),
+                'has_coordinates': hasattr(loc, 'coordinates') and loc.coordinates is not None
+            })
+        
+        return jsonify({
+            'total_locations': len(all_locations),
+            'sample_locations': location_summary,
+            'available_categories': list(set([getattr(loc, 'category', 'unknown') for loc in all_locations])),
+            'available_dynasties': list(set([getattr(loc, 'dynasty', 'unknown') for loc in all_locations])),
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500

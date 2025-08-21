@@ -133,42 +133,64 @@ const handleSubmit = async () => {
 
   setIsLoading(true);
   try {
-    // Import the enhanced route planner from correct path
     const { UltraAccurateRoutePlanner } = await import('../../utils/enhancedRoutePlanner');
     
-    // Get locations and routes from global window object
     const locations = window.allLocations || [];
     const routes = window.allRoutes || [];
     
     if (locations.length === 0) {
-      console.warn('No locations available, using fallback data');
-      // You can add fallback location data here if needed
+      console.warn('No locations available, falling back to default data');
+      throw new Error('Location data is not available. Please try again in a few moments.');
     }
     
-    console.log('Creating route with:', {
+    console.log('Creating culturally intelligent route with:', {
       preferences,
       locationsCount: locations.length,
       routesCount: routes.length
     });
     
-    // Create the enhanced route planner
+    // Enhanced route planning with cultural intelligence
     const planner = new UltraAccurateRoutePlanner(locations, routes);
     
-    // Generate the route
-    const route = planner.createUltraAccurateRoute(preferences);
+    // Transform preferences for the ultra-accurate planner
+    const enhancedPreferences = {
+      ...preferences,
+      max_travel_days: preferences.max_travel_days,
+      budget_category: preferences.budget_range,
+      transport_modes: [preferences.transport_mode],
+      cultural_priorities: {
+        activities: preferences.cultural_activities,
+        periods: preferences.preferred_periods,
+        dynasties: preferences.preferred_dynasties
+      },
+      crowd_level: preferences.crowd_preference,
+      accommodation_type: preferences.accommodation_type,
+      physical_difficulty: preferences.physical_difficulty_preference,
+      accessibility_needs: preferences.accessibility_required
+    };
     
-    console.log('Ultra-accurate route created:', route);
+    // Generate culturally intelligent route
+    const route = planner.createUltraAccurateRoute(enhancedPreferences);
+    
+    console.log('Culturally intelligent route created:', route);
     
     if (route && route.locations && route.locations.length > 0) {
+      // Success - route created with cultural intelligence
+      if (route.culturalThemes) {
+        console.log('Cultural themes identified:', route.culturalThemes);
+      }
+      if (route.optimizationMetrics) {
+        console.log('Route optimization metrics:', route.optimizationMetrics);
+      }
       onCreateRoute(route);
       onClose();
     } else {
-      throw new Error('No suitable route could be created with the selected preferences');
+      throw new Error('Could not create a suitable route with the given cultural preferences');
     }
     
   } catch (error) {
-    console.error('Error creating personalized route:', error);
-    alert(`Failed to create route: ${error.message}. Please try different preferences.`);
+    console.error('Error creating culturally intelligent route:', error);
+    alert('Could not create route with these preferences. Please try adjusting your cultural or travel preferences.');
   } finally {
     setIsLoading(false);
   }

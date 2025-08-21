@@ -1,5 +1,5 @@
 // cupe-kg-frontend/src/utils/enhancedRoutePlanner.js
-// Create this file in the correct location: src/utils/enhancedRoutePlanner.js
+// FIXED VERSION - Replace your entire enhancedRoutePlanner.js with this
 
 export class UltraAccurateRoutePlanner {
   constructor(locations, routes) {
@@ -105,20 +105,30 @@ export class UltraAccurateRoutePlanner {
     const {
       interests = [],
       max_travel_days = 7,
-      budget_category = 'medium',
+      budget_range = 'medium',
       preferred_season = 'winter',
-      start_location = 'delhi',
-      transport_modes = ['mixed']
+      start_location = null,
+      transport_mode = 'car'
     } = preferences;
 
     // Step 1: Filter locations by interests
     const candidateLocations = this.filterLocationsByInterests(interests);
+    console.log('Candidate locations found:', candidateLocations.length);
     
+    if (candidateLocations.length === 0) {
+      throw new Error('No locations found matching your interests');
+    }
+
     // Step 2: Create optimized path
     const optimizedPath = this.optimizePath(candidateLocations, start_location, max_travel_days);
+    console.log('Optimized path created:', optimizedPath.length, 'locations');
     
+    if (optimizedPath.length === 0) {
+      throw new Error('Could not create an optimized path with your preferences');
+    }
+
     // Step 3: Generate detailed itinerary
-    const detailedItinerary = this.createDetailedItinerary(optimizedPath, transport_modes[0], budget_category);
+    const detailedItinerary = this.createDetailedItinerary(optimizedPath, transport_mode, budget_range);
     
     return detailedItinerary;
   }
@@ -129,112 +139,127 @@ export class UltraAccurateRoutePlanner {
       return this.locations.slice(0, 8); // Return first 8 locations as default
     }
 
-    return this.locations.filter(location => {
+    const filteredLocations = this.locations.filter(location => {
       const locationTags = location.tags || [];
       const locationCategory = location.category || '';
+      const locationDescription = location.description || '';
       
       return interests.some(interest => {
-        switch (interest.toLowerCase()) {
-          case 'religious':
-          case 'spiritual':
-            return locationCategory === 'religious' || 
-                   locationTags.some(tag => 
-                     ['temple', 'buddhist', 'hindu', 'sikh', 'religious'].includes(tag.toLowerCase())
-                   );
-          
-          case 'historical':
-          case 'heritage':
-            return locationCategory === 'historical' || 
-                   locationTags.some(tag => 
-                     ['unesco', 'heritage', 'historical'].includes(tag.toLowerCase())
-                   );
-          
-          case 'architectural':
-          case 'architecture':
-            return locationTags.some(tag => 
-              ['architecture', 'palace', 'fort', 'mughal'].includes(tag.toLowerCase())
-            );
-          
-          case 'cultural':
-            return locationCategory === 'cultural';
-          
-          default:
-            return locationTags.some(tag => 
-              tag.toLowerCase().includes(interest.toLowerCase())
-            ) || locationCategory.toLowerCase().includes(interest.toLowerCase());
-        }
+        return locationTags.some(tag => tag.toLowerCase().includes(interest.toLowerCase())) ||
+               locationCategory.toLowerCase().includes(interest.toLowerCase()) ||
+               locationDescription.toLowerCase().includes(interest.toLowerCase());
       });
     });
+
+    // If filtered results are too few, add some popular destinations
+    if (filteredLocations.length < 3) {
+      const popularDestinations = this.locations.filter(loc => 
+        ['taj-mahal', 'delhi', 'jaipur', 'varanasi', 'hampi'].includes(loc.id)
+      );
+      return [...filteredLocations, ...popularDestinations].slice(0, 8);
+    }
+
+    return filteredLocations.slice(0, 10);
   }
 
-  // Optimize path between locations
-  optimizePath(locations, startLocationId, maxDays) {
-    if (locations.length === 0) return [];
+  // Optimize path based on distance and travel time
+  optimizePath(locations, startLocation, maxDays) {
+    if (!locations || locations.length === 0) {
+      return [];
+    }
+
+    // Limit locations based on travel days (roughly 1-2 locations per day)
+    const maxLocations = Math.min(locations.length, Math.ceil(maxDays / 1.5));
+    const limitedLocations = locations.slice(0, maxLocations);
     
-    // Find start location
-    const startLoc = locations.find(loc => loc.id === startLocationId) || locations[0];
+    if (limitedLocations.length <= 1) {
+      return limitedLocations;
+    }
+
+    // Simple nearest neighbor optimization
+    const optimizedPath = [];
+    const remainingLocations = [...limitedLocations];
     
-    // Calculate maximum locations (2 days per location average)
-    const maxLocations = Math.min(Math.floor(maxDays / 2), locations.length, 5);
+    // Start with location closest to start point or first location
+    let currentLocation;
+    if (startLocation) {
+      currentLocation = this.findNearestLocation(remainingLocations, startLocation);
+    } else {
+      currentLocation = remainingLocations[0];
+    }
     
-    if (maxLocations <= 1) return [startLoc];
-    
-    // Simple greedy algorithm for path optimization
-    let optimizedPath = [startLoc];
-    let remainingLocations = locations.filter(loc => loc.id !== startLoc.id);
-    
-    while (optimizedPath.length < maxLocations && remainingLocations.length > 0) {
-      const currentLoc = optimizedPath[optimizedPath.length - 1];
-      
-      // Find nearest location
-      let nearestLoc = null;
+    optimizedPath.push(currentLocation);
+    const currentIndex = remainingLocations.indexOf(currentLocation);
+    remainingLocations.splice(currentIndex, 1);
+
+    // Add nearest neighbors
+    while (remainingLocations.length > 0 && optimizedPath.length < maxLocations) {
+      const currentCoords = this.getLocationCoordinates(currentLocation);
+      let nearestLocation = null;
       let shortestDistance = Infinity;
-      
+
       remainingLocations.forEach(loc => {
-        const distance = this.getDistance(currentLoc.id, loc.id);
+        const locCoords = this.getLocationCoordinates(loc);
+        const distance = this.calculateHaversineDistance(currentCoords, locCoords);
+        
         if (distance < shortestDistance) {
           shortestDistance = distance;
-          nearestLoc = loc;
+          nearestLocation = loc;
         }
       });
-      
-      if (nearestLoc) {
-        optimizedPath.push(nearestLoc);
-        remainingLocations = remainingLocations.filter(loc => loc.id !== nearestLoc.id);
+
+      if (nearestLocation) {
+        optimizedPath.push(nearestLocation);
+        currentLocation = nearestLocation;
+        const nearestIndex = remainingLocations.indexOf(nearestLocation);
+        remainingLocations.splice(nearestIndex, 1);
       } else {
         break;
       }
     }
-    
+
     return optimizedPath;
   }
 
-  // Get distance between two locations
-  getDistance(loc1Id, loc2Id) {
-    // Check real distance matrix first
-    if (this.realDistanceMatrix[loc1Id] && this.realDistanceMatrix[loc1Id][loc2Id]) {
-      return this.realDistanceMatrix[loc1Id][loc2Id];
+  // Find nearest location to a given point
+  findNearestLocation(locations, point) {
+    let nearest = locations[0];
+    let shortestDistance = Infinity;
+
+    locations.forEach(location => {
+      const locCoords = this.getLocationCoordinates(location);
+      const distance = this.calculateHaversineDistance(point, locCoords);
+      
+      if (distance < shortestDistance) {
+        shortestDistance = distance;
+        nearest = location;
+      }
+    });
+
+    return nearest;
+  }
+
+  // Get coordinates from location object
+  getLocationCoordinates(location) {
+    if (location.coordinates) {
+      if (typeof location.coordinates === 'object' && location.coordinates.lat) {
+        return { lat: location.coordinates.lat, lng: location.coordinates.lng };
+      } else if (Array.isArray(location.coordinates)) {
+        return { lat: location.coordinates[0], lng: location.coordinates[1] };
+      }
     }
-    if (this.realDistanceMatrix[loc2Id] && this.realDistanceMatrix[loc2Id][loc1Id]) {
-      return this.realDistanceMatrix[loc2Id][loc1Id];
-    }
     
-    // Fallback to coordinate calculation
-    const loc1 = this.locations.find(l => l.id === loc1Id);
-    const loc2 = this.locations.find(l => l.id === loc2Id);
-    
-    if (!loc1 || !loc2) return 1000; // High penalty for unknown locations
-    
-    return this.calculateHaversineDistance(loc1.coordinates, loc2.coordinates);
+    // Fallback coordinates if not available
+    return { lat: 28.6139, lng: 77.2090 }; // Delhi coordinates as fallback
   }
 
   // Calculate Haversine distance
   calculateHaversineDistance(coord1, coord2) {
     const R = 6371; // Earth's radius in km
-    const lat1 = coord1.lat || coord1[0];
-    const lng1 = coord1.lng || coord1[1];
-    const lat2 = coord2.lat || coord2[0];
-    const lng2 = coord2.lng || coord2[1];
+    const lat1 = coord1.lat || coord1[0] || 0;
+    const lng1 = coord1.lng || coord1[1] || 0;
+    const lat2 = coord2.lat || coord2[0] || 0;
+    const lng2 = coord2.lng || coord2[1] || 0;
     
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLng = (lng2 - lng1) * Math.PI / 180;
@@ -247,26 +272,6 @@ export class UltraAccurateRoutePlanner {
     return Math.round(R * c);
   }
 
-  // Check if locations are in different regions
-  isDifferentRegion(loc1, loc2) {
-    const regions = {
-      'north': ['delhi', 'agra', 'jaipur', 'amritsar'],
-      'west': ['udaipur', 'ajanta', 'ellora'],
-      'central': ['khajuraho', 'bodh-gaya', 'varanasi'],
-      'south': ['hampi', 'madurai', 'mahabalipuram'],
-      'east': ['konark']
-    };
-    
-    let loc1Region = null, loc2Region = null;
-    
-    Object.entries(regions).forEach(([region, cities]) => {
-      if (cities.includes(loc1.id)) loc1Region = region;
-      if (cities.includes(loc2.id)) loc2Region = region;
-    });
-    
-    return loc1Region !== loc2Region;
-  }
-
   // Create detailed itinerary
   createDetailedItinerary(path, transportMode, budget) {
     const itinerary = [];
@@ -277,9 +282,9 @@ export class UltraAccurateRoutePlanner {
       const location = path[i];
       const nextLocation = path[i + 1];
       
-      // Location exploration days
+      // Location exploration days - THIS IS THE MISSING METHOD
       const daysAtLocation = this.getOptimalDaysAtLocation(location);
-      const dailyCost = this.getAccommodationCost(location.id, budget) + 
+      const dailyCost = this.getAccommodationCost(location.id || location.name, budget) + 
                        this.getFoodCost(budget) + 
                        this.getLocalTransportCost();
       
@@ -292,7 +297,7 @@ export class UltraAccurateRoutePlanner {
           description: dayActivity.description,
           highlights: dayActivity.highlights,
           costs: {
-            accommodation: this.getAccommodationCost(location.id, budget),
+            accommodation: this.getAccommodationCost(location.id || location.name, budget),
             food: this.getFoodCost(budget),
             localTransport: this.getLocalTransportCost(),
             attractions: dayActivity.attractionCosts,
@@ -331,12 +336,18 @@ export class UltraAccurateRoutePlanner {
       name: 'Your Culturally Intelligent Route',
       description: `Scientifically optimized ${path.length}-destination route with cultural depth`,
       color: '#2196F3',
-      path: path.map(loc => [loc.coordinates.lat, loc.coordinates.lng]),
-      locations: path.map(loc => ({
-        name: loc.name,
-        coordinates: [loc.coordinates.lat, loc.coordinates.lng],
-        description: loc.description
-      })),
+      path: path.map(loc => {
+        const coords = this.getLocationCoordinates(loc);
+        return [coords.lat, coords.lng];
+      }),
+      locations: path.map(loc => {
+        const coords = this.getLocationCoordinates(loc);
+        return {
+          name: loc.name,
+          coordinates: [coords.lat, coords.lng],
+          description: loc.description || 'Cultural heritage site'
+        };
+      }),
       detailedItinerary: itinerary,
       totalCost: Math.round(totalCost),
       totalDays: currentDay - 1,
@@ -349,9 +360,31 @@ export class UltraAccurateRoutePlanner {
     };
   }
 
+  // THE MISSING METHOD - Calculate optimal days at each location
+  getOptimalDaysAtLocation(location) {
+    // Default to 2 days, but adjust based on location importance and attractions
+    const locationName = location.name?.toLowerCase() || '';
+    
+    // Major destinations that need more time
+    const majorDestinations = ['delhi', 'rajasthan', 'taj mahal', 'varanasi', 'hampi'];
+    if (majorDestinations.some(dest => locationName.includes(dest))) {
+      return 3;
+    }
+    
+    // UNESCO sites or complex sites
+    const complexSites = ['ajanta', 'ellora', 'khajuraho', 'konark'];
+    if (complexSites.some(site => locationName.includes(site))) {
+      return 2;
+    }
+    
+    // Default for most locations
+    return 2;
+  }
+
   // Helper methods for accurate cost calculation
   getAccommodationCost(locationId, budget) {
-    const costs = this.accommodationCosts[locationId] || { low: 800, medium: 2500, high: 6000 };
+    const normalizedId = locationId?.toLowerCase().replace(/\s+/g, '-') || 'default';
+    const costs = this.accommodationCosts[normalizedId] || { low: 800, medium: 2500, high: 6000 };
     return costs[budget] || costs.medium;
   }
 
@@ -366,7 +399,7 @@ export class UltraAccurateRoutePlanner {
 
   // Generate detailed day activities
   generateDayActivity(location, dayNumber, budget) {
-    const attractions = this.getLocationAttractions(location.id);
+    const attractions = this.getLocationAttractions(location.id || location.name);
     const selectedAttractions = attractions.slice(dayNumber * 2, (dayNumber + 1) * 2);
     
     return {
@@ -383,73 +416,102 @@ export class UltraAccurateRoutePlanner {
         { name: 'Red Fort', entryCost: 35, time: '3 hours' },
         { name: 'India Gate', entryCost: 0, time: '1 hour' },
         { name: 'Qutub Minar', entryCost: 30, time: '2 hours' },
-        { name: 'Humayun\'s Tomb', entryCost: 30, time: '2 hours' }
-      ],
-      'jaipur': [
-        { name: 'Hawa Mahal', entryCost: 50, time: '1 hour' },
-        { name: 'City Palace', entryCost: 300, time: '3 hours' },
-        { name: 'Amber Fort', entryCost: 200, time: '4 hours' },
-        { name: 'Jantar Mantar', entryCost: 40, time: '1 hour' }
+        { name: 'Lotus Temple', entryCost: 0, time: '1 hour' }
       ],
       'taj-mahal': [
-        { name: 'Taj Mahal', entryCost: 1100, time: '4 hours' },
-        { name: 'Agra Fort', entryCost: 650, time: '3 hours' },
-        { name: 'Mehtab Bagh', entryCost: 300, time: '2 hours' }
+        { name: 'Taj Mahal', entryCost: 50, time: '4 hours' },
+        { name: 'Agra Fort', entryCost: 40, time: '3 hours' },
+        { name: 'Mehtab Bagh', entryCost: 25, time: '2 hours' }
+      ],
+      'jaipur': [
+        { name: 'Amber Fort', entryCost: 25, time: '4 hours' },
+        { name: 'City Palace', entryCost: 30, time: '3 hours' },
+        { name: 'Hawa Mahal', entryCost: 15, time: '1 hour' }
       ]
-      // Add more locations...
     };
-    
-    return attractions[locationId] || [
-      { name: 'Main attraction', entryCost: 100, time: '3 hours' },
-      { name: 'Secondary site', entryCost: 50, time: '2 hours' }
+
+    const normalizedId = locationId?.toLowerCase().replace(/\s+/g, '-') || 'default';
+    return attractions[normalizedId] || [
+      { name: 'Main Attraction', entryCost: 25, time: '3 hours' },
+      { name: 'Local Temple', entryCost: 10, time: '2 hours' },
+      { name: 'Cultural Site', entryCost: 20, time: '2 hours' }
     ];
   }
 
-  getTravelDetails(fromLoc, toLoc, transportMode) {
-    const distance = this.getDistance(fromLoc.id, toLoc.id);
+  // Get accurate travel details between locations
+  getAccurateTravelDetails(from, to, mode) {
+    const fromCoords = this.getLocationCoordinates(from);
+    const toCoords = this.getLocationCoordinates(to);
+    const distance = this.calculateHaversineDistance(fromCoords, toCoords);
     
-    let selectedMode = transportMode;
-    if (transportMode === 'mixed') {
-      if (distance > 800) selectedMode = 'flight';
-      else if (distance > 400) selectedMode = 'train';
-      else selectedMode = 'car';
-    }
+    const transportMode = mode || 'car';
+    const costPerKm = this.transportationCosts[transportMode] || this.transportationCosts.car;
+    const baseCost = distance * costPerKm;
     
-    const costPerKm = this.transportationCosts[selectedMode] || this.transportationCosts.train;
-    const cost = Math.round(distance * costPerKm);
-    
-    let duration;
-    switch (selectedMode) {
-      case 'flight':
-        duration = '3 hours';
-        break;
-      case 'train':
-        duration = `${Math.ceil(distance / 60)} hours`;
-        break;
-      case 'bus':
-        duration = `${Math.ceil(distance / 45)} hours`;
-        break;
-      case 'car':
-        duration = `${Math.ceil(distance / 50)} hours`;
-        break;
-      default:
-        duration = '6 hours';
-    }
+    // Calculate travel time based on mode
+    const speeds = { car: 60, train: 80, bus: 50, flight: 500 }; // km/h
+    const speed = speeds[transportMode] || speeds.car;
+    const travelTimeHours = Math.ceil(distance / speed);
     
     return {
-      mode: selectedMode,
+      mode: transportMode,
       distance: distance,
-      duration: duration,
-      cost: Math.max(cost, 200), // Minimum cost
-      description: `${distance}km via ${selectedMode}`
+      duration: `${travelTimeHours} hours`,
+      cost: Math.round(baseCost),
+      mealCost: travelTimeHours > 4 ? 300 : 0
     };
   }
 
+  // Get cultural insights for location
+  getCulturalInsights(location) {
+    return [
+      `Rich cultural heritage dating back centuries`,
+      `Architectural significance in ${location.dynasty || 'regional'} style`,
+      `Important pilgrimage and tourism destination`
+    ];
+  }
+
+  // Get practical tips
+  getPracticalTips(location) {
+    return [
+      'Best visited early morning or late afternoon',
+      'Respect local customs and dress codes',
+      'Hire local guides for deeper insights',
+      'Carry water and comfortable walking shoes'
+    ];
+  }
+
+  // Extract cultural themes from path
+  extractCulturalThemes(path) {
+    const themes = new Set();
+    path.forEach(location => {
+      if (location.dynasty) themes.add(location.dynasty);
+      if (location.category) themes.add(location.category);
+      if (location.tags) location.tags.forEach(tag => themes.add(tag));
+    });
+    return Array.from(themes);
+  }
+
+  // Calculate total distance
   calculateTotalDistance(path) {
-    let total = 0;
+    let totalDistance = 0;
     for (let i = 0; i < path.length - 1; i++) {
-      total += this.getDistance(path[i].id, path[i + 1].id);
+      const current = this.getLocationCoordinates(path[i]);
+      const next = this.getLocationCoordinates(path[i + 1]);
+      totalDistance += this.calculateHaversineDistance(current, next);
     }
-    return total;
+    return totalDistance;
+  }
+
+  // Calculate cultural diversity score
+  calculateCulturalDiversity(path) {
+    const themes = this.extractCulturalThemes(path);
+    return Math.min(themes.length * 10, 100); // Max 100%
+  }
+
+  // Calculate cost efficiency
+  calculateCostEfficiency(totalCost, numLocations) {
+    const costPerLocation = totalCost / numLocations;
+    return costPerLocation < 5000 ? 'High' : costPerLocation < 8000 ? 'Medium' : 'Low';
   }
 }

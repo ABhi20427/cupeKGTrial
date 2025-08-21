@@ -294,74 +294,94 @@ class RouteService:
         return filtered
     
     def _matches_interests(self, location: Location, interests) -> bool:
-        """Check if location matches user interests - IMPROVED VERSION"""
+        """Check if location matches user interests - FIXED VERSION"""
         if not interests:
             return True
 
-        print(f"Checking location: {location.name}")  # Debug
-        print(f"User interests: {interests}")  # Debug
+        print(f"Checking location: {location.name}")
+        print(f"User interests: {interests}")
 
-        # Get location data
-        location_tags = [tag.lower() for tag in getattr(location, 'tags', [])]
-        location_category = getattr(location, 'category', '').lower()
-        location_description = getattr(location, 'description', '').lower()
-        location_name = getattr(location, 'name', '').lower()
+        # Get location data with better handling
+        location_tags = [tag.lower().strip() for tag in getattr(location, 'tags', [])]
+        location_category = getattr(location, 'category', '').lower().strip()
+        location_description = getattr(location, 'description', '').lower().strip()
+        location_name = getattr(location, 'name', '').lower().strip()
+        location_dynasty = getattr(location, 'dynasty', '').lower().strip()
 
-        print(f"Location category: {location_category}")  # Debug
-        print(f"Location tags: {location_tags}")  # Debug
+        print(f"Location category: '{location_category}'")
+        print(f"Location tags: {location_tags}")
+        print(f"Location dynasty: '{location_dynasty}'")
 
         for interest in interests:
-            interest_lower = str(interest).lower()
-            print(f"Checking interest: {interest_lower}")  # Debug
+            interest_lower = str(interest).lower().strip()
+            print(f"Checking interest: '{interest_lower}'")
 
-            # Direct category match
+            # 1. EXACT category match
             if interest_lower == location_category:
-                print(f"✅ Category match: {interest_lower} == {location_category}")
+                print(f"✅ EXACT category match: {interest_lower}")
                 return True
 
-            # Check if interest is in category (partial match)
-            if interest_lower in location_category:
-                print(f"✅ Category contains: {interest_lower} in {location_category}")
+            # 2. Category contains interest (partial match)
+            if interest_lower in location_category or location_category in interest_lower:
+                print(f"✅ Category partial match: {interest_lower} <-> {location_category}")
                 return True
 
-            # Check tags
+            # 3. Check tags (exact and partial)
             for tag in location_tags:
-                if interest_lower in tag or tag in interest_lower:
+                if interest_lower == tag or interest_lower in tag or tag in interest_lower:
                     print(f"✅ Tag match: {interest_lower} <-> {tag}")
                     return True
 
-            # Check description for keywords
+            # 4. Check name (partial match)
+            if interest_lower in location_name or location_name in interest_lower:
+                print(f"✅ Name match: {interest_lower} <-> {location_name}")
+                return True
+
+            # 5. Check description (partial match)
             if interest_lower in location_description:
-                print(f"✅ Description contains: {interest_lower}")
+                print(f"✅ Description match: {interest_lower} in description")
                 return True
 
-            # Check name
-            if interest_lower in location_name:
-                print(f"✅ Name contains: {interest_lower}")
+            # 6. Dynasty match
+            if interest_lower in location_dynasty or location_dynasty in interest_lower:
+                print(f"✅ Dynasty match: {interest_lower} <-> {location_dynasty}")
                 return True
 
-            # Special interest matching
-            interest_keywords = self._get_interest_keywords(interest_lower)
-            print(f"Interest keywords for {interest_lower}: {interest_keywords}")
+            # 7. BROAD MATCHING - This is the key fix!
+            broad_matches = {
+                'historical': ['history', 'historic', 'heritage', 'ancient', 'medieval', 'monument', 'fort', 'palace', 'temple'],
+                'religious': ['temple', 'mosque', 'church', 'spiritual', 'sacred', 'holy', 'pilgrimage', 'worship', 'deity'],
+                'architectural': ['architecture', 'building', 'structure', 'design', 'construction', 'monument', 'palace', 'fort'],
+                'cultural': ['culture', 'art', 'tradition', 'festival', 'heritage', 'custom', 'community'],
+                'archaeological': ['archaeology', 'excavation', 'ruins', 'ancient', 'artifact', 'site'],
+                'royal_heritage': ['royal', 'king', 'queen', 'emperor', 'palace', 'kingdom', 'dynasty', 'maharaja'],
+                'ancient_temples': ['temple', 'ancient', 'deity', 'worship', 'shrine', 'sacred'],
+                'forts_palaces': ['fort', 'palace', 'citadel', 'stronghold', 'castle', 'fortification'],
+                'unesco_sites': ['unesco', 'world heritage', 'protected', 'international']
+            }
 
-            for keyword in interest_keywords:
-                # Check category
-                if keyword in location_category:
-                    print(f"✅ Keyword in category: {keyword} in {location_category}")
-                    return True
-
-                # Check tags
-                for tag in location_tags:
-                    if keyword in tag:
-                        print(f"✅ Keyword in tag: {keyword} in {tag}")
+            # Check broad matches
+            if interest_lower in broad_matches:
+                keywords = broad_matches[interest_lower]
+                search_text = f"{location_name} {location_description} {location_category} {' '.join(location_tags)} {location_dynasty}"
+                
+                for keyword in keywords:
+                    if keyword in search_text:
+                        print(f"✅ BROAD match: {interest_lower} -> found '{keyword}' in location data")
                         return True
 
-                # Check description
-                if keyword in location_description:
-                    print(f"✅ Keyword in description: {keyword}")
-                    return True
+            # 8. Reverse broad matching - check if location keywords match interest categories
+            for category, keywords in broad_matches.items():
+                if category == interest_lower:
+                    continue
+                for keyword in keywords:
+                    if (keyword in location_name or keyword in location_description or 
+                        keyword in location_category or any(keyword in tag for tag in location_tags)):
+                        if interest_lower in category or category in interest_lower:
+                            print(f"✅ REVERSE broad match: found '{keyword}', matches {interest_lower}")
+                            return True
 
-        print(f"❌ No match found for {location.name}")
+        print(f"❌ No match found for location {location.name} with interests {interests}")
         return False
     
     def _get_interest_keywords(self, interest) -> List[str]:
