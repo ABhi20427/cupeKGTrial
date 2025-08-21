@@ -1,3 +1,6 @@
+// cupe-kg-frontend/src/App.js
+// FIXED VERSION - Replace your entire App.js with this
+
 import React, { useState, useEffect } from 'react';
 import Map from './components/Map/Map';
 import Header from './components/Header/Header';
@@ -24,7 +27,19 @@ function AppContent() {
   const [userLocation, setUserLocation] = useState(null);
   const [userInterests, setUserInterests] = useState([]);
 
-  const { selectRoute } = useMapContext();
+  // Cultural Intelligence states
+  const [showCulturalIntelligence, setShowCulturalIntelligence] = useState(false);
+  const [selectedLocationForCI, setSelectedLocationForCI] = useState(null);
+  const [currentRouteForCI, setCurrentRouteForCI] = useState(null);
+
+  // Get data from MapContext - THIS FIXES THE LOCATIONS ERROR
+  const { 
+    selectRoute, 
+    locations,     // This was missing - get locations from context
+    routes,        // This was missing - get routes from context
+    selectedRoute, // Get current route
+    selectedLocation 
+  } = useMapContext();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -41,6 +56,26 @@ function AppContent() {
       );
     }
   }, []);
+
+  // Make data globally available for enhanced route planner
+  useEffect(() => {
+    if (locations && routes) {
+      window.allLocations = locations;
+      window.allRoutes = routes;
+      window.handleLocationSelected = handleLocationSelected;
+      
+      return () => {
+        delete window.allLocations;
+        delete window.allRoutes;
+        delete window.handleLocationSelected;
+      };
+    }
+  }, [locations, routes]);
+
+  // Update current route for Cultural Intelligence
+  useEffect(() => {
+    setCurrentRouteForCI(selectedRoute);
+  }, [selectedRoute]);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -72,30 +107,23 @@ function AppContent() {
     setShowRoutePreferences(false);
   };
 
-// Replace the handleRouteCreated function in your App.js
-
-  // Replace the handleRouteCreated function in your App.js
-
-  // Replace the handleRouteCreated function in your App.js
-
-const handleRouteCreated = (responseData) => {
-  console.log('New personalized route created:', responseData);
-  
-  // The route object is passed directly
-  const route = responseData;
-  
-  // Debug the route structure
-  console.log('Route ID:', route?.id);
-  console.log('Route name:', route?.name);
-  console.log('Route path:', route?.path);
-  console.log('Route locations:', route?.locations);
-  console.log('Route color:', route?.color);
-  
-  // Select the route to display it on the map
-  selectRoute(route);
-  
-  console.log('selectRoute called with:', route);
-};
+  const handleRouteCreated = (responseData) => {
+    console.log('New personalized route created:', responseData);
+    
+    const route = responseData;
+    
+    console.log('Route ID:', route?.id);
+    console.log('Route name:', route?.name);
+    console.log('Route path:', route?.path);
+    console.log('Route locations:', route?.locations);
+    console.log('Route color:', route?.color);
+    
+    selectRoute(route);
+    console.log('selectRoute called with:', route);
+    
+    // Close route preferences after creating route
+    setShowRoutePreferences(false);
+  };
 
   const toggleNearbyPlaces = () => {
     setShowNearbyPlaces(!showNearbyPlaces);
@@ -103,6 +131,31 @@ const handleRouteCreated = (responseData) => {
 
   const handleNearbyLocationSelect = (location) => {
     console.log('Nearby location selected:', location);
+  };
+
+  // Cultural Intelligence handlers
+  const handleLocationSelected = (location) => {
+    setSelectedLocationForCI(location);
+    setShowCulturalIntelligence(true);
+  };
+
+  const handleCulturalInsightClose = () => {
+    setShowCulturalIntelligence(false);
+    setSelectedLocationForCI(null);
+  };
+
+  const handleSimilarSitesRecommendation = (connection) => {
+    console.log('Recommending similar sites:', connection);
+    // You can add logic to highlight similar sites on the map
+  };
+
+  // Handle Cultural Intelligence button click
+  const handleCulturalIntelligenceToggle = () => {
+    if (selectedLocation) {
+      handleLocationSelected(selectedLocation);
+    } else {
+      alert('Please select a location on the map first to analyze its cultural context.');
+    }
   };
 
   return (
@@ -117,6 +170,7 @@ const handleRouteCreated = (responseData) => {
         onToggleNearbyPlaces={toggleNearbyPlaces}
         showNearbyPlaces={showNearbyPlaces}
         userLocation={userLocation}
+        onCulturalIntelligenceToggle={handleCulturalIntelligenceToggle}
       />
       
       <Map searchQuery={searchQuery} />
@@ -151,6 +205,27 @@ const handleRouteCreated = (responseData) => {
         userInterests={userInterests}
         onLocationSelect={handleNearbyLocationSelect}
       />
+
+      {/* Cultural Intelligence Component - Will add this after fixing the file structure */}
+      {showCulturalIntelligence && selectedLocationForCI && (
+        <div className="cultural-intelligence-placeholder">
+          <div style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            background: 'white',
+            padding: '20px',
+            borderRadius: '10px',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+            zIndex: 1000
+          }}>
+            <h3>Cultural Intelligence: {selectedLocationForCI.name}</h3>
+            <p>Cultural analysis feature will be implemented after fixing the file structure.</p>
+            <button onClick={handleCulturalInsightClose}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

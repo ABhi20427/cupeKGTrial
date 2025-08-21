@@ -980,3 +980,67 @@
 2025-08-20 22:28:30,317 - __main__ - INFO - Received advanced route preferences: {'interests': ['forts_palaces', 'archaeological'], 'max_travel_days': 8, 'budget_range': 'medium', 'transport_mode': 'car', 'start_location': {'lat': 12.9531904, 'lng': 77.6798208}, 'preferred_regions': [], 'max_distance_km': 500, 'preferred_periods': [], 'preferred_dynasties': [], 'crowd_preference': 'medium', 'accommodation_type': 'medium', 'cultural_activities': [], 'accessibility_required': False, 'physical_difficulty_preference': 'medium'}
 2025-08-20 22:28:30,351 - __main__ - INFO - Advanced route created successfully with 6 locations
 2025-08-20 22:28:30,352 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:28:30] "POST /api/personalized-route-advanced HTTP/1.1" 200 -
+2025-08-20 22:54:50,196 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 22:54:50,202 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-20 22:54:50,205 - services.kg_service - INFO - Loaded 14 locations
+2025-08-20 22:54:50,206 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-20 22:54:56,554 - __main__ - INFO - Services initialized successfully
+2025-08-20 22:54:56,565 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 22:54:56,606 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-20 22:54:56,607 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-20 22:54:56,611 - werkzeug - INFO -  * Restarting with stat
+2025-08-20 22:55:02,174 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-20 22:55:02,180 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-20 22:55:02,181 - services.kg_service - INFO - Loaded 14 locations
+2025-08-20 22:55:02,181 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-20 22:55:07,023 - __main__ - INFO - Services initialized successfully
+2025-08-20 22:55:07,033 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-20 22:55:07,063 - werkzeug - WARNING -  * Debugger is active!
+2025-08-20 22:55:07,072 - werkzeug - INFO -  * Debugger PIN: 205-484-035
+2025-08-20 22:55:36,959 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:55:36] "[33mGET /main.d62477e24206af1b98ad.hot-update.json HTTP/1.1[0m" 404 -
+2025-08-20 22:59:39,715 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:59:39] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 22:59:39,964 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:59:39] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 22:59:40,027 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:59:40] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 22:59:40,072 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:59:40] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 22:59:40,436 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:59:40] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 22:59:40,702 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:59:40] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 22:59:52,822 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:59:52] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 22:59:53,170 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:59:53] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 22:59:53,438 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:59:53] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 22:59:59,205 - __main__ - INFO - Preference suggestions: 14 periods, 14 dynasties
+2025-08-20 22:59:59,206 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:59:59] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-20 23:00:02,087 - __main__ - INFO - Preference suggestions: 14 periods, 14 dynasties
+2025-08-20 23:00:02,088 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 23:00:02] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-20 23:12:53,631 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 23:12:53] "GET /api/health HTTP/1.1" 200 -
+2025-08-20 23:12:53,899 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 23:12:53] "GET /api/locations HTTP/1.1" 200 -
+2025-08-20 23:12:53,944 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 23:12:53] "GET /api/routes HTTP/1.1" 200 -
+2025-08-20 23:12:59,396 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 23:12:59] "GET /api/place-info?name=khajuraho HTTP/1.1" 200 -
+2025-08-21 20:10:40,755 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-21 20:10:40,758 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-21 20:10:40,759 - services.kg_service - INFO - Loaded 14 locations
+2025-08-21 20:10:40,759 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-21 20:10:45,701 - __main__ - INFO - Services initialized successfully
+2025-08-21 20:10:45,715 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-21 20:10:45,846 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-21 20:10:45,848 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-21 20:10:45,852 - werkzeug - INFO -  * Restarting with stat
+2025-08-21 20:10:50,718 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-21 20:10:50,719 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-21 20:10:50,720 - services.kg_service - INFO - Loaded 14 locations
+2025-08-21 20:10:50,720 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-21 20:10:55,284 - __main__ - INFO - Services initialized successfully
+2025-08-21 20:10:55,294 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-21 20:10:55,326 - werkzeug - WARNING -  * Debugger is active!
+2025-08-21 20:10:55,336 - werkzeug - INFO -  * Debugger PIN: 205-484-035
+2025-08-21 20:11:21,879 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:11:21] "GET /api/health HTTP/1.1" 200 -
+2025-08-21 20:11:22,113 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:11:22] "GET /api/locations HTTP/1.1" 200 -
+2025-08-21 20:11:22,192 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:11:22] "GET /api/routes HTTP/1.1" 200 -
+2025-08-21 20:11:26,978 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:11:26] "GET /api/place-info?name=sanchi-stupa HTTP/1.1" 200 -
+2025-08-21 20:11:27,042 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:11:27] "[33mGET /assets/images/sanchi-stupa.jpg HTTP/1.1[0m" 404 -
+2025-08-21 20:11:35,285 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:11:35] "GET /api/place-info?name=khajuraho HTTP/1.1" 200 -

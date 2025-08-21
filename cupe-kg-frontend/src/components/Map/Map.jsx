@@ -60,6 +60,10 @@ const MapContent = () => {
 
   const handleLocationClick = (location) => {
     selectLocation(location);
+    // Trigger cultural intelligence analysis
+    if (window.handleLocationSelected) {
+      window.handleLocationSelected(location);
+    }
   };
 
   const handleRouteSelect = (routeId) => {

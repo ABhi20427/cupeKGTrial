@@ -120,40 +120,59 @@ const RoutePreferences = ({ onCreateRoute, onClose, isVisible }) => {
     }));
   };
 
-  const handleSubmit = async () => {
-    if (preferences.interests.length === 0) {
-      alert('Please select at least one interest');
-      return;
+// cupe-kg-frontend/src/components/RoutePreferences/RoutePreferences.jsx
+// FIXED VERSION - Replace the handleSubmit function in your RoutePreferences.jsx
+
+// Find your existing handleSubmit function (around line 100-130) and replace it with this:
+
+const handleSubmit = async () => {
+  if (preferences.interests.length === 0) {
+    alert('Please select at least one interest!');
+    return;
+  }
+
+  setIsLoading(true);
+  try {
+    // Import the enhanced route planner from correct path
+    const { UltraAccurateRoutePlanner } = await import('../../utils/enhancedRoutePlanner');
+    
+    // Get locations and routes from global window object
+    const locations = window.allLocations || [];
+    const routes = window.allRoutes || [];
+    
+    if (locations.length === 0) {
+      console.warn('No locations available, using fallback data');
+      // You can add fallback location data here if needed
     }
-
-    console.log('Submitting preferences:', preferences); // Debug log
-
-    setIsLoading(true);
-    try {
-      const response = await fetch('/api/personalized-route-advanced', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(preferences)
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Route created:', data); // Debug log
-        onCreateRoute(data.route);
-        onClose();
-      } else {
-        const error = await response.json();
-        alert(`Error: ${error.error}`);
-      }
-    } catch (error) {
-      console.error('Error creating route:', error);
-      alert('Failed to create personalized route');
-    } finally {
-      setIsLoading(false);
+    
+    console.log('Creating route with:', {
+      preferences,
+      locationsCount: locations.length,
+      routesCount: routes.length
+    });
+    
+    // Create the enhanced route planner
+    const planner = new UltraAccurateRoutePlanner(locations, routes);
+    
+    // Generate the route
+    const route = planner.createUltraAccurateRoute(preferences);
+    
+    console.log('Ultra-accurate route created:', route);
+    
+    if (route && route.locations && route.locations.length > 0) {
+      onCreateRoute(route);
+      onClose();
+    } else {
+      throw new Error('No suitable route could be created with the selected preferences');
     }
-  };
+    
+  } catch (error) {
+    console.error('Error creating personalized route:', error);
+    alert(`Failed to create route: ${error.message}. Please try different preferences.`);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const interestDisplayNames = {
     'historical': 'Historical Sites',

@@ -10,7 +10,8 @@ const Header = ({
   onOpenRoutePreferences,
   onToggleNearbyPlaces,
   showNearbyPlaces,
-  userLocation
+  userLocation,
+  onCulturalIntelligenceToggle
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -74,6 +75,18 @@ const Header = ({
             </svg>
             <span>Nearby</span>
             {!userLocation && <span className="location-indicator">📍</span>}
+          </button>
+
+          {/* Cultural Intelligence Button */}
+          <button 
+            className="control-button cultural-ai-btn"
+            onClick={onCulturalIntelligenceToggle}
+            title="Cultural Intelligence Analysis"
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+            </svg>
+            <span>Cultural AI</span>
           </button>
 
           <button 

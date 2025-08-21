@@ -1,3 +1,28 @@
+.cultural-ai-btn {
+  background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+}
+
+.cultural-ai-btn:hover {
+  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+  transform: translateY(-2px);
+}
+
+.cultural-ai-btn:active {
+  transform: translateY(0);
+}
+
+/* Enhanced button animations */
+.control-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-button:hover {
+  transform: translateY(-2px);
+}
+
+.control-button:active {
+  transform: translateY(0);
+}
 .app-header {
   position: fixed;
   top: 0;
