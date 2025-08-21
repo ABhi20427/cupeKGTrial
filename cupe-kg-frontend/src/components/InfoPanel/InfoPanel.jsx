@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './InfoPanel.css';
 
-const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose, onOpen }) => {
+const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose, onOpen, onCulturalIntelligence }) => {
   const [activeTab, setActiveTab] = useState('history');
   const [isVisible, setIsVisible] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -175,9 +175,18 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
               <span key={index} className="tag">{tag}</span>
             ))}
           </div>
-          <button className="explore-more-btn">
-            Explore More
-          </button>
+          <div className="footer-buttons">
+            <button className="explore-more-btn">
+              Explore More
+            </button>
+            <button 
+              className="ci-trigger-btn" 
+              onClick={() => onCulturalIntelligence && onCulturalIntelligence()}
+              title="Open Cultural Intelligence Analysis"
+            >
+              🧠 Cultural AI
+            </button>
+          </div>
         </div>
       )}
     </div>

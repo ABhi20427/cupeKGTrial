@@ -10,6 +10,7 @@ import Timeline from './components/Timeline/Timeline';
 import GraphVisualization from './components/GraphVisualization/GraphVisualization';
 import RoutePreferences from './components/RoutePreferences/RoutePreferences';
 import NearbyPlaces from './components/NearbyPlaces/NearbyPlaces';
+import CulturalIntelligence from './components/CulturalIntelligence/CulturalIntelligence';
 import { MapProvider, useMapContext } from './context/MapContext';
 import './components/ChatInterface/ChatInterface.css';
 import './components/ChatInterface/MessageGroup.css';
@@ -144,17 +145,32 @@ function AppContent() {
     setSelectedLocationForCI(null);
   };
 
-  const handleSimilarSitesRecommendation = (connection) => {
-    console.log('Recommending similar sites:', connection);
-    // You can add logic to highlight similar sites on the map
+  const handleRecommendSimilar = (connection) => {
+    console.log('Recommend similar sites:', connection);
+    // Here you could create a new route based on the connection
+    // or highlight similar sites on the map
   };
 
-  // Handle Cultural Intelligence button click
-  const handleCulturalIntelligenceToggle = () => {
-    if (selectedLocation) {
-      handleLocationSelected(selectedLocation);
+  // Cultural Intelligence handlers
+  const handleCulturalIntelligenceToggle = (location = null) => {
+    if (location || selectedLocation) {
+      const locationToUse = location || selectedLocation;
+      setSelectedLocationForCI(locationToUse);
+      setCurrentRouteForCI(selectedRoute);
+      setShowCulturalIntelligence(true);
     } else {
-      alert('Please select a location on the map first to analyze its cultural context.');
+      // No location selected, use a default or show message
+      const defaultLocation = {
+        id: 'default',
+        name: 'Heritage Site Explorer',
+        dynasty: 'Various Dynasties',
+        period: 'Ancient to Modern',
+        category: 'Cultural Heritage',
+        tags: ['Heritage', 'Culture', 'History']
+      };
+      setSelectedLocationForCI(defaultLocation);
+      setCurrentRouteForCI(selectedRoute);
+      setShowCulturalIntelligence(true);
     }
   };
 
@@ -206,25 +222,14 @@ function AppContent() {
         onLocationSelect={handleNearbyLocationSelect}
       />
 
-      {/* Cultural Intelligence Component - Will add this after fixing the file structure */}
-      {showCulturalIntelligence && selectedLocationForCI && (
-        <div className="cultural-intelligence-placeholder">
-          <div style={{
-            position: 'fixed',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            background: 'white',
-            padding: '20px',
-            borderRadius: '10px',
-            boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
-            zIndex: 1000
-          }}>
-            <h3>Cultural Intelligence: {selectedLocationForCI.name}</h3>
-            <p>Cultural analysis feature will be implemented after fixing the file structure.</p>
-            <button onClick={handleCulturalInsightClose}>Close</button>
-          </div>
-        </div>
+      {showCulturalIntelligence && (
+        <CulturalIntelligence
+          selectedLocation={selectedLocationForCI}
+          currentRoute={currentRouteForCI}
+          isVisible={showCulturalIntelligence}
+          onClose={handleCulturalInsightClose}
+          onRecommendSimilar={handleRecommendSimilar}
+        />
       )}
     </div>
   );
