@@ -11,9 +11,10 @@ const ChatInterface = ({ isPanelOpen }) => {
     {
       id: 1,
       type: 'bot',
-      text: 'Hello! I\'m your CuPe-KG guide. Ask me anything about Indian heritage sites, historical periods, or travel routes.',
+      text: '🙏 Namaste! I\'m your CuPe-KG cultural heritage guide. Discover India\'s rich history, explore magnificent monuments, and plan unforgettable heritage journeys.',
       timestamp: new Date(),
-      status: 'delivered'
+      status: 'delivered',
+      confidence: 0.95
     }
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -34,11 +35,11 @@ const ChatInterface = ({ isPanelOpen }) => {
   }, []);
 
   const suggestions = [
-    "Tell me about the history of Hampi",
-    "What is the best time to visit Delhi?", 
-    "Show me the Buddhist trail route",
-    "What dynasty built the Konark Sun Temple?",
-    "Suggest a 7-day cultural tour"
+    "🏛️ Tell me about the history of Hampi",
+    "🌅 What's the best time to visit Delhi?", 
+    "🧘 Show me the Buddhist trail route",
+    "🎨 What dynasty built the Konark Sun Temple?",
+    "🗺️ Suggest a 7-day cultural heritage tour"
   ];
 
   useEffect(() => {
@@ -51,13 +52,14 @@ const ChatInterface = ({ isPanelOpen }) => {
       const locationMessage = {
         id: Date.now(),
         type: 'bot',
-        text: `I see you're exploring ${selectedLocation.name}. Would you like to know more about its history, cultural significance, or visiting information?`,
+        text: `✨ I see you're exploring ${selectedLocation.name}! This ${selectedLocation.category} site has fascinating stories to tell. What would you like to discover?`,
         timestamp: new Date(),
+        confidence: 0.9,
         suggestions: [
-          `Tell me about ${selectedLocation.name}'s history`,
-          `Best time to visit ${selectedLocation.name}`,
-          `Cultural significance of ${selectedLocation.name}`,
-          `How to reach ${selectedLocation.name}`
+          `📚 Tell me about ${selectedLocation.name}'s history`,
+          `🕐 Best time to visit ${selectedLocation.name}`,
+          `🎭 Cultural significance of ${selectedLocation.name}`,
+          `🚗 How to reach ${selectedLocation.name}`
         ]
       };
       
@@ -75,13 +77,16 @@ const ChatInterface = ({ isPanelOpen }) => {
     if (!isOpen) {
       const timeoutId = setTimeout(() => {
         inputRef.current?.focus();
-      }, 300);
+      }, 400);
       return () => clearTimeout(timeoutId);
     }
   };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
+    // Auto-resize textarea
+    e.target.style.height = 'auto';
+    e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
   };
 
   const handleKeyDown = (e) => {
@@ -92,18 +97,21 @@ const ChatInterface = ({ isPanelOpen }) => {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    sendMessage(suggestion);
+    // Remove emoji from suggestion for cleaner input
+    const cleanSuggestion = suggestion.replace(/^[^\w\s]+\s*/, '');
+    sendMessage(cleanSuggestion);
   };
 
   const sendMessage = async (text = inputValue) => {
     if (!text.trim() || !sessionId) return;
     
-    // Add user message
+    // Add user message with enhanced styling
     const userMessage = {
       id: Date.now(),
       type: 'user',
       text: text,
-      timestamp: new Date()
+      timestamp: new Date(),
+      status: 'delivered'
     };
     
     setMessages(prev => [...prev, userMessage]);
@@ -111,17 +119,22 @@ const ChatInterface = ({ isPanelOpen }) => {
     setShowSuggestions(false);
     setIsTyping(true);
     
+    // Reset textarea height
+    if (inputRef.current) {
+      inputRef.current.style.height = 'auto';
+    }
+    
     try {
-      // **REAL API CALL** - This connects to your backend!
+      // Real API call to backend
       const response = await askChatbot(text, sessionId, selectedLocation?.id);
       
-      // Create bot response message
+      // Create enhanced bot response
       const botMessage = {
         id: Date.now() + 1,
         type: 'bot',
         text: response.answer,
         timestamp: new Date(),
-        confidence: response.confidence,
+        confidence: response.confidence || 0.7,
         suggestions: response.followUpQuestions || []
       };
       
@@ -130,13 +143,18 @@ const ChatInterface = ({ isPanelOpen }) => {
     } catch (error) {
       console.error('Error getting chatbot response:', error);
       
-      // Fallback response on error
+      // Enhanced error message
       const errorMessage = {
         id: Date.now() + 1,
         type: 'bot',
-        text: "I'm sorry, I'm having trouble processing your request right now. Please try asking about a specific heritage site or historical period.",
+        text: "🔄 I apologize, but I'm experiencing some technical difficulties. Please try asking about a specific heritage site, historical period, or travel planning. I'm here to help you explore India's incredible cultural legacy!",
         timestamp: new Date(),
-        suggestions: suggestions.slice(0, 3)
+        confidence: 0.3,
+        suggestions: [
+          "🏰 Tell me about Mughal architecture",
+          "🗺️ Plan a Golden Triangle tour",
+          "🏛️ UNESCO World Heritage sites in India"
+        ]
       };
       
       setMessages(prev => [...prev, errorMessage]);
@@ -147,34 +165,43 @@ const ChatInterface = ({ isPanelOpen }) => {
 
   return (
     <div className={`chat-widget ${isPanelOpen ? 'panel-open' : ''}`}>
-      <button className={`chat-toggle ${isOpen ? 'open' : ''}`} onClick={toggleChat}>
+      {/* Glassmorphism Floating Action Button */}
+      <button 
+        className={`chat-toggle ${isOpen ? 'open' : ''}`} 
+        onClick={toggleChat}
+        aria-label={isOpen ? 'Close chat' : 'Open chat'}
+      >
         {isOpen ? (
           <svg viewBox="0 0 24 24" width="24" height="24">
             <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
           </svg>
         ) : (
           <svg viewBox="0 0 24 24" width="24" height="24">
-            <path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+            <path fill="currentColor" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
           </svg>
         )}
       </button>
       
+      {/* Glassmorphism Chat Container */}
       <div className={`chat-container ${isOpen ? 'open' : ''}`}>
+        {/* Glass Header */}
         <div className="chat-header">
           <div className="chat-title">
             <svg viewBox="0 0 24 24" width="20" height="20" className="chat-icon">
-              <path fill="currentColor" d="M12 1c-6.1 0-11 4.9-11 11s4.9 11 11 11 11-4.9 11-11-4.9-11-11-11zM12 21c-5 0-9-4-9-9s4-9 9-9 9 4 9 9-4 9-9 9zM12 7c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zM12 13c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+              <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
-            <span>CuPe-KG Assistant</span>
+            <span>CuPe-KG Heritage Guide</span>
           </div>
         </div>
         
+        {/* Messages Area */}
         <div className="chat-messages">
           <MessageGroup
             messages={messages}
             onSuggestionClick={handleSuggestionClick}
           />
           
+          {/* Enhanced Typing Indicator */}
           {isTyping && (
             <div className="message bot-message typing">
               <div className="typing-indicator">
@@ -185,15 +212,17 @@ const ChatInterface = ({ isPanelOpen }) => {
             </div>
           )}
           
+          {/* Initial Suggestions with Glass Effect */}
           {showSuggestions && (
             <div className="initial-suggestions">
-              <p>Here are some things you can ask:</p>
+              <p>🌟 Explore India's incredible heritage with me:</p>
               <div className="suggestion-buttons">
                 {suggestions.map((suggestion, index) => (
                   <button 
                     key={index}
                     className="suggestion-button"
                     onClick={() => handleSuggestionClick(suggestion)}
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     {suggestion}
                   </button>
@@ -205,20 +234,23 @@ const ChatInterface = ({ isPanelOpen }) => {
           <div ref={messagesEndRef} />
         </div>
         
+        {/* Glass Input Area */}
         <div className="chat-input-container">
           <textarea
             ref={inputRef}
             className="chat-input"
-            placeholder="Ask about Indian heritage..."
+            placeholder="Ask about India's heritage, monuments, or travel plans..."
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             rows="1"
+            style={{ height: '40px' }}
           />
           <button 
             className="send-button" 
             onClick={() => sendMessage()}
             disabled={!inputValue.trim()}
+            aria-label="Send message"
           >
             <svg viewBox="0 0 24 24" width="20" height="20">
               <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
