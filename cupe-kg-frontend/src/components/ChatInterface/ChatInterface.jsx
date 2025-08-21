@@ -146,7 +146,7 @@ const ChatInterface = ({ isPanelOpen }) => {
   };
 
   return (
-    <div className={`chat-widget ${isOpen ? 'open' : ''}`}>
+    <div className={`chat-widget ${isPanelOpen ? 'panel-open' : ''}`}>
       <button className={`chat-toggle ${isOpen ? 'open' : ''}`} onClick={toggleChat}>
         {isOpen ? (
           <svg viewBox="0 0 24 24" width="24" height="24">
