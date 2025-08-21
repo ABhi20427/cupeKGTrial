@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useMapContext } from '../../context/MapContext';
+import { askChatbot } from '../../services/api';
 import MessageGroup from './MessageGroup';
 import './ChatInterface.css';
 import './MessageGroup.css';
 
-const ChatInterface = ({ isPanelOpen }) => {  // <-- ADD isPanelOpen prop
+const ChatInterface = ({ isPanelOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -18,39 +19,52 @@ const ChatInterface = ({ isPanelOpen }) => {  // <-- ADD isPanelOpen prop
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const [sessionId, setSessionId] = useState(null);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   
   const mapContext = useMapContext();
   const selectedLocation = mapContext?.selectedLocation;
 
+  // Initialize session ID
+  useEffect(() => {
+    if (!sessionId) {
+      setSessionId(Date.now().toString() + Math.random().toString(36));
+    }
+  }, []);
+
   const suggestions = [
     "Tell me about the history of Hampi",
-    "What is the best time to visit Delhi?",
+    "What is the best time to visit Delhi?", 
     "Show me the Buddhist trail route",
     "What dynasty built the Konark Sun Temple?",
     "Suggest a 7-day cultural tour"
   ];
 
   useEffect(() => {
-    // Scroll to bottom when messages change
     scrollToBottom();
   }, [messages]);
 
   useEffect(() => {
-    // Add a context-aware message when location changes
-    if (selectedLocation) {
+    // Add contextual message when location changes
+    if (selectedLocation && sessionId) {
       const locationMessage = {
         id: Date.now(),
         type: 'bot',
-        text: `I see you're exploring ${selectedLocation.name}. Would you like to know more about its history or cultural significance?`,
-        timestamp: new Date()
+        text: `I see you're exploring ${selectedLocation.name}. Would you like to know more about its history, cultural significance, or visiting information?`,
+        timestamp: new Date(),
+        suggestions: [
+          `Tell me about ${selectedLocation.name}'s history`,
+          `Best time to visit ${selectedLocation.name}`,
+          `Cultural significance of ${selectedLocation.name}`,
+          `How to reach ${selectedLocation.name}`
+        ]
       };
       
       setMessages(prev => [...prev, locationMessage]);
       setShowSuggestions(false);
     }
-  }, [selectedLocation]);
+  }, [selectedLocation, sessionId]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -58,7 +72,6 @@ const ChatInterface = ({ isPanelOpen }) => {  // <-- ADD isPanelOpen prop
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
-    // Focus input when opening
     if (!isOpen) {
       const timeoutId = setTimeout(() => {
         inputRef.current?.focus();
@@ -71,12 +84,19 @@ const ChatInterface = ({ isPanelOpen }) => {  // <-- ADD isPanelOpen prop
     setInputValue(e.target.value);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
   const handleSuggestionClick = (suggestion) => {
     sendMessage(suggestion);
   };
 
   const sendMessage = async (text = inputValue) => {
-    if (!text.trim()) return;
+    if (!text.trim() || !sessionId) return;
     
     // Add user message
     const userMessage = {
@@ -92,81 +112,42 @@ const ChatInterface = ({ isPanelOpen }) => {  // <-- ADD isPanelOpen prop
     setIsTyping(true);
     
     try {
-      // This would be an actual API call in production
-      // For now, simulate a response
-      // const response = await fetch('/api/chatbot/ask', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ question: text, locationId: selectedLocation?.id })
-      // });
-      // const data = await response.json();
+      // **REAL API CALL** - This connects to your backend!
+      const response = await askChatbot(text, sessionId, selectedLocation?.id);
       
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Simulated responses
-      let responseText = '';
-      let followUpSuggestions = [];
-      
-      if (text.toLowerCase().includes('hampi')) {
-        responseText = "Hampi was the capital of the Vijayanagara Empire (1336-1646 CE), once one of the richest cities in the world. The ruins showcase stunning temple architecture, with highlights including the Virupaksha Temple and stone chariot at Vittala Temple. UNESCO recognized it as a World Heritage site due to its historical and architectural significance.";
-        followUpSuggestions = ["How do I reach Hampi?", "Best time to visit Hampi", "What are the must-see spots in Hampi?"];
-      } 
-      else if (text.toLowerCase().includes('delhi')) {
-        responseText = "Delhi has been continuously inhabited since the 6th century BCE and served as a capital for numerous empires. It hosts three UNESCO World Heritage sites: Qutub Minar, Red Fort, and Humayun's Tomb. The city's culture blends multiple influences including Persian, Turkish, and indigenous Indian traditions, reflecting its complex history.";
-        followUpSuggestions = ["What are Delhi's top monuments?", "Best season to visit Delhi", "Tell me about Delhi's cuisine"];
-      }
-      else if (text.toLowerCase().includes('buddhist') || text.toLowerCase().includes('trail') || text.toLowerCase().includes('route')) {
-        responseText = "The Buddhist Trail connects key sites of Buddhist heritage across northern India. Major stops include Bodh Gaya (where Buddha attained enlightenment), Sarnath (where he gave his first sermon), and Kushinagar (where he attained parinirvana). The route offers spiritual significance and architectural marvels spanning over 2,500 years of history.";
-        followUpSuggestions = ["How many days for the Buddhist trail?", "Best season for this route", "Most important sites on this route"];
-      }
-      else {
-        responseText = "I'd be happy to help you explore India's rich cultural heritage. You can ask about specific historical sites like Hampi or Delhi, learn about different historical periods and dynasties, or explore themed routes like the Buddhist Trail, Temple Route, or Mughal Architecture tour.";
-        followUpSuggestions = suggestions;
-      }
-      
-      // Add bot response
+      // Create bot response message
       const botMessage = {
         id: Date.now() + 1,
         type: 'bot',
-        text: responseText,
+        text: response.answer,
         timestamp: new Date(),
-        suggestions: followUpSuggestions
+        confidence: response.confidence,
+        suggestions: response.followUpQuestions || []
       };
       
       setMessages(prev => [...prev, botMessage]);
-      setIsTyping(false);
       
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error('Error getting chatbot response:', error);
       
-      // Add error message
+      // Fallback response on error
       const errorMessage = {
         id: Date.now() + 1,
         type: 'bot',
-        text: "I'm sorry, I couldn't process your request. Please try again later.",
-        timestamp: new Date()
+        text: "I'm sorry, I'm having trouble processing your request right now. Please try asking about a specific heritage site or historical period.",
+        timestamp: new Date(),
+        suggestions: suggestions.slice(0, 3)
       };
       
       setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsTyping(false);
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
     }
   };
 
   return (
-    <div className={`chat-wrapper ${isPanelOpen ? 'panel-open' : ''}`}>
-      <button 
-        className={`chat-toggle ${isOpen ? 'open' : ''}`} 
-        onClick={toggleChat}
-        aria-label={isOpen ? "Close chat" : "Open chat"}
-      >
+    <div className={`chat-widget ${isOpen ? 'open' : ''}`}>
+      <button className={`chat-toggle ${isOpen ? 'open' : ''}`} onClick={toggleChat}>
         {isOpen ? (
           <svg viewBox="0 0 24 24" width="24" height="24">
             <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>

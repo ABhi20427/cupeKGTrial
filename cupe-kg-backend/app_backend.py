@@ -393,16 +393,39 @@ def advanced_search():
 def chatbot_ask():
     if not request.json or 'question' not in request.json:
         return jsonify({'error': 'No question provided'}), 400
+    
     try:
         question = request.json['question']
         session_id = request.json.get('sessionId', str(uuid.uuid4()))
         location_id = request.json.get('locationId')
-        result = chatbot_service.process_query(question, location_id, session_id)
+        
+        # 🔥 FIX: Correct parameter order to match ChatbotService.process_query
+        result = chatbot_service.process_query(
+            query=question,           # First parameter: query
+            location_id=location_id,  # Second parameter: location_id
+            session_id=session_id     # Third parameter: session_id
+        )
+        
+        # Ensure session ID is returned
         result['sessionId'] = session_id
+        
+        # Add debug logging
+        logger.info(f"Chatbot query processed: '{question}' -> confidence: {result.get('confidence', 'N/A')}")
+        
         return jsonify(result)
+        
     except Exception as e:
         logger.error(f"Error processing chatbot query: {e}")
-        return jsonify({'error': 'Failed to process query'}), 500
+        return jsonify({
+            'error': 'Failed to process query',
+            'answer': "I'm having trouble processing your request. Please try asking about a specific heritage site or historical period.",
+            'confidence': 0.3,
+            'followUpQuestions': [
+                "Tell me about the Taj Mahal",
+                "What is the Golden Triangle route?",
+                "Best time to visit India"
+            ]
+        }), 500
 
 @app.route('/api/chatbot/recommend', methods=['POST'])
 def get_recommendations():
