@@ -1392,3 +1392,74 @@
 2025-08-25 22:40:31,176 - __main__ - INFO - Processing chatbot query: 'Tell me about the history of Hampi' for session: 17561417743150.lsf5ab2zvv
 2025-08-25 22:40:31,195 - __main__ - INFO - Chatbot response: confidence=1.0
 2025-08-25 22:40:31,199 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 22:40:31] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:01:49,131 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-25 23:01:49,133 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-25 23:01:49,134 - services.kg_service - INFO - Loaded 14 locations
+2025-08-25 23:01:49,135 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-25 23:01:49,138 - __main__ - INFO - Services initialized successfully
+2025-08-25 23:01:49,143 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-25 23:01:49,171 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-25 23:01:49,172 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-25 23:01:49,174 - werkzeug - INFO -  * Restarting with stat
+2025-08-25 23:01:50,954 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-25 23:01:50,956 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-25 23:01:50,957 - services.kg_service - INFO - Loaded 14 locations
+2025-08-25 23:01:50,958 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-25 23:01:50,961 - __main__ - INFO - Services initialized successfully
+2025-08-25 23:01:50,968 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-25 23:01:50,984 - werkzeug - WARNING -  * Debugger is active!
+2025-08-25 23:01:50,988 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-25 23:02:04,843 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:02:04] "GET /api/health HTTP/1.1" 200 -
+2025-08-25 23:02:05,093 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:02:05] "GET /api/locations HTTP/1.1" 200 -
+2025-08-25 23:02:05,171 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:02:05] "GET /api/routes HTTP/1.1" 200 -
+2025-08-25 23:02:14,813 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:02:14] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:02:15,401 - __main__ - INFO - Chatbot response: confidence=1.0
+2025-08-25 23:02:15,402 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:02:15] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:02:31,461 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:02:31] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:02:31,767 - __main__ - INFO - Processing chatbot query: 'Tell me about Mughal architecture' for session: None
+2025-08-25 23:02:31,769 - __main__ - INFO - Chatbot response: confidence=1.0000000000000002
+2025-08-25 23:02:31,770 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:02:31] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:02:34,091 - __main__ - INFO - Processing chatbot query: 'Plan a heritage route' for session: None
+2025-08-25 23:02:34,092 - __main__ - INFO - Chatbot response: confidence=0.7071067811865477
+2025-08-25 23:02:34,093 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:02:34] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:02:36,958 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:02:36] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:02:37,226 - __main__ - INFO - Processing chatbot query: 'South India temple trail' for session: None
+2025-08-25 23:02:37,234 - __main__ - INFO - Chatbot response: confidence=0.8
+2025-08-25 23:02:37,236 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:02:37] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:06:16,449 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:06:16] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:06:16,703 - __main__ - INFO - Processing chatbot query: 'hi' for session: 17561431245210.tk2gvvwxtk
+2025-08-25 23:06:16,707 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-25 23:06:16,710 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:06:16] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:06:20,412 - __main__ - INFO - Processing chatbot query: 'Tell me about the Taj Mahal' for session: 17561431245210.tk2gvvwxtk
+2025-08-25 23:06:20,415 - __main__ - INFO - Chatbot response: confidence=0.7828802441138176
+2025-08-25 23:06:20,416 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:06:20] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:06:26,293 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:06:26] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:06:26,562 - __main__ - INFO - Processing chatbot query: 'Buddhist trail in India' for session: 17561431245210.tk2gvvwxtk
+2025-08-25 23:06:26,566 - __main__ - INFO - Chatbot response: confidence=0.8529404570833015
+2025-08-25 23:06:26,568 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:06:26] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:06:38,597 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:06:38] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:06:38,919 - __main__ - INFO - Processing chatbot query: 'Buddhist trail in India' for session: 17561431245210.tk2gvvwxtk
+2025-08-25 23:06:38,920 - __main__ - INFO - Chatbot response: confidence=0.8529404570833015
+2025-08-25 23:06:38,921 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:06:38] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:06:44,130 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:06:44] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:06:44,442 - __main__ - INFO - Processing chatbot query: 'Mughal monuments' for session: 17561431245210.tk2gvvwxtk
+2025-08-25 23:06:44,445 - __main__ - INFO - Chatbot response: confidence=0.7071067811865476
+2025-08-25 23:06:44,446 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:06:44] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:22:15,433 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:22:15] "GET /api/health HTTP/1.1" 200 -
+2025-08-25 23:22:15,686 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:22:15] "GET /api/locations HTTP/1.1" 200 -
+2025-08-25 23:22:15,751 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:22:15] "GET /api/routes HTTP/1.1" 200 -
+2025-08-25 23:22:25,732 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:22:25] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:22:26,048 - __main__ - INFO - Processing chatbot query: 'hi' for session: 17561443350970.bh34pt11jrj
+2025-08-25 23:22:26,049 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-25 23:22:26,050 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:22:26] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:22:32,631 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:22:32] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:22:32,945 - __main__ - INFO - Processing chatbot query: 'tell me about hapmi' for session: 17561443350970.bh34pt11jrj
+2025-08-25 23:22:32,948 - __main__ - INFO - Chatbot response: confidence=0.4
+2025-08-25 23:22:32,948 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:22:32] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:22:50,810 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:22:50] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:22:51,114 - __main__ - INFO - Processing chatbot query: 'tell about elora caves' for session: 17561443350970.bh34pt11jrj
+2025-08-25 23:22:51,116 - __main__ - INFO - Chatbot response: confidence=0.8
+2025-08-25 23:22:51,117 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:22:51] "POST /api/chatbot/ask HTTP/1.1" 200 -

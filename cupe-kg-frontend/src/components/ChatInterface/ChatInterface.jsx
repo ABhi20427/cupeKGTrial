@@ -23,6 +23,8 @@ const ChatInterface = ({ isPanelOpen }) => {
   const [sessionId, setSessionId] = useState(null);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const chatMessagesRef = useRef(null); // NEW: Direct reference to chat messages container
+  const shouldScrollToBottom = useRef(true); // NEW: Control when to scroll
   
   const mapContext = useMapContext();
   const selectedLocation = mapContext?.selectedLocation;
@@ -42,140 +44,195 @@ const ChatInterface = ({ isPanelOpen }) => {
     "🗺️ Suggest a 7-day cultural heritage tour"
   ];
 
+  // IMPROVED: More reliable scroll to bottom function
   const scrollToBottom = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (!shouldScrollToBottom.current) return;
+    
+    // Multiple fallback methods to ensure scrolling works
+    const scrollToEnd = () => {
+      // Method 1: Use messagesEndRef if available
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'end',
+          inline: 'nearest' 
+        });
+      }
+      
+      // Method 2: Direct scroll on chat container
+      if (chatMessagesRef.current) {
+        chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+      }
+    };
+
+    // Execute scroll after DOM update
+    requestAnimationFrame(() => {
+      setTimeout(scrollToEnd, 10); // Small delay for DOM rendering
+    });
   }, []);
 
+  // FIXED: Better scroll effect with proper dependencies
   useEffect(() => {
-    const timer = setTimeout(() => {
-      scrollToBottom();
-    }, 100);
-    
-    return () => clearTimeout(timer);
-  }, [messages, scrollToBottom]);
+    // Only auto-scroll when messages change OR typing state changes
+    scrollToBottom();
+  }, [messages.length, isTyping, scrollToBottom]); // Changed from [messages] to [messages.length]
+
+  // NEW: Scroll when chat opens
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        shouldScrollToBottom.current = true;
+        scrollToBottom();
+      }, 300); // Wait for opening animation
+    }
+  }, [isOpen, scrollToBottom]);
+
+  // Check if user is near bottom to decide whether to auto-scroll
+  const handleScroll = useCallback(() => {
+    if (chatMessagesRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = chatMessagesRef.current;
+      const isNearBottom = scrollTop + clientHeight >= scrollHeight - 50; // 50px threshold
+      shouldScrollToBottom.current = isNearBottom;
+    }
+  }, []);
 
   useEffect(() => {
     // Add contextual message when location changes
     if (selectedLocation && sessionId) {
+      shouldScrollToBottom.current = true; // Always scroll for new contextual messages
       const locationMessage = {
         id: Date.now(),
         type: 'bot',
-        text: `✨ I see you're exploring ${selectedLocation.name}! This ${selectedLocation.category} site has fascinating stories to tell. What would you like to discover?`,
+        text: `✨ I see you're exploring ${selectedLocation.name}! This ${selectedLocation.category} site has fascinating stories to tell. What would you like to know about it?`,
         timestamp: new Date(),
         confidence: 0.9,
         suggestions: [
-          `📚 Tell me about ${selectedLocation.name}'s history`,
-          `🕐 Best time to visit ${selectedLocation.name}`,
-          `🎭 Cultural significance of ${selectedLocation.name}`,
-          `🚗 How to reach ${selectedLocation.name}`
+          `Tell me about ${selectedLocation.name}'s history`,
+          `What makes ${selectedLocation.name} special?`,
+          "Show me nearby heritage sites",
+          "Plan a visit to this location"
         ]
       };
       
       setMessages(prev => [...prev, locationMessage]);
-      setShowSuggestions(false);
     }
-  }, [selectedLocation, sessionId, scrollToBottom]);
+  }, [selectedLocation, sessionId]);
 
-  const toggleChat = () => {
+  const toggleChat = useCallback(() => {
     setIsOpen(!isOpen);
     if (!isOpen) {
-      const timeoutId = setTimeout(() => {
+      // When opening, ensure we scroll to bottom and focus input
+      setTimeout(() => {
+        shouldScrollToBottom.current = true;
+        scrollToBottom();
         inputRef.current?.focus();
-      }, 400);
-      return () => clearTimeout(timeoutId);
+      }, 350);
     }
-  };
+  }, [isOpen, scrollToBottom]);
 
-const handleInputChange = (e) => {
-  const value = e.target.value;
-  setInputValue(value);
-  
-  // Auto-resize textarea with bounds checking
-  const textarea = e.target;
-  textarea.style.height = '40px'; // Reset to minimum height
-  const scrollHeight = Math.min(textarea.scrollHeight, 120);
-  textarea.style.height = scrollHeight + 'px';
-};
-
-const handleKeyDown = (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    if (inputValue.trim()) {
-      sendMessage();
+  const handleInputChange = useCallback((e) => {
+    setInputValue(e.target.value);
+    
+    // Auto-resize textarea
+    if (e.target.scrollHeight <= 120) {
+      e.target.style.height = 'auto';
+      e.target.style.height = e.target.scrollHeight + 'px';
     }
-  }
-};
+  }, []);
 
-const handleSuggestionClick = (suggestion) => {
-  // Remove emoji from suggestion for cleaner input
-  const cleanSuggestion = suggestion.replace(/^[^\w\s]+\s*/, '');
-  setInputValue(cleanSuggestion);
-  sendMessage(cleanSuggestion);
-};
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (inputValue.trim()) {
+        sendMessage();
+      }
+    }
+  }, [inputValue]);
 
-const sendMessage = async (text = inputValue) => {
-  if (!text.trim() || !sessionId) return;
-  
-  // Add user message with enhanced styling
-  const userMessage = {
-    id: Date.now(),
-    type: 'user',
-    text: text,
-    timestamp: new Date(),
-    status: 'delivered'
-  };
-  
-  // Clear input immediately and reset height
-  setInputValue('');
-  if (inputRef.current) {
-    inputRef.current.style.height = '40px';
-  }
-  
-  // Add user message to state
-  setMessages(prev => [...prev, userMessage]);
-  setShowSuggestions(false);
-  setIsTyping(true);
-  
-  try {
-    // Real API call to backend
-    const response = await askChatbot(text, sessionId, selectedLocation?.id);
+  const handleSuggestionClick = useCallback((suggestion) => {
+    shouldScrollToBottom.current = true; // Always scroll for suggestions
+    setInputValue(suggestion);
+    setShowSuggestions(false);
     
-    // Create enhanced bot response
-    const botMessage = {
-      id: Date.now() + 1,
-      type: 'bot',
-      text: response.answer || "I'm sorry, I couldn't process your request.",
+    // Auto-send suggestion or just populate input
+    setTimeout(() => {
+      sendMessage(suggestion);
+    }, 100);
+  }, []);
+
+// ONLY CHANGE THIS SECTION IN YOUR EXISTING ChatInterface.jsx
+
+  const sendMessage = useCallback(async (messageText = null) => {
+    const textToSend = messageText || inputValue.trim();
+    if (!textToSend) return;
+
+    shouldScrollToBottom.current = true; // Always scroll for new user messages
+    
+    // Create user message
+    const userMessage = {
+      id: Date.now(),
+      type: 'user', 
+      text: textToSend,
       timestamp: new Date(),
-      confidence: response.confidence || 0.7,
-      suggestions: response.followUpQuestions || []
+      status: 'sending'
     };
-    
-    // Add bot message to state
-    setMessages(prev => [...prev, botMessage]);
-    
-  } catch (error) {
-    console.error('Error getting chatbot response:', error);
-    
-    // Enhanced error message
-    const errorMessage = {
-      id: Date.now() + 1,
-      type: 'bot',
-      text: "🔄 I apologize, but I'm experiencing some technical difficulties. Please try asking about a specific heritage site or check your connection.",
-      timestamp: new Date(),
-      confidence: 0.3,
-      suggestions: [
-        "Tell me about the Taj Mahal",
-        "What is the Golden Triangle route?",
-        "Show me Buddhist heritage sites"
-      ]
-    };
-    
-    setMessages(prev => [...prev, errorMessage]);
-  } finally {
-    // Always reset typing state
-    setIsTyping(false);
-  }
-};
+
+    setMessages(prev => [...prev, userMessage]);
+    setInputValue('');
+    setIsTyping(true);
+    setShowSuggestions(false);
+
+    // Reset textarea height
+    if (inputRef.current) {
+      inputRef.current.style.height = '40px';
+    }
+
+    try {
+      // Update user message status
+      setMessages(prev => 
+        prev.map(msg => 
+          msg.id === userMessage.id 
+            ? { ...msg, status: 'delivered' }
+            : msg
+        )
+      );
+
+      // Get bot response
+      const response = await askChatbot(textToSend, sessionId, selectedLocation);
+      
+      // FIXED: Use 'answer' instead of 'response' field
+      const botMessage = {
+        id: Date.now() + 1,
+        type: 'bot',
+        text: response.answer || "I apologize, but I'm having trouble understanding that. Could you please rephrase your question about India's cultural heritage?", // ← CHANGED FROM response.response to response.answer
+        timestamp: new Date(),
+        confidence: response.confidence || 0.7,
+        suggestions: response.followUpQuestions || []
+      };
+      
+      setMessages(prev => [...prev, botMessage]);
+      
+    } catch (error) {
+      console.error('Error getting chatbot response:', error);
+      
+      const errorMessage = {
+        id: Date.now() + 1,
+        type: 'bot',
+        text: "🔄 I apologize, but I'm experiencing some technical difficulties. Please try asking about a specific heritage site or check your connection.",
+        timestamp: new Date(),
+        confidence: 0.3,
+        suggestions: [
+          "Tell me about the Taj Mahal",
+          "What is the Golden Triangle route?",
+          "Show me Buddhist heritage sites"
+        ]
+      };
+      
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsTyping(false);
+    }
+  }, [inputValue, sessionId, selectedLocation]);
 
   return (
     <div className={`chat-widget ${isPanelOpen ? 'panel-open' : ''}`}>
@@ -208,8 +265,12 @@ const sendMessage = async (text = inputValue) => {
           </div>
         </div>
         
-        {/* Messages Area */}
-        <div className="chat-messages">
+        {/* Messages Area - FIXED with proper ref and scroll handling */}
+        <div 
+          className="chat-messages" 
+          ref={chatMessagesRef}
+          onScroll={handleScroll}
+        >
           <MessageGroup
             messages={messages}
             onSuggestionClick={handleSuggestionClick}
@@ -245,11 +306,19 @@ const sendMessage = async (text = inputValue) => {
             </div>
           )}
           
-          <div ref={messagesEndRef} />
+          {/* FIXED: Scroll anchor element */}
+          <div 
+            ref={messagesEndRef} 
+            style={{ 
+              height: '1px', 
+              width: '100%', 
+              paddingBottom: '8px' 
+            }} 
+          />
         </div>
         
-        {/* Glass Input Area */}
-        <div className="chat-input-container">
+        {/* Enhanced Glass Input Area */}
+        <div className={`chat-input-container ${isTyping ? 'sending' : ''}`}>
           <textarea
             ref={inputRef}
             className="chat-input"
@@ -259,16 +328,49 @@ const sendMessage = async (text = inputValue) => {
             onKeyDown={handleKeyDown}
             rows="1"
             style={{ height: '40px' }}
+            maxLength={500}
+            aria-label="Chat input"
           />
+          
+          {/* Optional Character Counter */}
+          {inputValue.length > 400 && (
+            <div className="input-counter">
+              {inputValue.length}/500
+            </div>
+          )}
+          
+          {/* Optional Voice Input Button (for future enhancement) 
+          <button 
+            className="voice-button"
+            onClick={() => {}}
+            aria-label="Voice input"
+            style={{ display: 'none' }}
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+              <path fill="currentColor" d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+            </svg>
+          </button>
+          */}
+          
+          {/* Enhanced Send Button */}
           <button 
             className="send-button" 
             onClick={() => sendMessage()}
-            disabled={!inputValue.trim()}
-            aria-label="Send message"
+            disabled={!inputValue.trim() || isTyping}
+            aria-label={isTyping ? "Sending message..." : "Send message"}
           >
-            <svg viewBox="0 0 24 24" width="20" height="20">
-              <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-            </svg>
+            {isTyping ? (
+              // Loading spinner when sending
+              <svg viewBox="0 0 24 24" width="20" height="20" className="spinner">
+                <path fill="currentColor" d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/>
+              </svg>
+            ) : (
+              // Send arrow icon
+              <svg viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              </svg>
+            )}
           </button>
         </div>
       </div>
