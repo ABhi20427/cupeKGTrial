@@ -211,5 +211,101 @@ export const routes = [
         description: 'Ancient port city with stone temples by the sea'
       }
     ]
+  },
+  // Add these new routes to your routes array in routes.js
+
+  {
+    id: 'karnataka-heritage',
+    name: 'Karnataka Heritage Circuit',
+    description: 'Explore the rich architectural heritage of Karnataka from Vijayanagara to Hoysala dynasties',
+    color: '#8BC34A',
+    path: [
+      [15.3350, 76.4600], // Hampi
+      [12.3051, 76.6551], // Mysore Palace  
+      [13.1624, 75.8648], // Belur-Halebidu
+    ],
+    locations: [
+      { 
+        name: 'Hampi', 
+        coordinates: [15.3350, 76.4600],
+        description: 'Ruins of the magnificent Vijayanagara Empire'
+      },
+      { 
+        name: 'Mysore Palace', 
+        coordinates: [12.3051, 76.6551],
+        description: 'Indo-Saracenic palace of the Wodeyar dynasty'
+      },
+      { 
+        name: 'Belur and Halebidu', 
+        coordinates: [13.1624, 75.8648],
+        description: 'Masterpieces of Hoysala temple architecture'
+      }
+    ]
+  },
+
+  // NEW ROUTE - Spiritual Himalayan Trail  
+  {
+    id: 'spiritual-himalayan',
+    name: 'Spiritual Himalayan Trail',
+    description: 'Journey through sacred sites from the Ganges plains to Himalayan foothills',
+    color: '#00BCD4',
+    path: [
+      [25.3176, 82.9739], // Varanasi
+      [30.0869, 78.2676], // Rishikesh
+      [24.6959, 84.9920], // Bodh Gaya
+    ],
+    locations: [
+      { 
+        name: 'Varanasi', 
+        coordinates: [25.3176, 82.9739],
+        description: 'Ancient spiritual capital on the banks of Ganges'
+      },
+      { 
+        name: 'Rishikesh', 
+        coordinates: [30.0869, 78.2676],
+        description: 'Yoga capital of the world in Himalayan foothills'
+      },
+      { 
+        name: 'Bodh Gaya', 
+        coordinates: [24.6959, 84.9920],
+        description: 'Sacred site of Buddha\'s enlightenment'
+      }
+    ]
+  },
+
+  // ENHANCED ROUTE - Complete Buddhist Heritage Circuit
+  {
+    id: 'complete-buddhist',
+    name: 'Complete Buddhist Heritage Circuit', 
+    description: 'Comprehensive journey through India\'s most significant Buddhist sites',
+    color: '#FF9800',
+    path: [
+      [24.6959, 84.9920], // Bodh Gaya
+      [23.4795, 77.7395], // Sanchi Stupa
+      [20.5523, 75.7033], // Ajanta Caves
+      [20.0258, 75.1790], // Ellora Caves
+    ],
+    locations: [
+      { 
+        name: 'Bodh Gaya', 
+        coordinates: [24.6959, 84.9920],
+        description: 'Where Buddha attained enlightenment'
+      },
+      { 
+        name: 'Sanchi Stupa', 
+        coordinates: [23.4795, 77.7395],
+        description: 'Oldest Buddhist monuments built by Emperor Ashoka'
+      },
+      { 
+        name: 'Ajanta Caves', 
+        coordinates: [20.5523, 75.7033],
+        description: 'Ancient Buddhist cave paintings and sculptures'
+      },
+      { 
+        name: 'Ellora Caves', 
+        coordinates: [20.0258, 75.1790],
+        description: 'Multi-religious rock-cut temples including Buddhist caves'
+      }
+    ]
   }
-];
+  ];

@@ -271,7 +271,11 @@ export class EnhancedRoutePlanner {
       'bodh-gaya': 1,
       'amritsar': 1,
       'madurai': 1,
-      'mahabalipuram': 1
+      'mahabalipuram': 1,
+      'mysore-palace': 1,
+      'belur-halebidu': 2,  
+      'rishikesh': 2,       
+      'sanchi-stupa': 1
     };
 
     return locationDays[location.id] || 1;
@@ -293,7 +297,11 @@ export class EnhancedRoutePlanner {
       'bodh-gaya': ['Mahabodhi Temple', 'Bodhi Tree', 'International monasteries'],
       'amritsar': ['Golden Temple', 'Jallianwala Bagh', 'Wagah Border ceremony'],
       'madurai': ['Meenakshi Temple', 'Thirumalai Nayak Palace', 'Gandhi Memorial Museum'],
-      'mahabalipuram': ['Shore Temple', 'Five Rathas', 'Arjuna\'s Penance', 'Beach']
+      'mahabalipuram': ['Shore Temple', 'Five Rathas', 'Arjuna\'s Penance', 'Beach'],
+      'mysore-palace': ['Royal Durbar Hall', 'Palace illumination', 'Dussehra celebrations', 'Chamundi Hill'],
+      'belur-halebidu': ['Chennakeshava Temple', 'Hoysaleswara Temple', 'Stone sculpture galleries', 'Dancing figures'],
+      'rishikesh': ['Lakshman Jhula', 'Beatles Ashram', 'Ganges Aarti', 'Yoga classes', 'Adventure sports'],
+      'sanchi-stupa': ['Great Stupa', 'Carved gateways (toranas)', 'Archaeological Museum', 'Buddhist relics']
     };
 
     return highlights[location.id] || ['Main attractions', 'Local culture', 'Photography'];

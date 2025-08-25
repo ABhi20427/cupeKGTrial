@@ -1463,3 +1463,74 @@
 2025-08-25 23:22:51,114 - __main__ - INFO - Processing chatbot query: 'tell about elora caves' for session: 17561443350970.bh34pt11jrj
 2025-08-25 23:22:51,116 - __main__ - INFO - Chatbot response: confidence=0.8
 2025-08-25 23:22:51,117 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:22:51] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 23:53:34,247 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-25 23:53:34,277 - services.data_loader - INFO - Successfully loaded 20 locations from data module
+2025-08-25 23:53:34,279 - services.kg_service - INFO - Loaded 20 locations
+2025-08-25 23:53:34,279 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'categories': {'cultural': 1, 'historical': 6, 'religious': 13}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Emperor Ashoka) and later dynasties': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1, 'Eastern Ganga Dynasty': 1, 'Mewar Kingdom (Sisodia Rajputs)': 1, 'Pallava Dynasty': 1, 'Kingdom of Mysore (Wodeyar Dynasty)': 1, 'Hoysala Empire': 1, 'Various Hindu Traditions and Spiritual Lineages': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE': 2, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '1577 CE': 1, '1238 CE': 1, '1559 CE': 1, '7th-8th century CE': 1, '1912 CE (current structure, dynasty from 1399 CE)': 1, '1117 CE': 1, 'Ancient (mentioned in Ramayana)': 1}, 'total_cultural_facts': 100, 'total_legends': 32, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6}
+2025-08-25 23:53:34,283 - __main__ - INFO - Services initialized successfully
+2025-08-25 23:53:34,288 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-25 23:53:34,323 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-25 23:53:34,323 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-25 23:53:34,326 - werkzeug - INFO -  * Restarting with stat
+2025-08-25 23:53:35,941 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-25 23:53:35,944 - services.data_loader - INFO - Successfully loaded 20 locations from data module
+2025-08-25 23:53:35,945 - services.kg_service - INFO - Loaded 20 locations
+2025-08-25 23:53:35,946 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'categories': {'cultural': 1, 'historical': 6, 'religious': 13}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Emperor Ashoka) and later dynasties': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1, 'Eastern Ganga Dynasty': 1, 'Mewar Kingdom (Sisodia Rajputs)': 1, 'Pallava Dynasty': 1, 'Kingdom of Mysore (Wodeyar Dynasty)': 1, 'Hoysala Empire': 1, 'Various Hindu Traditions and Spiritual Lineages': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE': 2, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '1577 CE': 1, '1238 CE': 1, '1559 CE': 1, '7th-8th century CE': 1, '1912 CE (current structure, dynasty from 1399 CE)': 1, '1117 CE': 1, 'Ancient (mentioned in Ramayana)': 1}, 'total_cultural_facts': 100, 'total_legends': 32, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6}
+2025-08-25 23:53:35,949 - __main__ - INFO - Services initialized successfully
+2025-08-25 23:53:35,954 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-25 23:53:35,971 - werkzeug - WARNING -  * Debugger is active!
+2025-08-25 23:53:35,974 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-25 23:53:41,772 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:41] "GET /api/health HTTP/1.1" 200 -
+2025-08-25 23:53:42,039 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:42] "GET /api/locations HTTP/1.1" 200 -
+2025-08-25 23:53:42,085 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:42] "GET /api/routes HTTP/1.1" 200 -
+2025-08-25 23:53:50,463 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:50] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=50 HTTP/1.1" 200 -
+2025-08-25 23:53:52,851 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:52] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=60 HTTP/1.1" 200 -
+2025-08-25 23:53:52,854 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:52] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=70 HTTP/1.1" 200 -
+2025-08-25 23:53:52,865 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:52] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=80 HTTP/1.1" 200 -
+2025-08-25 23:53:52,879 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:52] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=90 HTTP/1.1" 200 -
+2025-08-25 23:53:52,911 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:52] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=100 HTTP/1.1" 200 -
+2025-08-25 23:53:52,970 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:52] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=110 HTTP/1.1" 200 -
+2025-08-25 23:53:55,388 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:55] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=110&interests=historical HTTP/1.1" 200 -
+2025-08-25 23:53:56,628 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:56] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=110&interests=historical,religious HTTP/1.1" 200 -
+2025-08-25 23:53:58,069 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:58] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=110&interests=historical,religious,architectural HTTP/1.1" 200 -
+2025-08-25 23:53:59,612 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:53:59] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=110&interests=historical,religious,architectural,cultural HTTP/1.1" 200 -
+2025-08-25 23:54:26,574 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:26] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=120&interests=historical,religious,architectural,cultural HTTP/1.1" 200 -
+2025-08-25 23:54:26,585 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:26] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=130&interests=historical,religious,architectural,cultural HTTP/1.1" 200 -
+2025-08-25 23:54:26,622 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:26] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=140&interests=historical,religious,architectural,cultural HTTP/1.1" 200 -
+2025-08-25 23:54:26,700 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:26] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=150&interests=historical,religious,architectural,cultural HTTP/1.1" 200 -
+2025-08-25 23:54:27,172 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:27] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=160&interests=historical,religious,architectural,cultural HTTP/1.1" 200 -
+2025-08-25 23:54:27,945 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:27] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=170&interests=historical,religious,architectural,cultural HTTP/1.1" 200 -
+2025-08-25 23:54:28,212 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:28] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=160&interests=historical,religious,architectural,cultural HTTP/1.1" 200 -
+2025-08-25 23:54:30,409 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:30] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=160&interests=historical,religious,architectural HTTP/1.1" 200 -
+2025-08-25 23:54:31,467 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:31] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=160&interests=historical,religious HTTP/1.1" 200 -
+2025-08-25 23:54:33,473 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:33] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=160&interests=historical HTTP/1.1" 200 -
+2025-08-25 23:54:34,587 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:34] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=160 HTTP/1.1" 200 -
+2025-08-25 23:54:36,357 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:36] "GET /api/place-info?name=mysore-palace HTTP/1.1" 200 -
+2025-08-25 23:54:36,383 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:36] "[33mPOST /api/cultural-analysis HTTP/1.1[0m" 404 -
+2025-08-25 23:54:36,774 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:54:36] "[33mGET /assets/images/mysore-palace.jpg HTTP/1.1[0m" 404 -
+2025-08-25 23:55:30,520 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:30] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=170 HTTP/1.1" 200 -
+2025-08-25 23:55:30,903 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:30] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=180 HTTP/1.1" 200 -
+2025-08-25 23:55:31,050 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:31] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=190 HTTP/1.1" 200 -
+2025-08-25 23:55:31,497 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:31] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=180 HTTP/1.1" 200 -
+2025-08-25 23:55:31,837 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:31] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=170 HTTP/1.1" 200 -
+2025-08-25 23:55:31,870 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:31] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=160 HTTP/1.1" 200 -
+2025-08-25 23:55:31,899 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:31] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=150 HTTP/1.1" 200 -
+2025-08-25 23:55:32,108 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:32] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=160 HTTP/1.1" 200 -
+2025-08-25 23:55:32,317 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:32] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=170 HTTP/1.1" 200 -
+2025-08-25 23:55:32,590 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:32] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=180 HTTP/1.1" 200 -
+2025-08-25 23:55:33,141 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:33] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=170 HTTP/1.1" 200 -
+2025-08-25 23:55:33,474 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:33] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=160 HTTP/1.1" 200 -
+2025-08-25 23:55:33,487 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:33] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=150 HTTP/1.1" 200 -
+2025-08-25 23:55:33,516 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:33] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=140 HTTP/1.1" 200 -
+2025-08-25 23:55:33,548 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:33] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=130 HTTP/1.1" 200 -
+2025-08-25 23:55:33,856 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:33] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=140 HTTP/1.1" 200 -
+2025-08-25 23:55:34,198 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:34] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=150 HTTP/1.1" 200 -
+2025-08-25 23:55:34,228 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:34] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=160 HTTP/1.1" 200 -
+2025-08-25 23:55:34,256 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:34] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=170 HTTP/1.1" 200 -
+2025-08-25 23:55:34,354 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:34] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=180 HTTP/1.1" 200 -
+2025-08-25 23:55:34,464 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:55:34] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=190 HTTP/1.1" 200 -
+2025-08-25 23:56:14,542 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:56:14] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=190 HTTP/1.1" 200 -
+2025-08-25 23:56:16,133 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 23:56:16] "GET /api/nearby-places?lat=12.9007616&lng=77.6667136&radius=190 HTTP/1.1" 200 -

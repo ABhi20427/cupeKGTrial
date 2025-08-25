@@ -380,7 +380,200 @@ def get_expanded_locations():
                 }
             ],
             "tags": ["Golden Temple", "Sikhism", "Community Kitchen", "Religious Harmony", "Sikh Heritage"]
+        },
+        # Add these to your locations array in locations.py
+
+        {
+            "id": "konark",
+            "name": "Konark",
+            "description": "Home to the magnificent Sun Temple, a masterpiece of Kalinga architecture",
+            "coordinates": {"lat": 19.8876, "lng": 86.0945},
+            "category": "religious",
+            "history": "Konark is famous for its 13th-century Sun Temple, built by King Narasimhadeva I of the Eastern Ganga Dynasty. The temple was designed in the form of a colossal chariot with twelve pairs of elaborately carved wheels, pulled by seven horses. Though partly in ruins today, it remains a testament to the architectural brilliance and artistic mastery of ancient Odisha.",
+            "period": "1238 CE - 1250 CE",
+            "dynasty": "Eastern Ganga Dynasty",
+            "culturalFacts": [
+                "The Konark Sun Temple is a UNESCO World Heritage Site renowned for its architectural grandeur and precision.",
+                "The temple's twelve pairs of wheels function as sundials that can accurately tell the time through their shadow positions.",
+                "The intricate stone carvings depict various aspects of life, including erotic sculptures, mythological figures, and daily activities.",
+                "The temple was once used as a navigational landmark by European sailors, who called it the 'Black Pagoda'.",
+                "The main sanctum was once topped by a massive magnet that could suspend iron in mid-air."
+            ],
+            "legends": [
+                {
+                    "title": "The Architect's Sacrifice",
+                    "description": "Legend tells of the chief architect's son who completed the temple by sacrificing his life, jumping from the top to save his father's honor when the construction faced impossible challenges."
+                }
+            ],
+            "tags": ["Sun Temple", "UNESCO", "Kalinga architecture", "Eastern Ganga", "Surya", "religious"]
+        },
+
+        {
+            "id": "udaipur", 
+            "name": "Udaipur",
+            "description": "The City of Lakes, known for its romantic palaces and stunning lake views",
+            "coordinates": {"lat": 24.5854, "lng": 73.7125},
+            "category": "historical",
+            "history": "Founded in 1559 by Maharana Udai Singh II, Udaipur became the capital of the erstwhile kingdom of Mewar. Known as the 'Venice of the East', the city is famous for its artificial lakes, palaces, and romantic setting. The city palace complex overlooks Lake Pichola and is one of the largest palace complexes in the world.",
+            "period": "1559 CE - Present",
+            "dynasty": "Mewar Kingdom (Sisodia Rajputs)",
+            "culturalFacts": [
+                "Often called the 'Most Romantic City in India'",
+                "Features interconnected lakes created by Maharana Udai Singh",
+                "The City Palace is built on a hilltop and offers panoramic views",
+                "Famous for miniature paintings and traditional Rajasthani crafts",
+                "Popular filming location for many Bollywood movies"
+            ],
+            "legends": [
+                {
+                    "title": "The Sage's Blessing",
+                    "description": "Legend says that a sage blessed Maharana Udai Singh, telling him to build his capital where he met the sage. This spot became Udaipur, and the blessing ensured the city would never face water scarcity despite being in a desert state."
+                }
+            ],
+            "tags": ["City of Lakes", "Romantic", "Mewar", "Palaces", "Rajput Heritage"]
+        },
+
+        {
+            "id": "mahabalipuram",
+            "name": "Mahabalipuram", 
+            "description": "Ancient port city famous for its stone temples and rock-cut sculptures",
+            "coordinates": {"lat": 12.6269, "lng": 80.1927},
+            "category": "historical",
+            "history": "Mahabalipuram, also known as Mamallapuram, was a major port city of the Pallava kingdom during the 7th and 8th centuries CE. The town is famous for its stone temples and sculptures created during the reign of Narasimhavarman I. It served as an important center for art, culture, and maritime trade.",
+            "period": "7th-8th century CE",
+            "dynasty": "Pallava Dynasty",
+            "culturalFacts": [
+                "UNESCO World Heritage Site since 1984",
+                "Famous for the Shore Temple, one of the oldest stone temples in South India",
+                "Home to Arjuna's Penance, the world's largest bas-relief",
+                "Features the Five Rathas (chariot-shaped temples) carved from single rocks",
+                "Annual Mamallapuram Dance Festival showcases classical Indian dance"
+            ],
+            "legends": [
+                {
+                    "title": "The Seven Pagodas",
+                    "description": "Local legend speaks of seven magnificent temples that once stood by the shore. Six were submerged by the sea due to their extraordinary beauty, which made the gods jealous. Only the Shore Temple remains visible."
+                }
+            ],
+            "tags": ["UNESCO Heritage", "Shore Temple", "Pallava", "Rock-Cut Art", "Coastal Heritage"]
+        },
+        # Add these 4 new locations to your locations array in locations.py
+
+{
+    "id": "mysore-palace",
+    "name": "Mysore Palace", 
+    "description": "Magnificent Indo-Saracenic palace, seat of the Wodeyar dynasty and architectural marvel",
+    "coordinates": {"lat": 12.3051, "lng": 76.6551},
+    "category": "historical",
+    "history": "The Mysore Palace is the official residence of the Wodeyars, the former royal family of Mysore. The current structure was built between 1897-1912 after the old palace was destroyed by fire. It represents the grandeur of the Kingdom of Mysore and showcases Indo-Saracenic architecture with Hindu, Muslim, Rajput, and Gothic styles blended together.",
+    "period": "1912 CE (current structure, dynasty from 1399 CE)",
+    "dynasty": "Kingdom of Mysore (Wodeyar Dynasty)",
+    "cultural_facts": [
+        "One of the largest palaces in India with Indo-Saracenic architecture",
+        "Famous for its spectacular Dussehra celebrations and illumination with 97,000 light bulbs",
+        "Houses a magnificent Durbar Hall with stained glass ceiling and golden throne",
+        "The palace served as the seat of power for the Wodeyar dynasty for over 600 years",
+        "Features a unique blend of Hindu, Islamic, Rajput, and Gothic architectural elements"
+    ],
+    "legends": [
+        {
+            "title": "The Golden Throne of Tipu Sultan",
+            "description": "Legend says the famous golden throne (Chinnada Simhasana) was originally owned by Tipu Sultan and later acquired by the Wodeyars. It's displayed only during Dussehra celebrations, and local belief holds that the throne brings prosperity to the kingdom."
+        },
+        {
+            "title": "The Curse of the Demon Mahishasura", 
+            "description": "According to Hindu mythology, the city gets its name from the demon Mahishasura who was killed by Goddess Chamundeshwari on Chamundi Hill. The palace is said to be built on blessed land where good always triumphs over evil."
         }
+    ],
+    "tags": ["Royal Palace", "Indo-Saracenic", "Wodeyar Dynasty", "Dussehra", "Karnataka Heritage"]
+},
+
+{
+    "id": "belur-halebidu",
+    "name": "Belur and Halebidu",
+    "description": "Twin temple complexes showcasing the pinnacle of Hoysala architecture and craftsmanship",
+    "coordinates": {"lat": 13.1624, "lng": 75.8648}, # Belur coordinates (Halebidu is nearby)
+    "category": "religious", 
+    "history": "Belur and Halebidu were the sequential capitals of the Hoysala Empire during 10th-14th centuries. These temple complexes represent the zenith of Hoysala architecture. Belur's Chennakeshava Temple was built by King Vishnuvardhana in 1117 CE, while Halebidu's Hoysaleswara Temple was constructed during the reign of King Vishnuvardhana and his successors. The intricate stone carvings are considered among the finest examples of Indian temple architecture.",
+    "period": "1117 CE - 1268 CE",
+    "dynasty": "Hoysala Empire",
+    "cultural_facts": [
+        "Belur's Chennakeshava Temple took 103 years to complete and showcases unparalleled stone sculpture artistry",
+        "Halebidu's Hoysaleswara Temple features over 240 wall sculptures and intricate friezes depicting Hindu mythology",
+        "The temples are carved from chloritic schist (soapstone), allowing for extremely detailed sculptural work",
+        "Features dancing figures of apsaras, musicians, and scenes from Hindu epics carved with jewel-like precision", 
+        "UNESCO World Heritage Site candidate representing the height of South Indian temple architecture"
+    ],
+    "legends": [
+        {
+            "title": "The Dancing Queen Shantala",
+            "description": "Queen Shantala Devi, wife of King Vishnuvardhana, was a renowned dancer. Legend says that many of the beautiful dancing figures carved on the temple walls are modeled after her graceful movements and expressions."
+        },
+        {
+            "title": "The Unfinished Masterpiece",
+            "description": "Local legend claims that the Halebidu temple was left intentionally unfinished because the sculptors feared that completing such divine beauty would invite the jealousy of the gods themselves."
+        }
+    ],
+    "tags": ["Hoysala Architecture", "Temple Complex", "Stone Carving", "UNESCO Candidate", "Karnataka Heritage"]
+},
+
+{
+    "id": "rishikesh",
+    "name": "Rishikesh",
+    "description": "The Yoga Capital of the World, sacred city on the banks of the Ganges in the Himalayan foothills", 
+    "coordinates": {"lat": 30.0869, "lng": 78.2676},
+    "category": "religious",
+    "history": "Rishikesh is an ancient sacred city mentioned in Hindu scriptures including the Ramayana. It gained international fame in the 1960s when The Beatles stayed here to learn Transcendental Meditation. The city is dotted with numerous ashrams, temples, and yoga centers. It serves as the gateway to the Char Dham pilgrimage and is considered one of the holiest places in Hinduism for meditation and spiritual learning.",
+    "period": "Ancient (mentioned in Ramayana) - Present",
+    "dynasty": "Various Hindu Traditions and Spiritual Lineages",
+    "cultural_facts": [
+        "Known as the 'Yoga Capital of the World' with hundreds of yoga schools and ashrams",
+        "The Beatles stayed at Maharishi Mahesh Yogi's ashram here in 1968, now called 'Beatles Ashram'",
+        "Features iconic suspension bridges like Lakshman Jhula and Ram Jhula across the Ganges",
+        "Home to the International Yoga Festival attracting practitioners from around the globe",
+        "Gateway to the Char Dham pilgrimage (Kedarnath, Badrinath, Gangotri, Yamunotri)"
+    ],
+    "legends": [
+        {
+            "title": "Lakshman's Penance Bridge",
+            "description": "Legend says that Lakshman, brother of Lord Rama, performed penance at this spot and crossed the river on a jute rope bridge. The famous Lakshman Jhula suspension bridge is built at this mythological crossing point."
+        },
+        {
+            "title": "The Sage Raibhya's Meditation",
+            "description": "According to ancient texts, the sage Raibhya performed severe austerities here, and Lord Vishnu appeared before him as 'Hrishikesh' (Lord of the Senses), giving the city its name."
+        }
+    ],
+    "tags": ["Yoga Capital", "Spiritual Tourism", "Beatles Ashram", "Ganges", "Himalayan Heritage"]
+},
+
+{
+    "id": "sanchi-stupa",
+    "name": "Sanchi Stupa", 
+    "description": "The oldest Buddhist monument in India and finest example of early Buddhist art and architecture",
+    "coordinates": {"lat": 23.4795, "lng": 77.7395},
+    "category": "religious",
+    "history": "Sanchi is home to the oldest surviving Buddhist monuments in India, dating from the 3rd century BCE to the 12th century CE. The Great Stupa was originally commissioned by Emperor Ashoka in the 3rd century BCE and later enlarged. The site contains relics of Buddha's disciples and represents the evolution of Buddhist architecture over nearly 1,500 years. It's one of the most important Buddhist pilgrimage sites and a UNESCO World Heritage Site.",
+    "period": "3rd century BCE - 12th century CE", 
+    "dynasty": "Mauryan Empire (Emperor Ashoka) and later dynasties",
+    "cultural_facts": [
+        "The Great Stupa is one of the oldest stone structures in India and a UNESCO World Heritage Site",
+        "Features four beautifully carved toranas (gateways) depicting Jataka tales and Buddha's life",
+        "Contains relics of Buddha's chief disciples Sariputra and Maudgalyayana", 
+        "Represents the purest form of early Buddhist architecture without any human representation of Buddha",
+        "The site showcases the evolution of Buddhist art from symbolic representation to figurative sculpture"
+    ],
+    "legends": [
+        {
+            "title": "Ashoka's Divine Vision",
+            "description": "Legend says Emperor Ashoka chose this site after having a divine vision where Buddha appeared and blessed this hill as a place where his teachings would be preserved for future generations."
+        },
+        {
+            "title": "The Speaking Stupas",
+            "description": "Local folklore believes that on full moon nights, the ancient stupas 'speak' to each other, sharing the wisdom of Buddha's teachings with anyone pure of heart who listens carefully."
+        }
+    ],
+    "tags": ["Buddhist Heritage", "Emperor Ashoka", "UNESCO World Heritage", "Ancient Stupa", "Mauryan Architecture"]
+}
         
         
     ]

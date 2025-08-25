@@ -34,7 +34,7 @@ const ChatInterface = ({ isPanelOpen }) => {
     if (!sessionId) {
       setSessionId(Date.now().toString() + Math.random().toString(36));
     }
-  }, []);
+  }, [sessionId]);
 
   const suggestions = [
     "🏛️ Tell me about the history of Hampi",
