@@ -391,31 +391,43 @@ def advanced_search():
 # ------------------ Chatbot Endpoints ------------------
 @app.route('/api/chatbot/ask', methods=['POST'])
 def chatbot_ask():
-    if not request.json or 'question' not in request.json:
-        return jsonify({'error': 'No question provided'}), 400
-    
     try:
+        if not request.json or 'question' not in request.json:
+            return jsonify({
+                'error': 'No question provided',
+                'answer': 'Please provide a question to get started.',
+                'confidence': 0.1,
+                'followUpQuestions': []
+            }), 400
+        
         question = request.json['question']
         session_id = request.json.get('sessionId', str(uuid.uuid4()))
         location_id = request.json.get('locationId')
         
-        # 🔥 FIX: Correct parameter order to match ChatbotService.process_query
+        logger.info(f"Processing chatbot query: '{question}' for session: {session_id}")
+        
+        # Process the query using the chatbot service
         result = chatbot_service.process_query(
-            query=question,           # First parameter: query
-            location_id=location_id,  # Second parameter: location_id
-            session_id=session_id     # Third parameter: session_id
+            query=question,
+            location_id=location_id,
+            session_id=session_id
         )
         
-        # Ensure session ID is returned
+        # Ensure required fields are present
+        if not isinstance(result, dict):
+            result = {'answer': str(result)}
+            
+        result.setdefault('answer', 'I apologize, but I could not process your request.')
+        result.setdefault('confidence', 0.5)
+        result.setdefault('followUpQuestions', [])
         result['sessionId'] = session_id
         
-        # Add debug logging
-        logger.info(f"Chatbot query processed: '{question}' -> confidence: {result.get('confidence', 'N/A')}")
+        logger.info(f"Chatbot response: confidence={result.get('confidence', 'N/A')}")
         
         return jsonify(result)
         
     except Exception as e:
-        logger.error(f"Error processing chatbot query: {e}")
+        logger.error(f"Error processing chatbot query: {e}", exc_info=True)
         return jsonify({
             'error': 'Failed to process query',
             'answer': "I'm having trouble processing your request. Please try asking about a specific heritage site or historical period.",
@@ -423,8 +435,9 @@ def chatbot_ask():
             'followUpQuestions': [
                 "Tell me about the Taj Mahal",
                 "What is the Golden Triangle route?",
-                "Best time to visit India"
-            ]
+                "Show me Buddhist heritage sites"
+            ],
+            'sessionId': request.json.get('sessionId', str(uuid.uuid4()))
         }), 500
 
 @app.route('/api/chatbot/recommend', methods=['POST'])

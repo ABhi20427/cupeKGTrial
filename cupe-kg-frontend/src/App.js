@@ -12,6 +12,7 @@ import RoutePreferences from './components/RoutePreferences/RoutePreferences';
 import NearbyPlaces from './components/NearbyPlaces/NearbyPlaces';
 import CulturalIntelligence from './components/CulturalIntelligence/CulturalIntelligence';
 import { MapProvider, useMapContext } from './context/MapContext';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import './components/ChatInterface/ChatInterface.css';
 import './components/ChatInterface/MessageGroup.css';
 import './styles/variables.css';
@@ -196,7 +197,9 @@ function AppContent() {
         onClose={() => setIsPanelOpen(false)}
       />
       
-      <ChatInterface isPanelOpen={isPanelOpen} />
+      <ErrorBoundary>
+        <ChatInterface isPanelOpen={isPanelOpen} />
+      </ErrorBoundary>
       
       <Timeline 
         isVisible={showTimeline}

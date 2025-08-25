@@ -1243,3 +1243,152 @@
 2025-08-21 22:21:50,725 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:21:50] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
 2025-08-21 22:21:51,038 - __main__ - INFO - Chatbot query processed: 'tell me about hampi ' -> confidence: 0.6267072531409877
 2025-08-21 22:21:51,040 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:21:51] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-21 22:36:55,499 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-21 22:36:55,501 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-21 22:36:55,502 - services.kg_service - INFO - Loaded 14 locations
+2025-08-21 22:36:55,502 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-21 22:36:55,505 - __main__ - INFO - Services initialized successfully
+2025-08-21 22:36:55,510 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-21 22:36:55,542 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-21 22:36:55,543 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-21 22:36:55,545 - werkzeug - INFO -  * Restarting with stat
+2025-08-21 22:36:57,172 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-21 22:36:57,173 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-21 22:36:57,174 - services.kg_service - INFO - Loaded 14 locations
+2025-08-21 22:36:57,175 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-21 22:36:57,178 - __main__ - INFO - Services initialized successfully
+2025-08-21 22:36:57,183 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-21 22:36:57,201 - werkzeug - WARNING -  * Debugger is active!
+2025-08-21 22:36:57,205 - werkzeug - INFO -  * Debugger PIN: 205-484-035
+2025-08-21 22:37:01,196 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:37:01] "GET /api/health HTTP/1.1" 200 -
+2025-08-21 22:37:01,464 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:37:01] "GET /api/locations HTTP/1.1" 200 -
+2025-08-21 22:37:01,509 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:37:01] "GET /api/routes HTTP/1.1" 200 -
+2025-08-21 22:38:26,807 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:38:26] "GET /api/health HTTP/1.1" 200 -
+2025-08-21 22:38:27,079 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:38:27] "GET /api/locations HTTP/1.1" 200 -
+2025-08-21 22:38:27,126 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:38:27] "GET /api/routes HTTP/1.1" 200 -
+2025-08-21 22:38:32,827 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:38:32] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-21 22:38:33,078 - __main__ - INFO - Processing chatbot query: 'Tell me about the history of Hampi' for session: 17557961064970.b2hlezj1qen
+2025-08-21 22:38:33,081 - __main__ - INFO - Chatbot response: confidence=1.0
+2025-08-21 22:38:33,083 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:38:33] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-21 22:38:49,596 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:38:49] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-21 22:38:49,903 - __main__ - INFO - Processing chatbot query: 'hi' for session: 17557961064970.b2hlezj1qen
+2025-08-21 22:38:49,908 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-21 22:38:49,910 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:38:49] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-21 22:39:09,999 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:39:09] "GET /api/health HTTP/1.1" 200 -
+2025-08-21 22:39:10,369 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:39:10] "GET /api/locations HTTP/1.1" 200 -
+2025-08-21 22:39:10,620 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:39:10] "GET /api/routes HTTP/1.1" 200 -
+2025-08-21 22:39:13,390 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:39:13] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-21 22:39:13,709 - __main__ - INFO - Processing chatbot query: 'What's the best time to visit Delhi?' for session: 17557961499960.j8fh5nr0cu
+2025-08-21 22:39:13,714 - __main__ - INFO - Chatbot response: confidence=0.8865404480989596
+2025-08-21 22:39:13,716 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 22:39:13] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 17:18:52,273 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-25 17:18:52,276 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-25 17:18:52,277 - services.kg_service - INFO - Loaded 14 locations
+2025-08-25 17:18:52,277 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-25 17:18:52,282 - __main__ - INFO - Services initialized successfully
+2025-08-25 17:18:52,287 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-25 17:18:52,340 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.247:5000
+2025-08-25 17:18:52,340 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-25 17:18:52,343 - werkzeug - INFO -  * Restarting with stat
+2025-08-25 17:18:53,946 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-25 17:18:53,948 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-25 17:18:53,949 - services.kg_service - INFO - Loaded 14 locations
+2025-08-25 17:18:53,950 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-25 17:18:53,953 - __main__ - INFO - Services initialized successfully
+2025-08-25 17:18:53,959 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-25 17:18:53,972 - werkzeug - WARNING -  * Debugger is active!
+2025-08-25 17:18:53,976 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-25 17:19:32,614 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:19:32] "GET /api/health HTTP/1.1" 200 -
+2025-08-25 17:19:32,851 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:19:32] "GET /api/locations HTTP/1.1" 200 -
+2025-08-25 17:19:32,923 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:19:32] "GET /api/routes HTTP/1.1" 200 -
+2025-08-25 17:19:58,864 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:19:58] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=50 HTTP/1.1" 200 -
+2025-08-25 17:20:00,792 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:00] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=60 HTTP/1.1" 200 -
+2025-08-25 17:20:01,463 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:01] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=70 HTTP/1.1" 200 -
+2025-08-25 17:20:01,561 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:01] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=80 HTTP/1.1" 200 -
+2025-08-25 17:20:01,603 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:01] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=90 HTTP/1.1" 200 -
+2025-08-25 17:20:01,645 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:01] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=100 HTTP/1.1" 200 -
+2025-08-25 17:20:01,671 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:01] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=110 HTTP/1.1" 200 -
+2025-08-25 17:20:01,728 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:01] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=120 HTTP/1.1" 200 -
+2025-08-25 17:20:01,794 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:01] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=130 HTTP/1.1" 200 -
+2025-08-25 17:20:01,889 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:01] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=140 HTTP/1.1" 200 -
+2025-08-25 17:20:01,921 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:01] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=150 HTTP/1.1" 200 -
+2025-08-25 17:20:01,961 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:01] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=160 HTTP/1.1" 200 -
+2025-08-25 17:20:02,013 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:02] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=170 HTTP/1.1" 200 -
+2025-08-25 17:20:02,104 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:02] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=180 HTTP/1.1" 200 -
+2025-08-25 17:20:02,265 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:02] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=190 HTTP/1.1" 200 -
+2025-08-25 17:20:02,582 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:02] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=200 HTTP/1.1" 200 -
+2025-08-25 17:20:03,913 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:03] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=190 HTTP/1.1" 200 -
+2025-08-25 17:20:03,939 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:03] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=180 HTTP/1.1" 200 -
+2025-08-25 17:20:03,967 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:03] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=170 HTTP/1.1" 200 -
+2025-08-25 17:20:04,026 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:04] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=160 HTTP/1.1" 200 -
+2025-08-25 17:20:04,171 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:04] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=150 HTTP/1.1" 200 -
+2025-08-25 17:20:04,384 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:04] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=160 HTTP/1.1" 200 -
+2025-08-25 17:20:04,719 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:04] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=170 HTTP/1.1" 200 -
+2025-08-25 17:20:04,735 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:04] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=180 HTTP/1.1" 200 -
+2025-08-25 17:20:04,769 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:04] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=190 HTTP/1.1" 200 -
+2025-08-25 17:20:04,781 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:04] "GET /api/nearby-places?lat=13.336576&lng=77.1162112&radius=200 HTTP/1.1" 200 -
+2025-08-25 17:20:14,560 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:14] "[33mPOST /api/cultural-analysis HTTP/1.1[0m" 404 -
+2025-08-25 17:20:14,829 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:14] "GET /api/place-info?name=hampi HTTP/1.1" 200 -
+2025-08-25 17:20:25,242 - __main__ - INFO - Preference suggestions: 14 periods, 14 dynasties
+2025-08-25 17:20:25,243 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:20:25] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-25 17:21:27,987 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:21:27] "[33mPOST /api/cultural-analysis HTTP/1.1[0m" 404 -
+2025-08-25 17:21:41,716 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:21:41] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 17:21:41,984 - __main__ - INFO - Processing chatbot query: 'hi
+' for session: 17561225722940.hsuy96obpwe
+2025-08-25 17:21:41,992 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-25 17:21:41,994 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:21:41] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 17:21:50,836 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:21:50] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 17:21:51,148 - __main__ - INFO - Processing chatbot query: 'hi' for session: 17561225722940.hsuy96obpwe
+2025-08-25 17:21:51,151 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-25 17:21:51,153 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:21:51] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 17:22:02,033 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:22:02] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 17:22:02,348 - __main__ - INFO - Processing chatbot query: 'hi' for session: 17561225722940.hsuy96obpwe
+2025-08-25 17:22:02,352 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-25 17:22:02,353 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:22:02] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 17:22:22,574 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:22:22] "GET /api/place-info?name=ajanta HTTP/1.1" 200 -
+2025-08-25 17:22:57,735 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:22:57] "[33mPOST /api/cultural-analysis HTTP/1.1[0m" 404 -
+2025-08-25 17:22:58,034 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:22:58] "GET /api/place-info?name=ellora HTTP/1.1" 200 -
+2025-08-25 17:23:16,477 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:23:16] "GET /api/health HTTP/1.1" 200 -
+2025-08-25 17:23:16,849 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:23:16] "GET /api/locations HTTP/1.1" 200 -
+2025-08-25 17:23:17,100 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:23:17] "GET /api/health HTTP/1.1" 200 -
+2025-08-25 17:23:17,194 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:23:17] "GET /api/locations HTTP/1.1" 200 -
+2025-08-25 17:23:17,382 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:23:17] "GET /api/routes HTTP/1.1" 200 -
+2025-08-25 17:23:18,157 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:23:18] "GET /api/health HTTP/1.1" 200 -
+2025-08-25 17:23:18,193 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:23:18] "GET /api/locations HTTP/1.1" 200 -
+2025-08-25 17:23:18,530 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:23:18] "GET /api/routes HTTP/1.1" 200 -
+2025-08-25 17:23:19,153 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:23:19] "GET /api/health HTTP/1.1" 200 -
+2025-08-25 17:23:19,504 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:23:19] "GET /api/locations HTTP/1.1" 200 -
+2025-08-25 17:23:19,757 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 17:23:19] "GET /api/routes HTTP/1.1" 200 -
+2025-08-25 22:39:24,362 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-25 22:39:24,366 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-25 22:39:24,368 - services.kg_service - INFO - Loaded 14 locations
+2025-08-25 22:39:24,368 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-25 22:39:24,374 - __main__ - INFO - Services initialized successfully
+2025-08-25 22:39:24,382 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-25 22:39:24,453 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-25 22:39:24,453 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-25 22:39:24,455 - werkzeug - INFO -  * Restarting with stat
+2025-08-25 22:39:26,045 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-25 22:39:26,048 - services.data_loader - INFO - Successfully loaded 14 locations from data module
+2025-08-25 22:39:26,048 - services.kg_service - INFO - Loaded 14 locations
+2025-08-25 22:39:26,048 - services.kg_service - INFO - Location statistics: {'total_locations': 14, 'categories': {'cultural': 1, 'historical': 3, 'religious': 10}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Later enhanced during Satavahana period)': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE (with later additions)': 1, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '3rd century BCE': 1, '1577 CE': 1}, 'total_cultural_facts': 70, 'total_legends': 23, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6428571428571428}
+2025-08-25 22:39:26,051 - __main__ - INFO - Services initialized successfully
+2025-08-25 22:39:26,058 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-25 22:39:26,074 - werkzeug - WARNING -  * Debugger is active!
+2025-08-25 22:39:26,089 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-25 22:39:34,636 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 22:39:34] "GET /api/health HTTP/1.1" 200 -
+2025-08-25 22:39:34,902 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 22:39:34] "GET /api/locations HTTP/1.1" 200 -
+2025-08-25 22:39:34,963 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 22:39:34] "GET /api/routes HTTP/1.1" 200 -
+2025-08-25 22:40:30,856 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 22:40:30] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-25 22:40:31,176 - __main__ - INFO - Processing chatbot query: 'Tell me about the history of Hampi' for session: 17561417743150.lsf5ab2zvv
+2025-08-25 22:40:31,195 - __main__ - INFO - Chatbot response: confidence=1.0
+2025-08-25 22:40:31,199 - werkzeug - INFO - 127.0.0.1 - - [25/Aug/2025 22:40:31] "POST /api/chatbot/ask HTTP/1.1" 200 -

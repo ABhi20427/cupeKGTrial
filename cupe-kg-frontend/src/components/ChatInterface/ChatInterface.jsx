@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useMapContext } from '../../context/MapContext';
 import { askChatbot } from '../../services/api';
 import MessageGroup from './MessageGroup';
@@ -42,9 +42,17 @@ const ChatInterface = ({ isPanelOpen }) => {
     "🗺️ Suggest a 7-day cultural heritage tour"
   ];
 
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    const timer = setTimeout(() => {
+      scrollToBottom();
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, [messages, scrollToBottom]);
 
   useEffect(() => {
     // Add contextual message when location changes
@@ -66,11 +74,7 @@ const ChatInterface = ({ isPanelOpen }) => {
       setMessages(prev => [...prev, locationMessage]);
       setShowSuggestions(false);
     }
-  }, [selectedLocation, sessionId]);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, [selectedLocation, sessionId, scrollToBottom]);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -82,86 +86,96 @@ const ChatInterface = ({ isPanelOpen }) => {
     }
   };
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-    // Auto-resize textarea
-    e.target.style.height = 'auto';
-    e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
-  };
+const handleInputChange = (e) => {
+  const value = e.target.value;
+  setInputValue(value);
+  
+  // Auto-resize textarea with bounds checking
+  const textarea = e.target;
+  textarea.style.height = '40px'; // Reset to minimum height
+  const scrollHeight = Math.min(textarea.scrollHeight, 120);
+  textarea.style.height = scrollHeight + 'px';
+};
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
+const handleKeyDown = (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    if (inputValue.trim()) {
       sendMessage();
     }
-  };
+  }
+};
 
-  const handleSuggestionClick = (suggestion) => {
-    // Remove emoji from suggestion for cleaner input
-    const cleanSuggestion = suggestion.replace(/^[^\w\s]+\s*/, '');
-    sendMessage(cleanSuggestion);
-  };
+const handleSuggestionClick = (suggestion) => {
+  // Remove emoji from suggestion for cleaner input
+  const cleanSuggestion = suggestion.replace(/^[^\w\s]+\s*/, '');
+  setInputValue(cleanSuggestion);
+  sendMessage(cleanSuggestion);
+};
 
-  const sendMessage = async (text = inputValue) => {
-    if (!text.trim() || !sessionId) return;
+const sendMessage = async (text = inputValue) => {
+  if (!text.trim() || !sessionId) return;
+  
+  // Add user message with enhanced styling
+  const userMessage = {
+    id: Date.now(),
+    type: 'user',
+    text: text,
+    timestamp: new Date(),
+    status: 'delivered'
+  };
+  
+  // Clear input immediately and reset height
+  setInputValue('');
+  if (inputRef.current) {
+    inputRef.current.style.height = '40px';
+  }
+  
+  // Add user message to state
+  setMessages(prev => [...prev, userMessage]);
+  setShowSuggestions(false);
+  setIsTyping(true);
+  
+  try {
+    // Real API call to backend
+    const response = await askChatbot(text, sessionId, selectedLocation?.id);
     
-    // Add user message with enhanced styling
-    const userMessage = {
-      id: Date.now(),
-      type: 'user',
-      text: text,
+    // Create enhanced bot response
+    const botMessage = {
+      id: Date.now() + 1,
+      type: 'bot',
+      text: response.answer || "I'm sorry, I couldn't process your request.",
       timestamp: new Date(),
-      status: 'delivered'
+      confidence: response.confidence || 0.7,
+      suggestions: response.followUpQuestions || []
     };
     
-    setMessages(prev => [...prev, userMessage]);
-    setInputValue('');
-    setShowSuggestions(false);
-    setIsTyping(true);
+    // Add bot message to state
+    setMessages(prev => [...prev, botMessage]);
     
-    // Reset textarea height
-    if (inputRef.current) {
-      inputRef.current.style.height = 'auto';
-    }
+  } catch (error) {
+    console.error('Error getting chatbot response:', error);
     
-    try {
-      // Real API call to backend
-      const response = await askChatbot(text, sessionId, selectedLocation?.id);
-      
-      // Create enhanced bot response
-      const botMessage = {
-        id: Date.now() + 1,
-        type: 'bot',
-        text: response.answer,
-        timestamp: new Date(),
-        confidence: response.confidence || 0.7,
-        suggestions: response.followUpQuestions || []
-      };
-      
-      setMessages(prev => [...prev, botMessage]);
-      
-    } catch (error) {
-      console.error('Error getting chatbot response:', error);
-      
-      // Enhanced error message
-      const errorMessage = {
-        id: Date.now() + 1,
-        type: 'bot',
-        text: "🔄 I apologize, but I'm experiencing some technical difficulties. Please try asking about a specific heritage site, historical period, or travel planning. I'm here to help you explore India's incredible cultural legacy!",
-        timestamp: new Date(),
-        confidence: 0.3,
-        suggestions: [
-          "🏰 Tell me about Mughal architecture",
-          "🗺️ Plan a Golden Triangle tour",
-          "🏛️ UNESCO World Heritage sites in India"
-        ]
-      };
-      
-      setMessages(prev => [...prev, errorMessage]);
-    } finally {
-      setIsTyping(false);
-    }
-  };
+    // Enhanced error message
+    const errorMessage = {
+      id: Date.now() + 1,
+      type: 'bot',
+      text: "🔄 I apologize, but I'm experiencing some technical difficulties. Please try asking about a specific heritage site or check your connection.",
+      timestamp: new Date(),
+      confidence: 0.3,
+      suggestions: [
+        "Tell me about the Taj Mahal",
+        "What is the Golden Triangle route?",
+        "Show me Buddhist heritage sites"
+      ]
+    };
+    
+    setMessages(prev => [...prev, errorMessage]);
+  } finally {
+    // Always reset typing state
+    setIsTyping(false);
+  }
+};
 
   return (
     <div className={`chat-widget ${isPanelOpen ? 'panel-open' : ''}`}>
