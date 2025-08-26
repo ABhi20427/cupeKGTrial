@@ -42,19 +42,30 @@ const CulturalIntelligence = ({
   // AI-powered cultural context analysis using BERT backend
   const analyzeCulturalContext = async (location) => {
     try {
-      const response = await fetch('/api/cultural-analysis', {
+      console.log('CulturalIntelligence: Analyzing location:', location?.name || 'Unknown');
+      
+      const requestData = {
+        locationId: location?.id || 'unknown',
+        locationName: location?.name || 'Heritage Site',
+        dynasty: location?.dynasty || 'Historical Period',
+        period: location?.period || 'Ancient Times',
+        description: location?.description || 'A significant cultural heritage site'
+      };
+      
+      console.log('CulturalIntelligence: Request data prepared for:', requestData.locationName);
+      
+      const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+      const response = await fetch(`${API_BASE}/cultural-analysis`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          locationId: location.id,
-          locationName: location.name,
-          dynasty: location.dynasty,
-          period: location.period,
-          description: location.description
-        })
+        body: JSON.stringify(requestData)
       });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       
       const analysis = await response.json();
       return analysis;

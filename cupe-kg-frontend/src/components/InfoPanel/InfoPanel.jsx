@@ -1,3 +1,5 @@
+// Update your InfoPanel.jsx with this enhanced image handling
+
 import React, { useState, useEffect } from 'react';
 import './InfoPanel.css';
 
@@ -5,21 +7,62 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
   const [activeTab, setActiveTab] = useState('history');
   const [isVisible, setIsVisible] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [imageSrc, setImageSrc] = useState('');
   const [animationClass, setAnimationClass] = useState('');
+
+  // Enhanced image handling
+  useEffect(() => {
+    if (selectedLocation) {
+      setImageLoaded(false);
+      setImageError(false);
+      
+      // Try multiple image sources in order of preference
+      const imagePaths = [
+        `/assets/images/${selectedLocation.id}.jpg`,
+        `/assets/images/${selectedLocation.id}.jpeg`,
+        `/assets/images/${selectedLocation.name.toLowerCase().replace(/\s+/g, '-')}.jpg`,
+        `/assets/images/placeholder.jpg`
+      ];
+      
+      setImageSrc(imagePaths[0]); // Start with first option
+    }
+  }, [selectedLocation]);
+
+  const handleImageError = () => {
+    if (!imageError) {
+      setImageError(true);
+      
+      // Try fallback images in order
+      const fallbackPaths = [
+        `/assets/images/${selectedLocation?.name.toLowerCase().replace(/\s+/g, '-')}.jpg`,
+        `/assets/images/placeholder.jpg`,
+        `/assets/images/default-heritage-site.jpg`,
+        'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjVmNWY1Ii8+CjxwYXRoIGQ9Ik0xMDAgODBMMTUwIDEyMEwyMDAgODBMMzAwIDEyMFYxNjBIMTAwVjgwWiIgZmlsbD0iIzNmNTFiNSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzY2NiIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiPkhlcml0YWdlIFNpdGU8L3RleHQ+Cjwvc3ZnPg==' // SVG placeholder as last resort
+      ];
+      
+      // Try next fallback
+      if (fallbackPaths.length > 0) {
+        setImageSrc(fallbackPaths[0]);
+      }
+    }
+  };
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+    setImageError(false);
+  };
 
   // Sync visibility state with isOpen prop
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
-      // Add a small delay to trigger animation after component is mounted
       setTimeout(() => {
         setAnimationClass('animate-in');
       }, 50);
-      onOpen?.(); // <-- Ensure callback is triggered when panel opens
+      onOpen?.();
     } else {
-      // Set exit animation
       setAnimationClass('animate-out');
-      // Delay hiding to allow for exit animation
       setTimeout(() => {
         setIsVisible(false);
         setAnimationClass('');
@@ -27,16 +70,11 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
     }
   }, [isOpen, onOpen]);
 
-  // Reset image loaded state when location changes
-  useEffect(() => {
-    setImageLoaded(false);
-  }, [selectedLocation]);
-
   // Reset to history tab when a new location is selected
   useEffect(() => {
     if (selectedLocation) {
       setActiveTab('history');
-      onOpen?.();  // <-- ADD THIS when panel opens
+      onOpen?.();
     }
   }, [selectedLocation, onOpen]);
 
@@ -45,7 +83,6 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
   }
 
   const handleTabChange = (tab) => {
-    // Add tab change animation
     setAnimationClass('tab-change');
     setTimeout(() => {
       setActiveTab(tab);
@@ -121,12 +158,19 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
           <>
             <div className="location-image-container">
               <img
-                src={`/assets/images/${selectedLocation.id}.jpg`}
+                src={imageSrc}
                 alt={selectedLocation.name}
-                className={`location-image ${imageLoaded ? 'loaded' : ''}`}
-                onLoad={() => setImageLoaded(true)}
+                className={`location-image ${imageLoaded ? 'loaded' : ''} ${imageError ? 'error' : ''}`}
+                onLoad={handleImageLoad}
+                onError={handleImageError}
               />
               <div className="image-overlay"></div>
+              {imageError && (
+                <div className="image-error-overlay">
+                  <div className="error-icon">🏛️</div>
+                  <div className="error-text">Heritage Site</div>
+                </div>
+              )}
             </div>
             <h2 className="location-title">{selectedLocation.name}</h2>
           </>

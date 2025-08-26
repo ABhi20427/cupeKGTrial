@@ -167,6 +167,7 @@ function AppContent() {
         dynasty: 'Various Dynasties',
         period: 'Ancient to Modern',
         category: 'Cultural Heritage',
+        description: 'Explore the rich cultural heritage and historical significance of India\'s monuments, temples, and archaeological sites.',
         tags: ['Heritage', 'Culture', 'History']
       };
       setSelectedLocationForCI(defaultLocation);

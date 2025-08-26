@@ -66,9 +66,6 @@ const MapContent = () => {
     }
   };
 
-  const handleRouteSelect = (routeId) => {
-    selectRoute(routeId);
-  };
 
   const closePanel = () => {
     setIsPanelOpen(false);
@@ -109,26 +106,6 @@ const MapContent = () => {
             <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
           </svg>
         </button>
-        <div className="route-controls">
-          <button 
-            className={`control-btn ${selectedRoute?.id === 'buddhist' ? 'active' : ''}`}
-            onClick={() => handleRouteSelect('buddhist')}
-          >
-            Buddhist Trail
-          </button>
-          <button 
-            className={`control-btn ${selectedRoute?.id === 'mughal' ? 'active' : ''}`}
-            onClick={() => handleRouteSelect('mughal')}
-          >
-            Mughal Architecture
-          </button>
-          <button 
-            className={`control-btn ${selectedRoute?.id === 'temple' ? 'active' : ''}`}
-            onClick={() => handleRouteSelect('temple')}
-          >
-            Temple Route
-          </button>
-        </div>
       </div>
 
       <InfoPanel 

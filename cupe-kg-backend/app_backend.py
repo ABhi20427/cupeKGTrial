@@ -1,4 +1,6 @@
 import datetime
+import time
+import re
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from services.kg_service import KnowledgeGraphService
@@ -483,6 +485,427 @@ def debug_test_distance():
         
     except Exception as e:
         return jsonify({'error': str(e), 'traceback': str(e.__traceback__)})
+
+# ------------------ Cultural Analysis Endpoints ------------------
+@app.route('/api/cultural-analysis', methods=['POST'])
+def cultural_analysis():
+    """
+    AI-powered cultural context analysis endpoint
+    Analyzes cultural significance, historical context, and connections of heritage sites
+    """
+    try:
+        logger.info(f"Cultural analysis request received for location")
+        
+        if not request.json:
+            logger.warning("No JSON data in request")
+            return jsonify({'error': 'No location data provided'}), 400
+        
+        location_data = request.json
+        location_id = location_data.get('locationId') or 'unknown'
+        location_name = location_data.get('locationName') or 'Heritage Site'
+        dynasty = location_data.get('dynasty') or 'Historical Period'  
+        period = location_data.get('period') or 'Ancient Times'
+        description = location_data.get('description') or 'A significant cultural heritage site in India'
+        
+        logger.info(f"Performing cultural analysis for: {location_name}")
+        
+        # Generate comprehensive cultural analysis
+        analysis = {
+            'historicalContext': generate_historical_context(dynasty, period, location_name),
+            'culturalSignificance': generate_cultural_significance(location_name, dynasty, description),
+            'modernRelevance': generate_modern_relevance(location_name),
+            'culturalConnections': find_cultural_connections_backend(location_id, dynasty, period),
+            'narrativeElements': generate_narrative_elements(location_name, dynasty, period),
+            'explorationGuide': generate_exploration_guide(location_name)
+        }
+        
+        logger.info(f"Cultural analysis completed for {location_name}")
+        return jsonify(analysis)
+        
+    except Exception as e:
+        logger.error(f"Error in cultural analysis: {e}")
+        return jsonify({
+            'error': 'Failed to analyze cultural context',
+            'historicalContext': {
+                'era': 'Historical Period',
+                'dynasty': 'Regional Dynasty',
+                'politicalContext': {'powerStructure': 'Traditional governance systems'},
+                'economicContext': {'economicRole': 'Regional trade center'},
+                'socialContext': {'socialHierarchy': 'Traditional society structure'}
+            }
+        }), 500
+
+def generate_historical_context(dynasty, period, location_name):
+    """Generate historical context based on dynasty and period"""
+    political_contexts = {
+        'Mughal Empire': {
+            'powerStructure': 'Centralized imperial administration with Persian influences',
+            'keyFigures': ['Akbar', 'Shah Jahan', 'Aurangzeb'],
+            'policies': 'Religious tolerance under early Mughals, later orthodox policies',
+            'militaryStrategy': 'Composite bow cavalry, gunpowder technology, fortified cities'
+        },
+        'Vijayanagara Empire': {
+            'powerStructure': 'Decentralized feudal system with strong military organization',
+            'keyFigures': ['Harihara I', 'Bukka Raya', 'Krishna Deva Raya'],
+            'policies': 'Hindu revival, patronage of arts, trade promotion',
+            'militaryStrategy': 'Elephant cavalry, fortified capital, alliance systems'
+        },
+        'Chandela Dynasty': {
+            'powerStructure': 'Regional kingdom with temple-centered governance',
+            'keyFigures': ['Yashovarman', 'Dhanga', 'Vidyadhara'],
+            'policies': 'Temple patronage, tantric philosophy integration',
+            'militaryStrategy': 'Cavalry-based armies, hill fort defenses'
+        }
+    }
+    
+    political_context = political_contexts.get(dynasty, {
+        'powerStructure': 'Regional governance with local administrative systems',
+        'keyFigures': ['Local rulers and administrators'],
+        'policies': 'Cultural patronage and regional development',
+        'militaryStrategy': 'Adapted to local geographical advantages'
+    })
+    
+    economic_patterns = {
+        'delhi': {
+            'tradeRoutes': ['Grand Trunk Road', 'Central Asian routes', 'Deccan trade'],
+            'primaryCommodities': ['Textiles', 'Spices', 'Precious metals', 'Crafts'],
+            'economicRole': 'Imperial capital and trade hub',
+            'monetarySystem': 'Silver-based currency with gold reserves'
+        },
+        'hampi': {
+            'tradeRoutes': ['Arabian Sea ports', 'Deccan plateau', 'South Indian networks'],
+            'primaryCommodities': ['Diamonds', 'Spices', 'Textiles', 'Horses'],
+            'economicRole': 'International trading metropolis',
+            'monetarySystem': 'Gold pagodas and silver currency'
+        },
+        'taj-mahal': {
+            'tradeRoutes': ['Yamuna river trade', 'Agra-Delhi corridor'],
+            'primaryCommodities': ['Marble', 'Precious stones', 'Luxury goods'],
+            'economicRole': 'Imperial center and luxury production',
+            'monetarySystem': 'Mughal silver rupees'
+        }
+    }
+    
+    location_key = location_name.lower().replace(' ', '-').replace('_', '-')
+    economic_context = economic_patterns.get(location_key, {
+        'tradeRoutes': ['Regional trade networks'],
+        'primaryCommodities': ['Local specialties', 'Agricultural products'],
+        'economicRole': 'Regional economic center',
+        'monetarySystem': 'Local and regional currency systems'
+    })
+    
+    return {
+        'era': period,
+        'dynasty': dynasty,
+        'politicalContext': political_context,
+        'economicContext': economic_context,
+        'socialContext': {
+            'socialHierarchy': 'Complex society with royal patronage systems',
+            'culturalPractices': 'Religious festivals, artistic patronage, educational institutions',
+            'demographicComposition': 'Mixed religious and ethnic communities',
+            'dailyLife': 'Agricultural and trade-based economy with urban centers'
+        }
+    }
+
+def generate_cultural_significance(location_name, dynasty, description):
+    """Generate cultural significance analysis"""
+    architectural_styles = {
+        'taj-mahal': {
+            'primaryStyle': 'Indo-Islamic (Mughal)',
+            'keyFeatures': ['Onion dome', 'Minarets', 'Pietra dura inlay', 'Symmetrical gardens'],
+            'innovations': ['Perfect proportional harmony', 'Color-changing marble effect'],
+            'influences': ['Persian', 'Central Asian', 'Indian'],
+            'globalImpact': 'Inspired Islamic architecture worldwide'
+        },
+        'hampi': {
+            'primaryStyle': 'Vijayanagara Architecture',
+            'keyFeatures': ['Pillared halls', 'Gopurams', 'Mandapas', 'Stone chariot'],
+            'innovations': ['Musical pillars', 'Monolithic sculptures', 'Hydraulic systems'],
+            'influences': ['Chalukya', 'Hoysala', 'Kakatiya'],
+            'globalImpact': 'Influenced South Indian temple architecture'
+        },
+        'khajuraho': {
+            'primaryStyle': 'Nagara (North Indian temple)',
+            'keyFeatures': ['Shikhara towers', 'Sculptural panels', 'Erotic sculptures', 'Intricate carvings'],
+            'innovations': ['Integration of tantra philosophy', 'Architectural symbolism'],
+            'influences': ['Gupta', 'Post-Gupta traditions', 'Tantric philosophy'],
+            'globalImpact': 'Influenced medieval Indian sculpture and temple design'
+        }
+    }
+    
+    location_key = location_name.lower().replace(' ', '-').replace('_', '-')
+    architectural_style = architectural_styles.get(location_key, {
+        'primaryStyle': 'Regional architectural tradition',
+        'keyFeatures': ['Local building techniques', 'Regional materials', 'Cultural motifs'],
+        'innovations': ['Adaptation to local climate', 'Cultural integration'],
+        'influences': ['Local traditions', 'Regional kingdoms'],
+        'globalImpact': 'Contributed to Indian architectural diversity'
+    })
+    
+    return {
+        'architecturalStyle': architectural_style,
+        'artisticInfluences': f'Rich artistic traditions reflecting {dynasty} cultural values and synthesis of multiple artistic traditions.',
+        'religiousSignificance': 'Significant spiritual and religious importance in Indian culture, representing the integration of faith and artistry.',
+        'culturalExchange': 'This site represents the synthesis of multiple cultural traditions, showcasing India\'s history of cultural exchange and adaptation.'
+    }
+
+def generate_modern_relevance(location_name):
+    """Generate modern relevance analysis"""
+    return {
+        'preservation': 'Protected monument with active conservation programs',
+        'tourism': 'Major tourist destination contributing to local economy and cultural awareness',
+        'education': 'Serves as an open-air museum teaching art, architecture, history, and cultural studies',
+        'inspiration': 'Continues to inspire contemporary artists, architects, and cultural practitioners worldwide'
+    }
+
+def find_cultural_connections_backend(location_id, dynasty, period):
+    """Find cultural connections using backend logic"""
+    connections = []
+    
+    try:
+        # Get related locations from knowledge graph service
+        all_locations = kg_service.get_all_locations()
+        
+        # Find locations with same dynasty
+        dynasty_matches = [loc for loc in all_locations if loc.dynasty == dynasty and loc.id != location_id][:3]
+        if dynasty_matches:
+            connections.append({
+                'type': 'dynasty',
+                'title': f'{dynasty} Heritage Sites',
+                'locations': [{'name': loc.name, 'period': loc.period} for loc in dynasty_matches],
+                'description': f'Other monuments from the {dynasty} period',
+                'strength': 'high'
+            })
+        
+        # Find locations with similar period
+        period_matches = [loc for loc in all_locations if loc.period == period and loc.id != location_id and loc.dynasty != dynasty][:3]
+        if period_matches:
+            connections.append({
+                'type': 'temporal',
+                'title': f'Contemporary Sites ({period})',
+                'locations': [{'name': loc.name, 'period': loc.period} for loc in period_matches],
+                'description': f'Sites from the same historical period',
+                'strength': 'medium'
+            })
+        
+    except Exception as e:
+        logger.error(f"Error finding cultural connections: {e}")
+    
+    return connections
+
+def generate_narrative_elements(location_name, dynasty, period):
+    """Generate narrative elements for storytelling"""
+    hooks = {
+        'taj-mahal': "Imagine a love so profound that it created one of the world's most beautiful buildings...",
+        'hampi': "Step into the ruins of what was once the world's second-largest medieval city...",
+        'khajuraho': "Discover temples where stone comes alive with stories of human passion and divine spirituality...",
+        'delhi': "Walk through a city that has been the seat of power for over a millennium..."
+    }
+    
+    location_key = location_name.lower().replace(' ', '-').replace('_', '-')
+    opening_hook = hooks.get(location_key, f"Journey into the heart of {location_name}, where history whispers through ancient stones...")
+    
+    return {
+        'openingHook': opening_hook,
+        'keyStories': [
+            {'title': 'Historical Legend', 'description': f'Fascinating stories from the {dynasty} period that shaped this remarkable site.'}
+        ],
+        'characterSpotlight': f'The visionary rulers and skilled artisans who created this magnificent testament to {dynasty} culture.',
+        'mysteryElements': 'Archaeological mysteries and hidden details that continue to fascinate researchers and visitors.',
+        'culturalLessons': [
+            'Religious tolerance and cultural synthesis',
+            'Artistic excellence through royal patronage',
+            'Integration of spiritual and material worlds',
+            'Preservation of cultural heritage for future generations'
+        ],
+        'modernConnections': 'This heritage site continues to influence modern Indian identity, artistic expression, and cultural pride.'
+    }
+
+def generate_exploration_guide(location_name):
+    """Generate exploration guide recommendations"""
+    return {
+        'bestTimes': 'Early morning or late afternoon for optimal lighting and fewer crowds',
+        'photographyTips': 'Focus on architectural details and play of light and shadow',
+        'culturalEtiquette': 'Respect religious customs and dress appropriately',
+        'hiddenGems': 'Look for lesser-known carvings and architectural details often missed by tourists',
+        'localInsights': 'Engage with local guides who can share oral traditions and stories'
+    }
+
+# ------------------ Timeline Endpoints ------------------
+@app.route('/api/timeline/periods', methods=['GET'])
+def get_timeline_periods():
+    """
+    Get all timeline periods with their associated locations
+    Returns organized timeline data for the frontend Timeline component
+    """
+    try:
+        # Get all locations
+        locations = kg_service.get_all_locations()
+        
+        # Process locations into timeline periods
+        period_map = {}
+        
+        for location in locations:
+            if not location.period:
+                continue
+                
+            # Extract and process period information
+            period_info = extract_period_info(location.period)
+            
+            for period in period_info:
+                period_key = period['label']
+                
+                if period_key not in period_map:
+                    period_map[period_key] = {
+                        'label': period['label'],
+                        'startYear': period['startYear'],
+                        'endYear': period['endYear'],
+                        'era': period['era'],
+                        'locations': []
+                    }
+                
+                # Add location to this period
+                period_map[period_key]['locations'].append({
+                    'id': location.id,
+                    'name': location.name,
+                    'dynasty': location.dynasty,
+                    'category': location.category,
+                    'coordinates': location.coordinates.to_dict() if hasattr(location.coordinates, 'to_dict') else {'lat': location.coordinates.lat, 'lng': location.coordinates.lng} if hasattr(location, 'coordinates') else None
+                })
+        
+        # Convert to list and sort by start year
+        periods_list = list(period_map.values())
+        periods_list.sort(key=lambda x: x['startYear'])
+        
+        logger.info(f"Timeline periods endpoint: Returning {len(periods_list)} periods with total {sum(len(p['locations']) for p in periods_list)} locations")
+        
+        return jsonify({
+            'success': True,
+            'periods': periods_list,
+            'totalPeriods': len(periods_list),
+            'totalLocations': sum(len(p['locations']) for p in periods_list)
+        })
+        
+    except Exception as e:
+        logger.error(f"Error fetching timeline periods: {e}")
+        return jsonify({'error': 'Failed to fetch timeline periods', 'success': False}), 500
+
+def extract_period_info(period_string):
+    """
+    Extract period information from period string
+    This matches the frontend logic but runs on backend for consistency
+    """
+    periods = []
+    
+    if not period_string:
+        return periods
+    
+    # Handle different period formats
+    patterns = [
+        # "1336 CE - 1646 CE"
+        {
+            'regex': r'(\d{1,4})\s*CE\s*-\s*(\d{1,4})\s*CE',
+            'handler': lambda match: {
+                'startYear': int(match[0]),
+                'endYear': int(match[1]),
+                'label': f"{match[0]} CE - {match[1]} CE",
+                'era': 'CE'
+            }
+        },
+        # "13th century CE" or "1st century CE"
+        {
+            'regex': r'(\d{1,2})(?:st|nd|rd|th)\s*century\s*CE',
+            'handler': lambda match: {
+                'startYear': (int(match[0]) - 1) * 100 + 1,
+                'endYear': int(match[0]) * 100,
+                'label': f"{match[0]}th Century CE",
+                'era': 'CE'
+            }
+        },
+        # "950 CE - 1050 CE" (without the second CE)
+        {
+            'regex': r'(\d{1,4})\s*-\s*(\d{1,4})\s*CE',
+            'handler': lambda match: {
+                'startYear': int(match[0]),
+                'endYear': int(match[1]),
+                'label': f"{match[0]} - {match[1]} CE",
+                'era': 'CE'
+            }
+        },
+        # Single year "1632 CE"
+        {
+            'regex': r'(\d{1,4})\s*CE',
+            'handler': lambda match: {
+                'startYear': int(match[0]),
+                'endYear': int(match[0]) + 50,  # Approximate 50-year span
+                'label': f"{match[0]} CE",
+                'era': 'CE'
+            }
+        },
+        # "2nd century BCE"
+        {
+            'regex': r'(\d{1,2})(?:st|nd|rd|th)\s*century\s*BCE',
+            'handler': lambda match: {
+                'startYear': -(int(match[0]) * 100),
+                'endYear': -(int(match[0]) - 1) * 100 - 1,
+                'label': f"{match[0]}th Century BCE",
+                'era': 'BCE'
+            }
+        },
+        # Handle complex periods like "3rd century BCE (with later additions)"
+        {
+            'regex': r'(\d{1,2})(?:st|nd|rd|th)\s*century\s*BCE.*',
+            'handler': lambda match: {
+                'startYear': -(int(match[0]) * 100),
+                'endYear': -(int(match[0]) - 1) * 100 - 1,
+                'label': f"{match[0]}th Century BCE",
+                'era': 'BCE'
+            }
+        }
+    ]
+    
+    for pattern in patterns:
+        match = re.search(pattern['regex'], period_string, re.IGNORECASE)
+        if match:
+            try:
+                period_info = pattern['handler'](match.groups())
+                periods.append(period_info)
+                break
+            except (ValueError, IndexError) as e:
+                logger.warning(f"Error parsing period '{period_string}': {e}")
+                continue
+    
+    # Fallback: create a general period if no patterns match
+    if not periods:
+        periods.append({
+            'startYear': 1000,  # Default fallback
+            'endYear': 2000,
+            'label': period_string,
+            'era': 'Unknown'
+        })
+    
+    return periods
+
+# Also add a health check for timeline functionality
+@app.route('/api/timeline/health', methods=['GET'])
+def timeline_health():
+    """Health check specifically for timeline functionality"""
+    try:
+        locations = kg_service.get_all_locations()
+        periods_with_data = [loc for loc in locations if loc.period]
+        
+        return jsonify({
+            'status': 'healthy',
+            'totalLocations': len(locations),
+            'locationsWithPeriods': len(periods_with_data),
+            'timestamp': int(time.time())
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'error': str(e),
+            'timestamp': int(time.time())
+        }), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

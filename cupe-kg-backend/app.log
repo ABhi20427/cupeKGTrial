@@ -1871,3 +1871,334 @@
 2025-08-26 18:59:09,962 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 18:59:09] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=180 HTTP/1.1" 200 -
 2025-08-26 18:59:09,988 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 18:59:09] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=190 HTTP/1.1" 200 -
 2025-08-26 18:59:10,001 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 18:59:10] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=200 HTTP/1.1" 200 -
+2025-08-26 19:17:54,695 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-26 19:17:54,697 - services.data_loader - INFO - Successfully loaded 20 locations from data module
+2025-08-26 19:17:54,699 - services.kg_service - INFO - Loaded 20 locations
+2025-08-26 19:17:54,699 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'categories': {'cultural': 1, 'historical': 6, 'religious': 13}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Emperor Ashoka) and later dynasties': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1, 'Eastern Ganga Dynasty': 1, 'Mewar Kingdom (Sisodia Rajputs)': 1, 'Pallava Dynasty': 1, 'Kingdom of Mysore (Wodeyar Dynasty)': 1, 'Hoysala Empire': 1, 'Various Hindu Traditions and Spiritual Lineages': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE': 2, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '1577 CE': 1, '1238 CE': 1, '1559 CE': 1, '7th-8th century CE': 1, '1912 CE (current structure, dynasty from 1399 CE)': 1, '1117 CE': 1, 'Ancient (mentioned in Ramayana)': 1}, 'total_cultural_facts': 100, 'total_legends': 32, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6}
+2025-08-26 19:17:54,703 - __main__ - INFO - Services initialized successfully
+2025-08-26 19:17:54,708 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-26 19:17:54,740 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-26 19:17:54,741 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-26 19:17:54,745 - werkzeug - INFO -  * Restarting with stat
+2025-08-26 19:17:56,288 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-26 19:17:56,290 - services.data_loader - INFO - Successfully loaded 20 locations from data module
+2025-08-26 19:17:56,291 - services.kg_service - INFO - Loaded 20 locations
+2025-08-26 19:17:56,291 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'categories': {'cultural': 1, 'historical': 6, 'religious': 13}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Emperor Ashoka) and later dynasties': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1, 'Eastern Ganga Dynasty': 1, 'Mewar Kingdom (Sisodia Rajputs)': 1, 'Pallava Dynasty': 1, 'Kingdom of Mysore (Wodeyar Dynasty)': 1, 'Hoysala Empire': 1, 'Various Hindu Traditions and Spiritual Lineages': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE': 2, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '1577 CE': 1, '1238 CE': 1, '1559 CE': 1, '7th-8th century CE': 1, '1912 CE (current structure, dynasty from 1399 CE)': 1, '1117 CE': 1, 'Ancient (mentioned in Ramayana)': 1}, 'total_cultural_facts': 100, 'total_legends': 32, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6}
+2025-08-26 19:17:56,294 - __main__ - INFO - Services initialized successfully
+2025-08-26 19:17:56,300 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-26 19:17:56,311 - werkzeug - WARNING -  * Debugger is active!
+2025-08-26 19:17:56,316 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-26 19:18:05,976 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:18:05] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 19:19:19,847 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 19:19:19,848 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:19:19] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 19:19:30,466 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 19:19:30,467 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:19:30] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 19:30:25,357 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-26 19:30:25,359 - services.data_loader - INFO - Successfully loaded 20 locations from data module
+2025-08-26 19:30:25,361 - services.kg_service - INFO - Loaded 20 locations
+2025-08-26 19:30:25,361 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'categories': {'cultural': 1, 'historical': 6, 'religious': 13}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Emperor Ashoka) and later dynasties': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1, 'Eastern Ganga Dynasty': 1, 'Mewar Kingdom (Sisodia Rajputs)': 1, 'Pallava Dynasty': 1, 'Kingdom of Mysore (Wodeyar Dynasty)': 1, 'Hoysala Empire': 1, 'Various Hindu Traditions and Spiritual Lineages': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE': 2, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '1577 CE': 1, '1238 CE': 1, '1559 CE': 1, '7th-8th century CE': 1, '1912 CE (current structure, dynasty from 1399 CE)': 1, '1117 CE': 1, 'Ancient (mentioned in Ramayana)': 1}, 'total_cultural_facts': 100, 'total_legends': 32, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6}
+2025-08-26 19:30:25,364 - __main__ - INFO - Services initialized successfully
+2025-08-26 19:30:25,369 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-26 19:30:25,410 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.6:5000
+2025-08-26 19:30:25,411 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-26 19:30:25,413 - werkzeug - INFO -  * Restarting with stat
+2025-08-26 19:30:26,971 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-26 19:30:26,973 - services.data_loader - INFO - Successfully loaded 20 locations from data module
+2025-08-26 19:30:26,975 - services.kg_service - INFO - Loaded 20 locations
+2025-08-26 19:30:26,975 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'categories': {'cultural': 1, 'historical': 6, 'religious': 13}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Emperor Ashoka) and later dynasties': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1, 'Eastern Ganga Dynasty': 1, 'Mewar Kingdom (Sisodia Rajputs)': 1, 'Pallava Dynasty': 1, 'Kingdom of Mysore (Wodeyar Dynasty)': 1, 'Hoysala Empire': 1, 'Various Hindu Traditions and Spiritual Lineages': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE': 2, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '1577 CE': 1, '1238 CE': 1, '1559 CE': 1, '7th-8th century CE': 1, '1912 CE (current structure, dynasty from 1399 CE)': 1, '1117 CE': 1, 'Ancient (mentioned in Ramayana)': 1}, 'total_cultural_facts': 100, 'total_legends': 32, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6}
+2025-08-26 19:30:26,978 - __main__ - INFO - Services initialized successfully
+2025-08-26 19:30:26,983 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-26 19:30:26,999 - werkzeug - WARNING -  * Debugger is active!
+2025-08-26 19:30:27,003 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-26 19:30:33,661 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:30:33] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 19:30:33,916 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 19:30:33,917 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:30:33] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 19:30:33,969 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:30:33] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 19:30:34,222 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:30:34] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 19:30:34,287 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:30:34] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 19:30:37,918 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:30:37] "GET /api/place-info?name=madurai HTTP/1.1" 200 -
+2025-08-26 19:30:37,974 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:30:37] "[33mGET /assets/images/madurai.jpg HTTP/1.1[0m" 404 -
+2025-08-26 19:31:35,173 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:31:35] "GET /api/place-info?name=ellora HTTP/1.1" 200 -
+2025-08-26 19:35:24,112 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:35:24] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 19:35:24,199 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 19:35:24,201 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:35:24] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 19:35:24,412 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:35:24] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 19:35:24,667 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:35:24] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 19:35:24,767 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:35:24] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 19:36:00,609 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:36:00] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 19:36:00,700 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 19:36:00,701 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:36:00] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 19:36:00,915 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:36:00] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 19:36:01,187 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:36:01] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 19:36:01,341 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:36:01] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 19:37:39,869 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 19:37:39] "GET /api/place-info?name=ellora HTTP/1.1" 200 -
+2025-08-26 20:02:25,214 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:02:25] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 20:02:25,317 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 20:02:25,319 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:02:25] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 20:02:25,503 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:02:25] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 20:02:25,772 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:02:25] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 20:02:25,832 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:02:25] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 20:02:38,760 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:02:38] "GET /api/place-info?name=ellora HTTP/1.1" 200 -
+2025-08-26 20:02:42,575 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:02:42] "GET /api/place-info?name=ajanta HTTP/1.1" 200 -
+2025-08-26 20:02:46,235 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:02:46] "GET /api/place-info?name=varanasi HTTP/1.1" 200 -
+2025-08-26 20:02:46,255 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:02:46] "[33mGET /assets/images/varanasi.jpg HTTP/1.1[0m" 404 -
+2025-08-26 20:19:38,944 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:19:38] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 20:19:39,050 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 20:19:39,052 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:19:39] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 20:19:39,244 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:19:39] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 20:19:39,503 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:19:39] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 20:19:39,599 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:19:39] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 20:27:46,366 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:27:46] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-26 20:27:46,811 - __main__ - INFO - Chatbot response: confidence=1.0
+2025-08-26 20:27:46,812 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:27:46] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-26 20:27:59,540 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:27:59] "GET /api/place-info?name=varanasi HTTP/1.1" 200 -
+2025-08-26 20:27:59,925 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:27:59] "[33mGET /assets/images/varanasi.jpg HTTP/1.1[0m" 404 -
+2025-08-26 20:28:05,765 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:28:05] "GET /api/place-info?name=ajanta HTTP/1.1" 200 -
+2025-08-26 20:28:11,297 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:28:11] "GET /api/place-info?name=rishikesh HTTP/1.1" 200 -
+2025-08-26 20:28:11,321 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:28:11] "[33mGET /assets/images/rishikesh.jpg HTTP/1.1[0m" 404 -
+2025-08-26 20:28:15,600 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:28:15] "GET /api/place-info?name=rishikesh HTTP/1.1" 200 -
+2025-08-26 20:28:15,619 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:28:15] "[33mPOST /api/cultural-analysis HTTP/1.1[0m" 404 -
+2025-08-26 20:28:31,685 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:28:31] "GET /api/place-info?name=rishikesh HTTP/1.1" 200 -
+2025-08-26 20:28:35,837 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:28:35] "[33mPOST /api/cultural-analysis HTTP/1.1[0m" 404 -
+2025-08-26 20:28:36,134 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:28:36] "GET /api/place-info?name=rishikesh HTTP/1.1" 200 -
+2025-08-26 20:28:44,931 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:28:44] "GET /api/place-info?name=sanchi-stupa HTTP/1.1" 200 -
+2025-08-26 20:28:45,266 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:28:45] "[33mGET /assets/images/sanchi-stupa.jpg HTTP/1.1[0m" 404 -
+2025-08-26 20:32:39,762 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:32:39] "GET /api/place-info?name=sanchi-stupa HTTP/1.1" 200 -
+2025-08-26 20:32:39,797 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:32:39] "[33mPOST /api/cultural-analysis HTTP/1.1[0m" 404 -
+2025-08-26 20:46:38,031 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:46:38] "GET /api/place-info?name=ellora HTTP/1.1" 200 -
+2025-08-26 20:46:42,411 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:46:42] "GET /api/place-info?name=ellora HTTP/1.1" 200 -
+2025-08-26 20:46:42,444 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 20:46:42] "[33mPOST /api/cultural-analysis HTTP/1.1[0m" 404 -
+2025-08-26 21:00:53,243 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:00:53] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:00:53,300 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:00:53,302 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:00:53] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:00:53,551 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:00:53] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 21:00:53,821 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:00:53] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:00:53,865 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:00:53] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 21:00:56,354 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:00:56] "GET /api/place-info?name=hampi HTTP/1.1" 200 -
+2025-08-26 21:00:56,373 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:00:56] "[33mPOST /api/cultural-analysis HTTP/1.1[0m" 404 -
+2025-08-26 21:02:32,024 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:02:32] "GET /api/place-info?name=ellora HTTP/1.1" 200 -
+2025-08-26 21:02:39,930 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:02:39] "GET /api/place-info?name=sanchi-stupa HTTP/1.1" 200 -
+2025-08-26 21:02:39,955 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:02:39] "[33mGET /assets/images/sanchi-stupa.jpg HTTP/1.1[0m" 404 -
+2025-08-26 21:03:14,538 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:03:14] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:03:14,624 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:03:14,626 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:03:14] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:03:14,849 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:03:14] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 21:03:15,101 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:03:15] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:03:15,161 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:03:15] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 21:03:28,315 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:03:28] "GET /api/place-info?name=sanchi-stupa HTTP/1.1" 200 -
+2025-08-26 21:03:33,745 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:03:33] "[33mGET /assets/images/belur-halebidu.jpg HTTP/1.1[0m" 404 -
+2025-08-26 21:03:34,030 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:03:34] "GET /api/place-info?name=belur-halebidu HTTP/1.1" 200 -
+2025-08-26 21:03:34,098 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:03:34] "[33mGET /assets/images/belur-and-halebidu.jpg HTTP/1.1[0m" 404 -
+2025-08-26 21:03:50,982 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:03:50] "GET /api/place-info?name=belur-halebidu HTTP/1.1" 200 -
+2025-08-26 21:05:28,553 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\app_backend.py', reloading
+2025-08-26 21:05:29,118 - werkzeug - INFO -  * Restarting with stat
+2025-08-26 21:05:31,064 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-26 21:05:31,066 - services.data_loader - INFO - Successfully loaded 20 locations from data module
+2025-08-26 21:05:31,067 - services.kg_service - INFO - Loaded 20 locations
+2025-08-26 21:05:31,068 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'categories': {'cultural': 1, 'historical': 6, 'religious': 13}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Emperor Ashoka) and later dynasties': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1, 'Eastern Ganga Dynasty': 1, 'Mewar Kingdom (Sisodia Rajputs)': 1, 'Pallava Dynasty': 1, 'Kingdom of Mysore (Wodeyar Dynasty)': 1, 'Hoysala Empire': 1, 'Various Hindu Traditions and Spiritual Lineages': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE': 2, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '1577 CE': 1, '1238 CE': 1, '1559 CE': 1, '7th-8th century CE': 1, '1912 CE (current structure, dynasty from 1399 CE)': 1, '1117 CE': 1, 'Ancient (mentioned in Ramayana)': 1}, 'total_cultural_facts': 100, 'total_legends': 32, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6}
+2025-08-26 21:05:31,071 - __main__ - INFO - Services initialized successfully
+2025-08-26 21:05:31,079 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-26 21:05:31,094 - werkzeug - WARNING -  * Debugger is active!
+2025-08-26 21:05:31,097 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-26 21:05:39,020 - __main__ - INFO - Performing cultural analysis for: Test Location
+2025-08-26 21:05:39,020 - __main__ - INFO - Cultural analysis completed for Test Location
+2025-08-26 21:05:39,022 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:05:39] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:07:26,651 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:26] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:07:26,733 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:07:26,734 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:26] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:07:26,948 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:26] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 21:07:27,215 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:27] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:07:27,278 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:27] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 21:07:28,494 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:28] "GET /api/place-info?name=mahabalipuram HTTP/1.1" 200 -
+2025-08-26 21:07:28,551 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:28] "[33mGET /assets/images/mahabalipuram.jpg HTTP/1.1[0m" 404 -
+2025-08-26 21:07:28,824 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:28] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:07:29,098 - __main__ - INFO - Performing cultural analysis for: Mahabalipuram
+2025-08-26 21:07:29,099 - __main__ - INFO - Cultural analysis completed for Mahabalipuram
+2025-08-26 21:07:29,100 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:29] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:07:38,282 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:38] "GET /api/place-info?name=mysore-palace HTTP/1.1" 200 -
+2025-08-26 21:07:38,614 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:38] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:07:38,882 - __main__ - INFO - Performing cultural analysis for: Mysore Palace
+2025-08-26 21:07:38,884 - __main__ - INFO - Cultural analysis completed for Mysore Palace
+2025-08-26 21:07:38,886 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:38] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:07:49,696 - __main__ - INFO - Preference suggestions: 20 periods, 20 dynasties
+2025-08-26 21:07:49,698 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:07:49] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-26 21:08:04,382 - __main__ - INFO - Preference suggestions: 20 periods, 20 dynasties
+2025-08-26 21:08:04,384 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:08:04] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-26 21:08:10,506 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:08:10] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:08:10,824 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:08:10] "[31m[1mPOST /api/cultural-analysis HTTP/1.1[0m" 400 -
+2025-08-26 21:09:51,913 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:09:51] "[31m[1mPOST /api/cultural-analysis HTTP/1.1[0m" 400 -
+2025-08-26 21:10:12,608 - __main__ - INFO - Performing cultural analysis for: Test Location
+2025-08-26 21:10:12,608 - __main__ - INFO - Cultural analysis completed for Test Location
+2025-08-26 21:10:12,609 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:10:12] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:11:13,542 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\app_backend.py', reloading
+2025-08-26 21:11:13,739 - werkzeug - INFO -  * Restarting with stat
+2025-08-26 21:11:15,492 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-26 21:11:15,493 - services.data_loader - INFO - Successfully loaded 20 locations from data module
+2025-08-26 21:11:15,495 - services.kg_service - INFO - Loaded 20 locations
+2025-08-26 21:11:15,495 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'categories': {'cultural': 1, 'historical': 6, 'religious': 13}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Emperor Ashoka) and later dynasties': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1, 'Eastern Ganga Dynasty': 1, 'Mewar Kingdom (Sisodia Rajputs)': 1, 'Pallava Dynasty': 1, 'Kingdom of Mysore (Wodeyar Dynasty)': 1, 'Hoysala Empire': 1, 'Various Hindu Traditions and Spiritual Lineages': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE': 2, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '1577 CE': 1, '1238 CE': 1, '1559 CE': 1, '7th-8th century CE': 1, '1912 CE (current structure, dynasty from 1399 CE)': 1, '1117 CE': 1, 'Ancient (mentioned in Ramayana)': 1}, 'total_cultural_facts': 100, 'total_legends': 32, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6}
+2025-08-26 21:11:15,498 - __main__ - INFO - Services initialized successfully
+2025-08-26 21:11:15,505 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-26 21:11:15,520 - werkzeug - WARNING -  * Debugger is active!
+2025-08-26 21:11:15,523 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-26 21:11:31,208 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:11:31] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:11:31,476 - __main__ - INFO - Cultural analysis request received. Content-Type: application/json
+2025-08-26 21:11:31,476 - __main__ - INFO - Request data: {}
+2025-08-26 21:11:31,476 - __main__ - INFO - Request JSON: {}
+2025-08-26 21:11:31,478 - __main__ - WARNING - No JSON data in request
+2025-08-26 21:11:31,478 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:11:31] "[31m[1mPOST /api/cultural-analysis HTTP/1.1[0m" 400 -
+2025-08-26 21:11:48,973 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:11:48] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:11:58,959 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:11:58] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:12:08,341 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:12:08] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:12:26,930 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:12:26] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:12:39,203 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:12:39] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:13:27,953 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\app_backend.py', reloading
+2025-08-26 21:13:28,156 - werkzeug - INFO -  * Restarting with stat
+2025-08-26 21:13:29,904 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-26 21:13:29,906 - services.data_loader - INFO - Successfully loaded 20 locations from data module
+2025-08-26 21:13:29,908 - services.kg_service - INFO - Loaded 20 locations
+2025-08-26 21:13:29,908 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'categories': {'cultural': 1, 'historical': 6, 'religious': 13}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Emperor Ashoka) and later dynasties': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1, 'Eastern Ganga Dynasty': 1, 'Mewar Kingdom (Sisodia Rajputs)': 1, 'Pallava Dynasty': 1, 'Kingdom of Mysore (Wodeyar Dynasty)': 1, 'Hoysala Empire': 1, 'Various Hindu Traditions and Spiritual Lineages': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE': 2, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '1577 CE': 1, '1238 CE': 1, '1559 CE': 1, '7th-8th century CE': 1, '1912 CE (current structure, dynasty from 1399 CE)': 1, '1117 CE': 1, 'Ancient (mentioned in Ramayana)': 1}, 'total_cultural_facts': 100, 'total_legends': 32, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6}
+2025-08-26 21:13:29,912 - __main__ - INFO - Services initialized successfully
+2025-08-26 21:13:29,918 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-26 21:13:29,934 - werkzeug - WARNING -  * Debugger is active!
+2025-08-26 21:13:29,937 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-26 21:13:35,252 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\app_backend.py', reloading
+2025-08-26 21:13:35,462 - werkzeug - INFO -  * Restarting with stat
+2025-08-26 21:13:37,296 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-26 21:13:37,299 - services.data_loader - INFO - Successfully loaded 20 locations from data module
+2025-08-26 21:13:37,300 - services.kg_service - INFO - Loaded 20 locations
+2025-08-26 21:13:37,301 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'categories': {'cultural': 1, 'historical': 6, 'religious': 13}, 'dynasties': {'Mughal Empire': 1, 'Vijayanagara Empire': 1, 'Chandela Dynasty': 1, 'Satavahana and Vakataka': 1, 'Rashtrakuta Dynasty': 1, 'Sikh Gurus (Later renovated under Sikh Empire)': 1, 'Portuguese Colonial Rule': 1, 'Delhi Sultanate (Mamluk Dynasty)': 1, 'Mauryan Empire (Emperor Ashoka) and later dynasties': 1, 'Kachwaha Rajputs': 1, 'Various Buddhist kingdoms': 1, 'Various Hindu kingdoms, Mughal Empire, British Raj': 1, 'Pandya Kingdom, Nayak Dynasty': 1, 'Sikh Gurus, Sikh Empire': 1, 'Eastern Ganga Dynasty': 1, 'Mewar Kingdom (Sisodia Rajputs)': 1, 'Pallava Dynasty': 1, 'Kingdom of Mysore (Wodeyar Dynasty)': 1, 'Hoysala Empire': 1, 'Various Hindu Traditions and Spiritual Lineages': 1}, 'periods': {'1632 CE': 1, '1336 CE': 1, '950 CE': 1, '2nd century BCE': 1, '600 CE': 1, '1589 CE': 1, '16th century CE': 1, '1192 CE': 1, '3rd century BCE': 2, '1727 CE': 1, '6th century BCE (enlightenment), 5th-6th century CE (temple)': 1, '11th century BCE': 1, '1577 CE': 1, '1238 CE': 1, '1559 CE': 1, '7th-8th century CE': 1, '1912 CE (current structure, dynasty from 1399 CE)': 1, '1117 CE': 1, 'Ancient (mentioned in Ramayana)': 1}, 'total_cultural_facts': 100, 'total_legends': 32, 'avg_cultural_facts_per_location': 5.0, 'avg_legends_per_location': 1.6}
+2025-08-26 21:13:37,303 - __main__ - INFO - Services initialized successfully
+2025-08-26 21:13:37,309 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-26 21:13:37,324 - werkzeug - WARNING -  * Debugger is active!
+2025-08-26 21:13:37,328 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-26 21:13:43,464 - __main__ - INFO - Cultural analysis request received for location
+2025-08-26 21:13:43,464 - __main__ - INFO - Performing cultural analysis for: Heritage Site
+2025-08-26 21:13:43,465 - __main__ - INFO - Cultural analysis completed for Heritage Site
+2025-08-26 21:13:43,466 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:13:43] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:13:53,165 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:13:53] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:13:53,430 - __main__ - INFO - Cultural analysis request received for location
+2025-08-26 21:13:53,431 - __main__ - INFO - Performing cultural analysis for: Heritage Site
+2025-08-26 21:13:53,432 - __main__ - INFO - Cultural analysis completed for Heritage Site
+2025-08-26 21:13:53,432 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:13:53] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:14:36,205 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:14:36] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 21:14:36,212 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:14:36] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:14:36,311 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:14:36,313 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:14:36] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:14:36,595 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:14:36] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:14:36,860 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:14:36] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 21:14:42,037 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:14:42] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:14:42,355 - __main__ - INFO - Cultural analysis request received for location
+2025-08-26 21:14:42,356 - __main__ - INFO - Performing cultural analysis for: Heritage Site
+2025-08-26 21:14:42,357 - __main__ - INFO - Cultural analysis completed for Heritage Site
+2025-08-26 21:14:42,358 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:14:42] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:15:07,638 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:07] "GET /api/place-info?name=jaipur HTTP/1.1" 200 -
+2025-08-26 21:15:07,742 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:07] "[33mGET /assets/images/jaipur.jpg HTTP/1.1[0m" 404 -
+2025-08-26 21:15:07,961 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:07] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:15:08,230 - __main__ - INFO - Cultural analysis request received for location
+2025-08-26 21:15:08,232 - __main__ - INFO - Performing cultural analysis for: Jaipur
+2025-08-26 21:15:08,236 - __main__ - INFO - Cultural analysis completed for Jaipur
+2025-08-26 21:15:08,242 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:08] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:15:29,002 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:29] "GET /api/place-info?name=udaipur HTTP/1.1" 200 -
+2025-08-26 21:15:29,330 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:29] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:15:29,338 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:29] "[33mGET /assets/images/udaipur.jpg HTTP/1.1[0m" 404 -
+2025-08-26 21:15:29,595 - __main__ - INFO - Cultural analysis request received for location
+2025-08-26 21:15:29,596 - __main__ - INFO - Performing cultural analysis for: Udaipur
+2025-08-26 21:15:29,597 - __main__ - INFO - Cultural analysis completed for Udaipur
+2025-08-26 21:15:29,599 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:29] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:15:37,961 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:37] "GET /api/place-info?name=jaipur HTTP/1.1" 200 -
+2025-08-26 21:15:37,988 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:37] "[33mGET /assets/images/jaipur.jpg HTTP/1.1[0m" 404 -
+2025-08-26 21:15:38,294 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:38] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:15:38,561 - __main__ - INFO - Cultural analysis request received for location
+2025-08-26 21:15:38,562 - __main__ - INFO - Performing cultural analysis for: Jaipur
+2025-08-26 21:15:38,562 - __main__ - INFO - Cultural analysis completed for Jaipur
+2025-08-26 21:15:38,564 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:38] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:15:59,621 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:15:59] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=50 HTTP/1.1" 200 -
+2025-08-26 21:16:00,765 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:00] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=60 HTTP/1.1" 200 -
+2025-08-26 21:16:01,128 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=70 HTTP/1.1" 200 -
+2025-08-26 21:16:01,159 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=80 HTTP/1.1" 200 -
+2025-08-26 21:16:01,172 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=90 HTTP/1.1" 200 -
+2025-08-26 21:16:01,186 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=100 HTTP/1.1" 200 -
+2025-08-26 21:16:01,204 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=110 HTTP/1.1" 200 -
+2025-08-26 21:16:01,218 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=120 HTTP/1.1" 200 -
+2025-08-26 21:16:01,445 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=130 HTTP/1.1" 200 -
+2025-08-26 21:16:01,508 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=140 HTTP/1.1" 200 -
+2025-08-26 21:16:01,512 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=150 HTTP/1.1" 200 -
+2025-08-26 21:16:01,529 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=160 HTTP/1.1" 200 -
+2025-08-26 21:16:01,546 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=170 HTTP/1.1" 200 -
+2025-08-26 21:16:01,583 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=180 HTTP/1.1" 200 -
+2025-08-26 21:16:01,772 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=190 HTTP/1.1" 200 -
+2025-08-26 21:16:01,866 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:01] "GET /api/nearby-places?lat=12.9007616&lng=77.6634368&radius=200 HTTP/1.1" 200 -
+2025-08-26 21:16:22,938 - __main__ - INFO - Preference suggestions: 20 periods, 20 dynasties
+2025-08-26 21:16:22,939 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:16:22] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-26 21:17:07,066 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:17:07] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-26 21:17:07,333 - __main__ - INFO - Processing chatbot query: 'hi' for session: 17562230761900.u0q608o1gfi
+2025-08-26 21:17:07,340 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-26 21:17:07,342 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:17:07] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-26 21:17:17,253 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:17:17] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-26 21:17:17,564 - __main__ - INFO - Processing chatbot query: 'tell me about hampi' for session: 17562230761900.u0q608o1gfi
+2025-08-26 21:17:17,568 - __main__ - INFO - Chatbot response: confidence=0.6267072531409877
+2025-08-26 21:17:17,569 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:17:17] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-26 21:17:38,732 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:17:38] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-26 21:17:39,042 - __main__ - INFO - Processing chatbot query: 'hampi cultural signifiacnce' for session: 17562230761900.u0q608o1gfi
+2025-08-26 21:17:39,048 - __main__ - INFO - Chatbot response: confidence=0.6267072531409877
+2025-08-26 21:17:39,049 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:17:39] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-26 21:17:46,310 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:17:46] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-26 21:17:46,623 - __main__ - INFO - Processing chatbot query: 'Plan a heritage route' for session: None
+2025-08-26 21:17:46,628 - __main__ - INFO - Chatbot response: confidence=0.7071067811865477
+2025-08-26 21:17:46,628 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:17:46] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-26 21:18:01,155 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:01] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 21:18:01,159 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:01] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:18:01,263 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:18:01,265 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:01] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:18:01,631 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:01] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 21:18:01,637 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:01] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:18:01,824 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:01] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:18:01,840 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:18:01,841 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:01] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:18:01,994 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:01] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 21:18:02,000 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:02] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:18:02,159 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:18:02,161 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:02] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:18:04,010 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:04] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 21:18:04,014 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:04] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:18:04,223 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:18:04,225 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:04] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:18:04,376 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:04] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:18:04,639 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:18:04] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 21:22:43,846 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:22:43] "GET /api/place-info?name=mahabalipuram HTTP/1.1" 200 -
+2025-08-26 21:22:43,860 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:22:43] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:22:44,114 - __main__ - INFO - Cultural analysis request received for location
+2025-08-26 21:22:44,134 - __main__ - INFO - Performing cultural analysis for: Mahabalipuram
+2025-08-26 21:22:44,158 - __main__ - INFO - Cultural analysis completed for Mahabalipuram
+2025-08-26 21:22:44,175 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:22:44] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-26 21:22:44,319 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:22:44] "[33mGET /assets/images/mahabalipuram.jpg HTTP/1.1[0m" 404 -
+2025-08-26 21:23:16,049 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:16] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 21:23:16,057 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:16] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:23:16,106 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:23:16,107 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:16] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:23:16,404 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:16] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:23:16,665 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:16] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 21:23:18,541 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:18] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 21:23:18,548 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:18] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:23:18,600 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:23:18,602 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:18] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:23:18,901 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:18] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:23:19,168 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:19] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 21:23:20,256 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:20] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 21:23:20,262 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:20] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:23:20,504 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:23:20,506 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:20] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:23:20,588 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:20] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:23:20,854 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:20] "GET /api/routes HTTP/1.1" 200 -
+2025-08-26 21:23:21,622 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:21] "GET /api/health HTTP/1.1" 200 -
+2025-08-26 21:23:21,630 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:21] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-26 21:23:21,892 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-26 21:23:21,893 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:21] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-26 21:23:21,963 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:21] "GET /api/locations HTTP/1.1" 200 -
+2025-08-26 21:23:22,227 - werkzeug - INFO - 127.0.0.1 - - [26/Aug/2025 21:23:22] "GET /api/routes HTTP/1.1" 200 -
