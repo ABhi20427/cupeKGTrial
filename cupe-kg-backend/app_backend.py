@@ -452,6 +452,38 @@ def get_recommendations():
         logger.error(f"Error getting recommendations: {e}")
         return jsonify({'error': 'Failed to generate recommendations'}), 500
 
+@app.route('/api/debug/test-distance', methods=['GET'])
+def debug_test_distance():
+    try:
+        # Test coordinates - Bangalore to Mysore
+        bangalore = {'lat': 12.9716, 'lng': 77.5946}
+        
+        # Get Mysore location from your data
+        all_locations = kg_service.get_all_locations()
+        mysore_location = None
+        
+        for loc in all_locations:
+            if 'mysore' in loc.name.lower():
+                mysore_location = loc
+                break
+        
+        if not mysore_location:
+            return jsonify({'error': 'Mysore not found in locations'})
+        
+        # Calculate distance using route service
+        distance = route_service._calculate_distance(bangalore, mysore_location)
+        
+        return jsonify({
+            'bangalore': bangalore,
+            'mysore_name': mysore_location.name,
+            'mysore_coordinates': mysore_location.coordinates,
+            'mysore_coordinates_type': str(type(mysore_location.coordinates)),
+            'calculated_distance': distance
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e), 'traceback': str(e.__traceback__)})
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('FLASK_ENV', 'development') == 'development'

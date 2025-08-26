@@ -26,10 +26,10 @@ class ChatbotService:
             else:
                 self.faq_vectors = None
                 
-            print("✅ Chatbot models loaded successfully")
+            print("Chatbot models loaded successfully")
             
         except Exception as e:
-            print(f"❌ Error loading NLP models: {e}")
+            print(f"Error loading NLP models: {e}")
             self.vectorizer = None
             self.faq_vectors = None
     

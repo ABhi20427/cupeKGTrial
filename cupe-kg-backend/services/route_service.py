@@ -264,17 +264,11 @@ class RouteService:
 
     def _filter_locations_by_preferences(self, locations: List[Location], prefs) -> List[Location]:
         """Filter locations based on user preferences - COMPLETELY FIXED VERSION"""
-        print(f"\n=== FILTERING {len(locations)} LOCATIONS ===")
-        print(f"User interests: {prefs.interests}")
-        
         filtered = []
         
         for location in locations:
-            print(f"\n--- Checking {location.name} ---")
-            
             # If no interests specified, include all locations
             if not prefs.interests:
-                print(f"✅ No interests specified, including {location.name}")
                 filtered.append(location)
                 continue
             
@@ -282,14 +276,7 @@ class RouteService:
             matches_interest = self._matches_interests(location, prefs.interests)
             
             if matches_interest:
-                print(f"✅ Including {location.name} - matches interests")
                 filtered.append(location)
-            else:
-                print(f"❌ Excluding {location.name} - no interest match")
-        
-        print(f"\n=== FILTERING COMPLETE ===")
-        print(f"Filtered locations: {[loc.name for loc in filtered]}")
-        print(f"Total: {len(filtered)} out of {len(locations)}")
         
         return filtered
     
@@ -298,9 +285,6 @@ class RouteService:
         if not interests:
             return True
 
-        print(f"Checking location: {location.name}")
-        print(f"User interests: {interests}")
-
         # Get location data with better handling
         location_tags = [tag.lower().strip() for tag in getattr(location, 'tags', [])]
         location_category = getattr(location, 'category', '').lower().strip()
@@ -308,43 +292,32 @@ class RouteService:
         location_name = getattr(location, 'name', '').lower().strip()
         location_dynasty = getattr(location, 'dynasty', '').lower().strip()
 
-        print(f"Location category: '{location_category}'")
-        print(f"Location tags: {location_tags}")
-        print(f"Location dynasty: '{location_dynasty}'")
-
         for interest in interests:
             interest_lower = str(interest).lower().strip()
-            print(f"Checking interest: '{interest_lower}'")
 
             # 1. EXACT category match
             if interest_lower == location_category:
-                print(f"✅ EXACT category match: {interest_lower}")
                 return True
 
             # 2. Category contains interest (partial match)
             if interest_lower in location_category or location_category in interest_lower:
-                print(f"✅ Category partial match: {interest_lower} <-> {location_category}")
                 return True
 
             # 3. Check tags (exact and partial)
             for tag in location_tags:
                 if interest_lower == tag or interest_lower in tag or tag in interest_lower:
-                    print(f"✅ Tag match: {interest_lower} <-> {tag}")
                     return True
 
             # 4. Check name (partial match)
             if interest_lower in location_name or location_name in interest_lower:
-                print(f"✅ Name match: {interest_lower} <-> {location_name}")
                 return True
 
             # 5. Check description (partial match)
             if interest_lower in location_description:
-                print(f"✅ Description match: {interest_lower} in description")
                 return True
 
             # 6. Dynasty match
             if interest_lower in location_dynasty or location_dynasty in interest_lower:
-                print(f"✅ Dynasty match: {interest_lower} <-> {location_dynasty}")
                 return True
 
             # 7. BROAD MATCHING - This is the key fix!
@@ -367,7 +340,6 @@ class RouteService:
                 
                 for keyword in keywords:
                     if keyword in search_text:
-                        print(f"✅ BROAD match: {interest_lower} -> found '{keyword}' in location data")
                         return True
 
             # 8. Reverse broad matching - check if location keywords match interest categories
@@ -378,10 +350,7 @@ class RouteService:
                     if (keyword in location_name or keyword in location_description or 
                         keyword in location_category or any(keyword in tag for tag in location_tags)):
                         if interest_lower in category or category in interest_lower:
-                            print(f"✅ REVERSE broad match: found '{keyword}', matches {interest_lower}")
                             return True
-
-        print(f"❌ No match found for location {location.name} with interests {interests}")
         return False
     
     def _get_interest_keywords(self, interest) -> List[str]:
@@ -437,23 +406,47 @@ class RouteService:
         # For now, returning True as placeholder
         return True
     
-    def _calculate_distance(self, point1: Dict[str, float], point2) -> float:
-        """Calculate distance between two points in kilometers"""
-        # Handle different coordinate formats
-        if isinstance(point2, dict):
-            lat2, lon2 = point2.get('lat', 0), point2.get('lng', 0)
-        elif hasattr(point2, 'coordinates'):
-            coords = point2.coordinates
-            if isinstance(coords, dict):
-                lat2, lon2 = coords.get('lat', 0), coords.get('lng', 0)
+    def _calculate_distance(self, point1: Dict[str, float], location) -> float:
+        """Calculate Haversine distance between two points"""
+        import math
+        
+        # Handle point1 (should be a dictionary with lat/lng)
+        if not isinstance(point1, dict) or 'lat' not in point1 or 'lng' not in point1:
+            return float('inf')
+        
+        lat1, lon1 = point1['lat'], point1['lng']
+        
+        # Handle location parameter (could be Location object or coordinate dict)
+        if hasattr(location, 'coordinates'):
+            # Location object - extract coordinates
+            coords = location.coordinates
+            if hasattr(coords, 'lat') and hasattr(coords, 'lng'):
+                # Coordinates object with lat/lng attributes
+                lat2, lon2 = float(coords.lat), float(coords.lng)
+            elif isinstance(coords, dict) and 'lat' in coords and 'lng' in coords:
+                lat2, lon2 = coords['lat'], coords['lng']
             elif isinstance(coords, (list, tuple)) and len(coords) >= 2:
                 lat2, lon2 = coords[0], coords[1]
             else:
+                print(f"Warning: Invalid coordinates format for {getattr(location, 'name', 'unknown')}: {coords}")
+                return float('inf')
+        elif isinstance(location, dict):
+            # Dictionary with coordinates
+            if 'coordinates' in location:
+                coords = location['coordinates']
+                if isinstance(coords, dict):
+                    lat2, lon2 = coords.get('lat', 0), coords.get('lng', 0)
+                elif isinstance(coords, (list, tuple)) and len(coords) >= 2:
+                    lat2, lon2 = coords[0], coords[1]
+                else:
+                    return float('inf')
+            elif 'lat' in location and 'lng' in location:
+                lat2, lon2 = location['lat'], location['lng']
+            else:
                 return float('inf')
         else:
+            print(f"Warning: Unhandled location format: {type(location)} - {location}")
             return float('inf')
-            
-        lat1, lon1 = point1['lat'], point1['lng']
         
         # Haversine formula
         R = 6371  # Earth's radius in kilometers
@@ -464,8 +457,8 @@ class RouteService:
         delta_lon = math.radians(lon2 - lon1)
         
         a = (math.sin(delta_lat/2) * math.sin(delta_lat/2) +
-             math.cos(lat1_rad) * math.cos(lat2_rad) *
-             math.sin(delta_lon/2) * math.sin(delta_lon/2))
+            math.cos(lat1_rad) * math.cos(lat2_rad) *
+            math.sin(delta_lon/2) * math.sin(delta_lon/2))
         
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
         distance = R * c
@@ -673,7 +666,7 @@ class RouteService:
         return [locations[i] for i in route_order]
     
     def get_nearby_historical_places(self, location: Dict[str, float], radius_km: int = 50, 
-                                   interests = None) -> List[Dict[str, Any]]:
+                                interests = None) -> List[Dict[str, Any]]:
         """Get nearby historical places based on location and interests"""
         all_locations = self.kg_service.get_all_locations()
         nearby = []
@@ -683,8 +676,10 @@ class RouteService:
             
             if distance <= radius_km:
                 # Check interest match if specified
-                if interests and not self._matches_interests(loc, interests):
-                    continue
+                if interests:
+                    matches = self._matches_interests(loc, interests)
+                    if not matches:
+                        continue
                 
                 nearby.append({
                     'location': loc.to_dict(),
@@ -695,8 +690,6 @@ class RouteService:
         # Sort by distance
         nearby.sort(key=lambda x: x['distance_km'])
         return nearby
-
-    # ===== EXISTING FUNCTIONALITY (PRESERVED) =====
         
     def create_personalized_route(self, preferences):
         """
