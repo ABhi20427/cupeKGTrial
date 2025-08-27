@@ -905,6 +905,7 @@ def timeline_health():
             'status': 'error',
             'error': str(e),
             'timestamp': int(time.time())
+            
         }), 500
 
 if __name__ == '__main__':

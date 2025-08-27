@@ -13,11 +13,9 @@ class KnowledgeGraphService:
         
         if not use_placeholder:
             try:
-                # Import Neo4j here to avoid errors if not installed
                 from neo4j import GraphDatabase
                 from config import Config
                 
-                # Connect to Neo4j
                 self.driver = GraphDatabase.driver(
                     Config.NEO4J_URI, 
                     auth=(Config.NEO4J_USER, Config.NEO4J_PASSWORD)
@@ -28,27 +26,18 @@ class KnowledgeGraphService:
                 logger.warning("Falling back to placeholder data")
                 self.use_placeholder = True
         
-        # Load data
         if self.use_placeholder:
-            # Try to load from data module first, fallback to placeholder
             self.placeholder_locations = DataLoader.load_from_data_module()
-            
-            # Enrich with relationships for knowledge graph functionality
             DataLoader.enrich_with_relationships(self.placeholder_locations)
-            
             logger.info(f"Loaded {len(self.placeholder_locations)} locations")
-            
-            # Log statistics
             stats = DataLoader.get_statistics(self.placeholder_locations)
             logger.info(f"Location statistics: {stats}")
     
     def close(self):
-        """Close database connection if using Neo4j"""
         if not self.use_placeholder and hasattr(self, 'driver'):
             self.driver.close()
     
     def get_all_locations(self) -> List[Location]:
-        """Get all available locations"""
         if self.use_placeholder:
             return list(self.placeholder_locations.values())
         
@@ -64,7 +53,6 @@ class KnowledgeGraphService:
                 
                 locations = []
                 for record in result:
-                    # Convert Neo4j record to Location object
                     location_data = {
                         'id': record['id'],
                         'name': record['name'],
@@ -79,19 +67,16 @@ class KnowledgeGraphService:
                         'dynasty': record['dynasty'] or '',
                         'tags': record['tags'] or []
                     }
-                    
                     location = Location.from_dict(location_data)
                     locations.append(location)
                 
                 return locations
-                
         except Exception as e:
             logger.error(f"Error fetching locations from Neo4j: {e}")
             logger.warning("Falling back to placeholder data")
             return list(self.placeholder_locations.values())
     
     def get_location_by_id(self, location_id: str) -> Optional[Location]:
-        """Get a specific location by its ID"""
         if self.use_placeholder:
             return self.placeholder_locations.get(location_id)
         
@@ -106,111 +91,97 @@ class KnowledgeGraphService:
                 if record:
                     node = record["l"]
                     location_data = dict(node.items())
-                    # Convert Neo4j format to our format
                     if 'lat' in location_data and 'lng' in location_data:
                         location_data['coordinates'] = {
                             'lat': location_data.pop('lat'),
                             'lng': location_data.pop('lng')
                         }
                     return Location.from_dict(location_data)
-                
                 return None
-                
         except Exception as e:
             logger.error(f"Error fetching location {location_id} from Neo4j: {e}")
-            # Fallback to placeholder
             return self.placeholder_locations.get(location_id)
-    
-    def get_related_locations(self, location_id: str, limit: int = 5) -> List[Dict[str, Any]]:
-        """Get locations related to the specified location"""
+
+    def get_related_locations(self, location_id, max_results=5):
         if self.use_placeholder:
-            location = self.placeholder_locations.get(location_id)
-            if not location:
+            try:
+                current_location = self.placeholder_locations.get(location_id)
+                if not current_location:
+                    return []
+                
+                related = []
+                for loc_id, location in self.placeholder_locations.items():
+                    if loc_id != location_id:
+                        similarity_score = 0
+                        if (hasattr(current_location, 'dynasty') and hasattr(location, 'dynasty') and
+                            current_location.dynasty == location.dynasty):
+                            similarity_score += 3
+                        if (hasattr(current_location, 'period') and hasattr(location, 'period') and
+                            current_location.period == location.period):
+                            similarity_score += 2
+                        if (hasattr(current_location, 'category') and hasattr(location, 'category') and
+                            current_location.category == location.category):
+                            similarity_score += 1
+                        
+                        if similarity_score > 0:
+                            related.append({
+                                'location': location.to_dict(),
+                                'similarity_score': similarity_score
+                            })
+                
+                related.sort(key=lambda x: x['similarity_score'], reverse=True)
+                return [item['location'] for item in related[:max_results]]
+            except Exception as e:
+                logger.error(f"Error getting related locations: {e}")
                 return []
-            
-            # Get precomputed relationships
-            related = getattr(location, '_related_locations', [])
-            
-            # Convert to the expected format
-            result = []
-            for rel in related[:limit]:
-                related_location = self.placeholder_locations.get(rel['id'])
-                if related_location:
-                    result.append({
-                        'location': related_location.to_dict(),
-                        'relationship': rel['relationship_type'],
-                        'strength': rel['similarity']
-                    })
-            
-            return result
         
         try:
             with self.driver.session() as session:
                 result = session.run("""
-                    MATCH (l1:Location {id: $id})-[r]-(l2:Location)
-                    RETURN l2 as location, TYPE(r) as relationship, r.strength as strength, 
-                           CASE 
-                             WHEN TYPE(r) = 'SHARES_THEME' THEN r.theme 
-                             WHEN TYPE(r) = 'SAME_DYNASTY' THEN r.dynasty
-                             ELSE NULL 
-                           END as commonProperty
-                    ORDER BY r.strength DESC
-                    LIMIT $limit
-                """, id=location_id, limit=limit)
+                    MATCH (l1:Location {id: $location_id})
+                    MATCH (l2:Location)
+                    WHERE l1 <> l2 AND (
+                        l1.dynasty = l2.dynasty OR 
+                        l1.period = l2.period OR 
+                        l1.category = l2.category
+                    )
+                    RETURN l2, 
+                    CASE 
+                        WHEN l1.dynasty = l2.dynasty THEN 3
+                        WHEN l1.period = l2.period THEN 2  
+                        WHEN l1.category = l2.category THEN 1
+                        ELSE 0
+                    END as similarity
+                    ORDER BY similarity DESC
+                    LIMIT $max_results
+                """, location_id=location_id, max_results=max_results)
                 
-                related = []
+                related_locations = []
                 for record in result:
-                    node = record["location"]
-                    location_data = dict(node.items())
-                    # Convert Neo4j format
-                    if 'lat' in location_data and 'lng' in location_data:
-                        location_data['coordinates'] = {
-                            'lat': location_data.pop('lat'),
-                            'lng': location_data.pop('lng')
-                        }
-                    location = Location.from_dict(location_data)
-                    
-                    relation_info = {
-                        'location': location.to_dict(),
-                        'relationship': record["relationship"],
-                        'strength': record["strength"] or 1.0
-                    }
-                    
-                    # Add relationship-specific properties
-                    common_property = record["commonProperty"]
-                    if common_property:
-                        if relation_info['relationship'] == 'SHARES_THEME':
-                            relation_info['commonTags'] = common_property
-                        elif relation_info['relationship'] == 'SAME_DYNASTY':
-                            relation_info['dynasty'] = common_property
-                    
-                    related.append(relation_info)
+                    location_data = record["l2"]
+                    location = Location(
+                        id=location_data["id"],
+                        name=location_data["name"],
+                        description=location_data.get("description", ""),
+                        category=location_data.get("category", ""),
+                        coordinates={"lat": location_data.get("lat"), "lng": location_data.get("lng")},
+                        history=location_data.get("history", ""),
+                        period=location_data.get("period", ""),
+                        dynasty=location_data.get("dynasty", "")
+                    )
+                    related_locations.append(location.to_dict())
                 
-                return related
-                
+                return related_locations
         except Exception as e:
-            logger.error(f"Error fetching related locations for {location_id} from Neo4j: {e}")
-            # Fallback to placeholder
-            location = self.placeholder_locations.get(location_id)
-            if location:
-                related = getattr(location, '_related_locations', [])
-                result = []
-                for rel in related[:limit]:
-                    related_location = self.placeholder_locations.get(rel['id'])
-                    if related_location:
-                        result.append({
-                            'location': related_location.to_dict(),
-                            'relationship': rel['relationship_type'],
-                            'strength': rel['similarity']
-                        })
-                return result
+            logger.error(f"Error querying related locations from Neo4j: {e}")
             return []
-    
+
     def get_locations_by_category(self, category: str) -> List[Location]:
-        """Get all locations in a specific category"""
         if self.use_placeholder:
-            return [loc for loc in self.placeholder_locations.values() 
-                   if loc.category.lower() == category.lower()]
+            return [
+                loc for loc in self.placeholder_locations.values()
+                if hasattr(loc, 'category') and loc.category and category.lower() in loc.category.lower()
+            ]
         
         try:
             with self.driver.session() as session:
@@ -230,19 +201,21 @@ class KnowledgeGraphService:
                         }
                     location = Location.from_dict(location_data)
                     locations.append(location)
-                
                 return locations
-                
         except Exception as e:
             logger.error(f"Error fetching locations by category {category}: {e}")
-            return [loc for loc in self.placeholder_locations.values() 
-                   if loc.category.lower() == category.lower()]
-    
+            return [
+                loc for loc in self.placeholder_locations.values()
+                if hasattr(loc, 'category') and loc.category and category.lower() in loc.category.lower()
+            ]
+
     def get_locations_by_period(self, period: str) -> List[Location]:
-        """Get locations from a specific historical period"""
         if self.use_placeholder:
-            return [loc for loc in self.placeholder_locations.values() 
-                   if period.lower() in loc.period.lower()]
+            filtered_locations = []
+            for location in self.placeholder_locations.values():
+                if hasattr(location, 'period') and location.period and period.lower() in location.period.lower():
+                    filtered_locations.append(location)
+            return filtered_locations
         
         try:
             with self.driver.session() as session:
@@ -263,16 +236,12 @@ class KnowledgeGraphService:
                         }
                     location = Location.from_dict(location_data)
                     locations.append(location)
-                
                 return locations
-                
         except Exception as e:
-            logger.error(f"Error fetching locations by period {period}: {e}")
-            return [loc for loc in self.placeholder_locations.values() 
-                   if period.lower() in loc.period.lower()]
-    
+            logger.error(f"Error getting locations by period: {e}")
+            return []
+
     def get_locations_by_dynasty(self, dynasty: str) -> List[Location]:
-        """Get locations associated with a specific dynasty"""
         if self.use_placeholder:
             return [loc for loc in self.placeholder_locations.values() 
                    if dynasty.lower() in loc.dynasty.lower()]
@@ -296,27 +265,20 @@ class KnowledgeGraphService:
                         }
                     location = Location.from_dict(location_data)
                     locations.append(location)
-                
                 return locations
-                
         except Exception as e:
             logger.error(f"Error fetching locations by dynasty {dynasty}: {e}")
             return [loc for loc in self.placeholder_locations.values() 
                    if dynasty.lower() in loc.dynasty.lower()]
-    
+
     def search_locations(self, query: str) -> List[Location]:
-        """Search locations by text query"""
         if self.use_placeholder:
             query_lower = query.lower()
             results = []
-            
             for location in self.placeholder_locations.values():
-                # Search in multiple fields
                 searchable_text = f"{location.name} {location.description} {location.history} {location.dynasty} {' '.join(location.tags)} {' '.join(location.cultural_facts)}"
-                
                 if query_lower in searchable_text.lower():
                     results.append(location)
-            
             return results
         
         try:
@@ -342,18 +304,14 @@ class KnowledgeGraphService:
                         }
                     location = Location.from_dict(location_data)
                     locations.append(location)
-                
                 return locations
-                
         except Exception as e:
             logger.error(f"Error searching locations with query '{query}': {e}")
-            # Fallback to placeholder search
             query_lower = query.lower()
             return [loc for loc in self.placeholder_locations.values() 
                    if query_lower in f"{loc.name} {loc.description} {loc.history}".lower()]
-    
+
     def get_cultural_themes(self) -> List[str]:
-        """Get all unique cultural themes/tags across all locations"""
         if self.use_placeholder:
             all_themes = set()
             for location in self.placeholder_locations.values():
@@ -369,20 +327,16 @@ class KnowledgeGraphService:
                     RETURN DISTINCT tag
                     ORDER BY tag
                 """)
-                
                 themes = [record["tag"] for record in result]
                 return themes
-                
         except Exception as e:
             logger.error(f"Error fetching cultural themes: {e}")
-            # Fallback
             all_themes = set()
             for location in self.placeholder_locations.values():
                 all_themes.update(location.tags)
             return sorted(list(all_themes))
-    
+
     def get_dynasties(self) -> List[str]:
-        """Get all unique dynasties"""
         if self.use_placeholder:
             dynasties = set()
             for location in self.placeholder_locations.values():
@@ -398,10 +352,8 @@ class KnowledgeGraphService:
                     RETURN DISTINCT l.dynasty as dynasty
                     ORDER BY dynasty
                 """)
-                
                 dynasties = [record["dynasty"] for record in result]
                 return dynasties
-                
         except Exception as e:
             logger.error(f"Error fetching dynasties: {e}")
             dynasties = set()
@@ -409,18 +361,14 @@ class KnowledgeGraphService:
                 if location.dynasty:
                     dynasties.add(location.dynasty)
             return sorted(list(dynasties))
-    
+
     def get_statistics(self) -> Dict[str, Any]:
-        """Get comprehensive statistics about the knowledge graph"""
         if self.use_placeholder:
             return DataLoader.get_statistics(self.placeholder_locations)
         
         try:
             with self.driver.session() as session:
-                # Get basic counts
                 location_count = session.run("MATCH (l:Location) RETURN count(l) as count").single()["count"]
-                
-                # Get category distribution
                 category_result = session.run("""
                     MATCH (l:Location)
                     RETURN l.category as category, count(*) as count
@@ -428,7 +376,6 @@ class KnowledgeGraphService:
                 """)
                 categories = {record["category"]: record["count"] for record in category_result}
                 
-                # Get dynasty distribution
                 dynasty_result = session.run("""
                     MATCH (l:Location)
                     WHERE l.dynasty IS NOT NULL AND l.dynasty <> ''
@@ -437,7 +384,6 @@ class KnowledgeGraphService:
                 """)
                 dynasties = {record["dynasty"]: record["count"] for record in dynasty_result}
                 
-                # Get relationship counts
                 relationship_result = session.run("""
                     MATCH ()-[r]->()
                     RETURN TYPE(r) as relationship_type, count(r) as count
@@ -451,7 +397,6 @@ class KnowledgeGraphService:
                     'relationships': relationships,
                     'data_source': 'neo4j'
                 }
-                
         except Exception as e:
             logger.error(f"Error fetching statistics from Neo4j: {e}")
             return DataLoader.get_statistics(self.placeholder_locations)

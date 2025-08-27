@@ -2290,3 +2290,636 @@
 2025-08-27 14:00:32,017 - __main__ - INFO - Performing cultural analysis for: Hampi
 2025-08-27 14:00:32,017 - __main__ - INFO - Cultural analysis completed for Hampi
 2025-08-27 14:00:32,020 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:00:32] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 14:03:16,978 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:03:16] "GET /api/place-info?name=udaipur HTTP/1.1" 200 -
+2025-08-27 14:03:16,991 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:03:16] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 14:03:17,234 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 14:03:17,234 - __main__ - INFO - Performing cultural analysis for: Udaipur
+2025-08-27 14:03:17,234 - __main__ - INFO - Cultural analysis completed for Udaipur
+2025-08-27 14:03:17,238 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:03:17] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 14:03:17,360 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:03:17] "[33mGET /assets/images/udaipur.jpg HTTP/1.1[0m" 404 -
+2025-08-27 14:03:25,270 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:03:25] "GET /api/place-info?name=hampi HTTP/1.1" 200 -
+2025-08-27 14:03:25,600 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:03:25] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 14:03:25,871 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 14:03:25,871 - __main__ - INFO - Performing cultural analysis for: Hampi
+2025-08-27 14:03:25,872 - __main__ - INFO - Cultural analysis completed for Hampi
+2025-08-27 14:03:25,874 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:03:25] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 14:03:53,897 - __main__ - INFO - Preference suggestions: 20 periods, 20 dynasties
+2025-08-27 14:03:53,899 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:03:53] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-27 14:05:30,950 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:05:30] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:05:31,204 - __main__ - INFO - Processing chatbot query: 'hi' for session: 17562833617040.zpkirth6ll
+2025-08-27 14:05:31,216 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-27 14:05:31,216 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:05:31] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:05:40,072 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:05:40] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:05:40,385 - __main__ - INFO - Processing chatbot query: 'tell me about hampi' for session: 17562833617040.zpkirth6ll
+2025-08-27 14:05:40,385 - __main__ - INFO - Chatbot response: confidence=0.6267072531409877
+2025-08-27 14:05:40,385 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:05:40] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:06:00,032 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:00] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=50 HTTP/1.1" 200 -
+2025-08-27 14:06:04,128 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:04] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=60 HTTP/1.1" 200 -
+2025-08-27 14:06:04,145 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:04] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=70 HTTP/1.1" 200 -
+2025-08-27 14:06:04,155 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:04] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=80 HTTP/1.1" 200 -
+2025-08-27 14:06:04,190 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:04] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=100 HTTP/1.1" 200 -
+2025-08-27 14:06:04,190 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:04] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=110 HTTP/1.1" 200 -
+2025-08-27 14:06:04,196 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:04] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=120 HTTP/1.1" 200 -
+2025-08-27 14:06:04,453 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:04] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=140 HTTP/1.1" 200 -
+2025-08-27 14:06:04,474 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:04] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=150 HTTP/1.1" 200 -
+2025-08-27 14:06:04,492 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:04] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=170 HTTP/1.1" 200 -
+2025-08-27 14:06:04,514 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:04] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=180 HTTP/1.1" 200 -
+2025-08-27 14:06:04,516 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:04] "GET /api/nearby-places?lat=13.0368067&lng=77.7479282&radius=200 HTTP/1.1" 200 -
+2025-08-27 14:06:50,507 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:50] "GET /api/place-info?name=varanasi HTTP/1.1" 200 -
+2025-08-27 14:06:50,563 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:06:50] "[33mGET /assets/images/varanasi.jpg HTTP/1.1[0m" 404 -
+2025-08-27 14:07:02,212 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:07:02] "GET /api/place-info?name=madurai HTTP/1.1" 200 -
+2025-08-27 14:07:24,526 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:07:24] "GET /api/place-info?name=mysore-palace HTTP/1.1" 200 -
+2025-08-27 14:07:29,446 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:07:29] "GET /api/place-info?name=mysore-palace HTTP/1.1" 200 -
+2025-08-27 14:07:29,779 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:07:29] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 14:07:30,049 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 14:07:30,049 - __main__ - INFO - Performing cultural analysis for: Mysore Palace
+2025-08-27 14:07:30,049 - __main__ - INFO - Cultural analysis completed for Mysore Palace
+2025-08-27 14:07:30,049 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:07:30] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 14:13:42,045 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 14:13:42,048 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:13:42] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 14:13:42,359 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:13:42] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 14:13:42,612 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:13:42] "GET /api/routes HTTP/1.1" 200 -
+2025-08-27 14:13:49,022 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:13:49] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 14:13:49,109 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 14:13:49,109 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:13:49] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 14:13:49,121 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:13:49] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 14:13:49,357 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:13:49] "GET /api/routes HTTP/1.1" 200 -
+2025-08-27 14:13:49,364 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 14:13:49,367 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:13:49] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 14:22:04,837 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\chatbot_service.py', reloading
+2025-08-27 14:50:32,842 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 14:50:32,844 - services.data_loader - WARNING - Data module not found, creating sample data
+2025-08-27 14:50:32,844 - services.data_loader - INFO - Created 0 sample locations
+2025-08-27 14:50:32,846 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 14:50:32,846 - services.kg_service - INFO - Loaded 0 locations
+2025-08-27 14:50:32,846 - services.kg_service - INFO - Location statistics: {}
+2025-08-27 14:50:32,846 - __main__ - INFO - Services initialized successfully
+2025-08-27 14:55:33,398 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 14:55:33,402 - services.data_loader - WARNING - Data module not found, creating sample data
+2025-08-27 14:55:33,402 - services.data_loader - INFO - Created 0 sample locations
+2025-08-27 14:55:33,402 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 14:55:33,402 - services.kg_service - INFO - Loaded 0 locations
+2025-08-27 14:55:33,402 - services.kg_service - INFO - Location statistics: {}
+2025-08-27 14:55:33,404 - __main__ - INFO - Services initialized successfully
+2025-08-27 14:55:33,410 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 14:55:33,472 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.60:5000
+2025-08-27 14:55:33,480 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-27 14:55:33,483 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 14:55:35,773 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 14:55:35,773 - services.data_loader - WARNING - Data module not found, creating sample data
+2025-08-27 14:55:35,773 - services.data_loader - INFO - Created 0 sample locations
+2025-08-27 14:55:35,773 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 14:55:35,773 - services.kg_service - INFO - Loaded 0 locations
+2025-08-27 14:55:35,773 - services.kg_service - INFO - Location statistics: {}
+2025-08-27 14:55:35,773 - __main__ - INFO - Services initialized successfully
+2025-08-27 14:55:35,797 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 14:55:35,809 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 14:55:35,819 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 14:56:06,090 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 14:56:06,090 - services.data_loader - WARNING - Data module not found, creating sample data
+2025-08-27 14:56:06,090 - services.data_loader - INFO - Created 0 sample locations
+2025-08-27 14:56:06,090 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 14:56:06,090 - services.kg_service - INFO - Loaded 0 locations
+2025-08-27 14:56:06,090 - services.kg_service - INFO - Location statistics: {}
+2025-08-27 14:56:06,105 - __main__ - INFO - Services initialized successfully
+2025-08-27 14:56:06,114 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 14:56:06,148 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.60:5000
+2025-08-27 14:56:06,148 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-27 14:56:06,148 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 14:56:08,486 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 14:56:08,489 - services.data_loader - WARNING - Data module not found, creating sample data
+2025-08-27 14:56:08,490 - services.data_loader - INFO - Created 0 sample locations
+2025-08-27 14:56:08,490 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 14:56:08,490 - services.kg_service - INFO - Loaded 0 locations
+2025-08-27 14:56:08,490 - services.kg_service - INFO - Location statistics: {}
+2025-08-27 14:56:08,490 - __main__ - INFO - Services initialized successfully
+2025-08-27 14:56:08,502 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 14:56:08,523 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 14:56:08,525 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 14:57:24,258 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:24] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 14:57:24,428 - __main__ - INFO - Timeline periods endpoint: Returning 0 periods with total 0 locations
+2025-08-27 14:57:24,428 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:24] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 14:57:24,540 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:24] "GET /api/health HTTP/1.1" 200 -
+2025-08-27 14:57:24,804 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:24] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 14:57:24,831 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:24] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 14:57:24,871 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:24] "GET /api/routes HTTP/1.1" 200 -
+2025-08-27 14:57:25,160 - __main__ - INFO - Timeline periods endpoint: Returning 0 periods with total 0 locations
+2025-08-27 14:57:25,163 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:25] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 14:57:45,851 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:45] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:57:46,170 - __main__ - INFO - Processing chatbot query: 'hi' for session: 17562868442230.h9i7vqhkcv4
+2025-08-27 14:57:46,170 - __main__ - INFO - Chatbot response: confidence=0.5
+2025-08-27 14:57:46,174 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:46] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:57:52,652 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:52] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:57:52,964 - __main__ - INFO - Processing chatbot query: 'What is the Golden Triangle route?' for session: None
+2025-08-27 14:57:52,964 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 14:57:52,964 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:52] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:57:57,848 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:57] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:57:58,161 - __main__ - INFO - Processing chatbot query: 'Show me Buddhist heritage sites' for session: None
+2025-08-27 14:57:58,161 - __main__ - INFO - Chatbot response: confidence=0.5
+2025-08-27 14:57:58,166 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:57:58] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:58:05,680 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:58:05] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:58:05,999 - __main__ - INFO - Processing chatbot query: 'Tell me about the Taj Mahal' for session: None
+2025-08-27 14:58:05,999 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 14:58:06,006 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:58:06] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 14:58:48,802 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:58:48] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 14:58:48,816 - __main__ - INFO - Timeline periods endpoint: Returning 0 periods with total 0 locations
+2025-08-27 14:58:48,818 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 14:58:48] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 14:59:56,632 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\data_loader.py', reloading
+2025-08-27 14:59:56,712 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\data_loader.py', reloading
+2025-08-27 14:59:56,946 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 14:59:57,004 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 14:59:59,365 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 14:59:59,374 - services.data_loader - ERROR - Error loading from data module: Location.__init__() got an unexpected keyword argument 'state'. Using placeholder data.
+2025-08-27 14:59:59,374 - services.data_loader - INFO - Created 0 sample locations
+2025-08-27 14:59:59,374 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 14:59:59,374 - services.kg_service - INFO - Loaded 0 locations
+2025-08-27 14:59:59,374 - services.kg_service - INFO - Location statistics: {}
+2025-08-27 14:59:59,382 - __main__ - INFO - Services initialized successfully
+2025-08-27 14:59:59,387 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 14:59:59,393 - services.data_loader - ERROR - Error loading from data module: Location.__init__() got an unexpected keyword argument 'state'. Using placeholder data.
+2025-08-27 14:59:59,393 - services.data_loader - INFO - Created 0 sample locations
+2025-08-27 14:59:59,393 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 14:59:59,394 - services.kg_service - INFO - Loaded 0 locations
+2025-08-27 14:59:59,394 - services.kg_service - INFO - Location statistics: {}
+2025-08-27 14:59:59,395 - __main__ - INFO - Services initialized successfully
+2025-08-27 14:59:59,397 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 14:59:59,404 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 14:59:59,414 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 14:59:59,418 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 14:59:59,423 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 14:59:59,427 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:00:11,344 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\data_loader.py', reloading
+2025-08-27 15:00:11,360 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\data_loader.py', reloading
+2025-08-27 15:00:11,583 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:00:11,587 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:00:13,878 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:00:13,878 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:00:13,882 - services.data_loader - ERROR - Error loading from data module: Location.__init__() got an unexpected keyword argument 'state'. Using placeholder data.
+2025-08-27 15:00:13,882 - services.data_loader - INFO - Created 0 sample locations
+2025-08-27 15:00:13,882 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:00:13,882 - services.kg_service - INFO - Loaded 0 locations
+2025-08-27 15:00:13,882 - services.kg_service - INFO - Location statistics: {}
+2025-08-27 15:00:13,882 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:00:13,882 - services.data_loader - ERROR - Error loading from data module: Location.__init__() got an unexpected keyword argument 'state'. Using placeholder data.
+2025-08-27 15:00:13,882 - services.data_loader - INFO - Created 0 sample locations
+2025-08-27 15:00:13,882 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:00:13,882 - services.kg_service - INFO - Loaded 0 locations
+2025-08-27 15:00:13,882 - services.kg_service - INFO - Location statistics: {}
+2025-08-27 15:00:13,887 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:00:13,890 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:00:13,895 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:00:13,904 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:00:13,911 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:00:13,913 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:00:13,913 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:00:28,415 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:00:28,424 - services.data_loader - ERROR - Error loading from data module: Location.__init__() got an unexpected keyword argument 'state'. Using placeholder data.
+2025-08-27 15:00:28,424 - services.data_loader - INFO - Created 0 sample locations
+2025-08-27 15:00:28,424 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:00:28,424 - services.kg_service - INFO - Loaded 0 locations
+2025-08-27 15:00:28,424 - services.kg_service - INFO - Location statistics: {}
+2025-08-27 15:00:28,425 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:00:28,430 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:00:28,461 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.60:5000
+2025-08-27 15:00:28,461 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-27 15:00:28,463 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:00:31,233 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:00:31,240 - services.data_loader - ERROR - Error loading from data module: Location.__init__() got an unexpected keyword argument 'state'. Using placeholder data.
+2025-08-27 15:00:31,240 - services.data_loader - INFO - Created 0 sample locations
+2025-08-27 15:00:31,240 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:00:31,240 - services.kg_service - INFO - Loaded 0 locations
+2025-08-27 15:00:31,240 - services.kg_service - INFO - Location statistics: {}
+2025-08-27 15:00:31,240 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:00:31,249 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:00:31,266 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:00:31,273 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:00:53,806 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\data_loader.py', reloading
+2025-08-27 15:00:54,066 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:00:54,831 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\data_loader.py', reloading
+2025-08-27 15:00:55,067 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:00:56,431 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:00:56,431 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:00:56,436 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:00:56,436 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:00:56,436 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:00:56,436 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:00:56,439 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:00:56,454 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:00:56,462 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:00:57,127 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:00:57,128 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:00:57,128 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:00:57,128 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:00:57,128 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:00:57,128 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:00:57,136 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:00:57,160 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:00:57,164 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:01:09,029 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:01:09,033 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:01:09,033 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:01:09,033 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:01:09,033 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:01:09,035 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:01:09,037 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:01:09,090 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.60:5000
+2025-08-27 15:01:09,090 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-27 15:01:09,090 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:01:11,235 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:01:11,253 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:01:11,253 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:01:11,253 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:01:11,253 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:01:11,254 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:01:11,260 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:01:11,276 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:01:11,281 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:01:28,130 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:01:28] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 15:01:31,453 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 15:01:31,458 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:01:31] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 15:01:40,989 - __main__ - INFO - Processing chatbot query: 'Tell me about the Taj Mahal' for session: f6e82a78-2d42-4e64-99bd-be6081a95513
+2025-08-27 15:01:40,991 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:01:40,991 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:01:40] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:02:18,870 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:02:18] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 15:02:19,120 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 15:02:19,120 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:02:19] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 15:02:22,073 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:02:22] "GET /api/place-info?name=madurai HTTP/1.1" 200 -
+2025-08-27 15:02:36,635 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:02:36] "GET /api/place-info?name=ajanta HTTP/1.1" 200 -
+2025-08-27 15:02:41,856 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:02:41] "GET /api/place-info?name=madurai HTTP/1.1" 200 -
+2025-08-27 15:02:45,422 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:02:45] "GET /api/place-info?name=mahabalipuram HTTP/1.1" 200 -
+2025-08-27 15:02:45,454 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:02:45] "[33mGET /assets/images/mahabalipuram.jpg HTTP/1.1[0m" 404 -
+2025-08-27 15:03:35,945 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:03:35] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 15:03:36,143 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 15:03:36,159 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:03:36] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 15:03:36,251 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:03:36] "GET /api/health HTTP/1.1" 200 -
+2025-08-27 15:03:36,504 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:03:36] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 15:03:36,568 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:03:36] "GET /api/routes HTTP/1.1" 200 -
+2025-08-27 15:03:41,472 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:03:41] "GET /api/place-info?name=khajuraho HTTP/1.1" 200 -
+2025-08-27 15:03:41,812 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:03:41] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:03:42,068 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 15:03:42,068 - __main__ - INFO - Performing cultural analysis for: Khajuraho Temples
+2025-08-27 15:03:42,068 - __main__ - INFO - Cultural analysis completed for Khajuraho Temples
+2025-08-27 15:03:42,068 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:03:42] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:07:20,151 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:07:20] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:07:20,413 - __main__ - INFO - Processing chatbot query: 'tell me about hapi' for session: 17562872159360.ku8n7dk3k4
+2025-08-27 15:07:20,421 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:07:20,421 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:07:20] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:07:27,385 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:07:27] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:07:27,707 - __main__ - INFO - Processing chatbot query: 'hampi' for session: 17562872159360.ku8n7dk3k4
+2025-08-27 15:07:27,715 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:07:27,718 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:07:27] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:07:38,074 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:07:38] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:07:38,390 - __main__ - INFO - Processing chatbot query: 'rutes?' for session: 17562872159360.ku8n7dk3k4
+2025-08-27 15:07:38,393 - __main__ - INFO - Chatbot response: confidence=0.5
+2025-08-27 15:07:38,395 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:07:38] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:07:46,611 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:07:46] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:07:46,921 - __main__ - INFO - Processing chatbot query: 'routes?' for session: 17562872159360.ku8n7dk3k4
+2025-08-27 15:07:46,921 - __main__ - INFO - Chatbot response: confidence=0.5
+2025-08-27 15:07:46,925 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:07:46] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:08:00,371 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:08:00] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:08:00,683 - __main__ - INFO - Processing chatbot query: 'tell me about konark' for session: 17562872159360.ku8n7dk3k4
+2025-08-27 15:08:00,683 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:08:00,685 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:08:00] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:09:01,267 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:09:01] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:09:01,520 - __main__ - INFO - Processing chatbot query: 'Tell me about the Taj Mahal' for session: None
+2025-08-27 15:09:01,521 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:09:01,522 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:09:01] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:09:25,931 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:09:25] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:09:26,243 - __main__ - INFO - Processing chatbot query: 'Show me Buddhist heritage sites' for session: None
+2025-08-27 15:09:26,243 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:09:26,245 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:09:26] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:09:37,340 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:09:37] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:09:37,651 - __main__ - INFO - Processing chatbot query: 'Show me Buddhist heritage sites' for session: None
+2025-08-27 15:09:37,652 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:09:37,653 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:09:37] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:09:47,671 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:09:47] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:09:47,985 - __main__ - INFO - Processing chatbot query: 'What is the Golden Triangle route?' for session: None
+2025-08-27 15:09:47,986 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:09:47,987 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:09:47] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:10:03,519 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:10:03] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:10:03,835 - __main__ - INFO - Processing chatbot query: 'golden temple' for session: 17562872159360.ku8n7dk3k4
+2025-08-27 15:10:03,835 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:10:03,837 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:10:03] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:10:30,748 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:10:30] "GET /api/health HTTP/1.1" 200 -
+2025-08-27 15:10:33,433 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:10:33] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 15:10:41,695 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:10:41] "GET /api/search?q=taj HTTP/1.1" 200 -
+2025-08-27 15:10:47,003 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:10:47] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 15:10:57,662 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:10:57] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 15:10:59,465 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:10:59] "GET /api/search?q=taj HTTP/1.1" 200 -
+2025-08-27 15:11:01,139 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 15:11:01,141 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:11:01] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 15:11:18,251 - __main__ - INFO - Processing chatbot query: 'What is the Golden Triangle route?' for session: f464ffc3-2e77-4d29-87af-c5246c741257
+2025-08-27 15:11:18,251 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:11:18,252 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:11:18] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:11:21,054 - __main__ - INFO - Processing chatbot query: 'Recommend sites in South India' for session: b6e5002c-418f-4165-a750-cec8907f0954
+2025-08-27 15:11:21,055 - __main__ - INFO - Chatbot response: confidence=0.8
+2025-08-27 15:11:21,055 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:11:21] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:11:23,565 - __main__ - INFO - Processing chatbot query: 'Show me Buddhist heritage sites' for session: 6ca025a2-e302-435e-b527-66fbb0c0d386
+2025-08-27 15:11:23,565 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:11:23,566 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:11:23] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:11:39,254 - __main__ - INFO - Processing chatbot query: 'Tell me about Hampi' for session: fcc05661-5c71-4686-bd1d-4fdd7e196ccd
+2025-08-27 15:11:39,255 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:11:39,255 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:11:39] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:12:48,496 - __main__ - INFO - Processing chatbot query: 'Hampi' for session: e0a2cc23-794f-43ea-8428-adfd505143dd
+2025-08-27 15:12:48,497 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:12:48,498 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:12:48] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:13:07,498 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:13:07] "GET /api/search?q=buddhist HTTP/1.1" 200 -
+2025-08-27 15:13:23,599 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:13:23] "GET /api/search?q=golden+triangle HTTP/1.1" 200 -
+2025-08-27 15:13:30,415 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:13:30] "GET /api/search?q=jaipur HTTP/1.1" 200 -
+2025-08-27 15:13:41,267 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:13:41] "GET /api/routes HTTP/1.1" 200 -
+2025-08-27 15:14:03,429 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 15:14:03,430 - __main__ - INFO - Performing cultural analysis for: Taj Mahal
+2025-08-27 15:14:03,430 - __main__ - INFO - Cultural analysis completed for Taj Mahal
+2025-08-27 15:14:03,431 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:14:03] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:14:22,106 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:14:22] "GET /api/place-info?name=hampi HTTP/1.1" 200 -
+2025-08-27 15:14:30,418 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:14:30] "GET /api/locations/category/religious HTTP/1.1" 200 -
+2025-08-27 15:14:42,356 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:14:42] "POST /api/personalized-route HTTP/1.1" 200 -
+2025-08-27 15:15:53,294 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:15:53] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 15:15:53,351 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 15:15:53,353 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:15:53] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 15:15:53,607 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:15:53] "GET /api/health HTTP/1.1" 200 -
+2025-08-27 15:15:53,862 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:15:53] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 15:15:53,922 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:15:53] "GET /api/routes HTTP/1.1" 200 -
+2025-08-27 15:16:16,002 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:16] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 15:16:16,008 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:16] "GET /api/health HTTP/1.1" 200 -
+2025-08-27 15:16:16,110 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 15:16:16,111 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:16] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 15:16:16,375 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:16] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 15:16:16,641 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:16] "GET /api/routes HTTP/1.1" 200 -
+2025-08-27 15:16:23,611 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:23] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:16:23,926 - __main__ - INFO - Processing chatbot query: 'hi' for session: 17562879759870.hrpd0ypp4ot
+2025-08-27 15:16:23,926 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:16:23,927 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:23] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:16:40,233 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:40] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:16:40,547 - __main__ - INFO - Processing chatbot query: 'tell me about golden temple' for session: 17562879759870.hrpd0ypp4ot
+2025-08-27 15:16:40,548 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:16:40,548 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:40] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:16:50,001 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:50] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:16:50,320 - __main__ - INFO - Processing chatbot query: 'konark' for session: 17562879759870.hrpd0ypp4ot
+2025-08-27 15:16:50,321 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:16:50,322 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:50] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:16:57,297 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:57] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:16:57,617 - __main__ - INFO - Processing chatbot query: 'golden temple' for session: 17562879759870.hrpd0ypp4ot
+2025-08-27 15:16:57,618 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:16:57,619 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:16:57] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:18:22,161 - __main__ - INFO - Processing chatbot query: 'golden temple' for session: aa8664d9-19f6-498e-bc7a-94221cdef4bc
+2025-08-27 15:18:22,162 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:18:22,163 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:18:22] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:18:41,293 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:18:41] "GET /api/search?q=golden+temple HTTP/1.1" 200 -
+2025-08-27 15:19:01,887 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\chatbot_service.py', reloading
+2025-08-27 15:19:01,903 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\chatbot_service.py', reloading
+2025-08-27 15:19:02,087 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:19:02,114 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:19:03,719 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:19:03,721 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:19:03,722 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:19:03,722 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:19:03,722 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:19:03,723 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:19:03,723 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:19:03,725 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:19:03,725 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:19:03,725 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:19:03,725 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:19:03,726 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:19:03,733 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:19:03,733 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:19:03,748 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:19:03,748 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:19:03,752 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:19:03,758 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:19:13,404 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\chatbot_service.py', reloading
+2025-08-27 15:19:13,410 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\chatbot_service.py', reloading
+2025-08-27 15:19:13,603 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:19:13,605 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:19:15,295 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:19:15,297 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:19:15,298 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:19:15,298 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:19:15,298 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:19:15,299 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:19:15,299 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:19:15,301 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:19:15,302 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:19:15,302 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:19:15,302 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:19:15,303 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:19:15,309 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:19:15,311 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:19:15,323 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:19:15,324 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:19:15,327 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:19:15,329 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:20:11,379 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\chatbot_service.py', reloading
+2025-08-27 15:20:11,381 - werkzeug - INFO -  * Detected change in 'D:\\MY projects\\CupeKG\\cupe-kg-backend\\services\\chatbot_service.py', reloading
+2025-08-27 15:20:11,685 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:20:11,688 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:20:13,515 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:20:13,515 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:20:13,517 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:20:13,518 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:20:13,518 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:20:13,518 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:20:13,519 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:20:13,519 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:20:13,519 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:20:13,520 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:20:13,520 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:20:13,525 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:20:13,530 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:20:13,540 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:20:13,544 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:20:13,545 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:20:13,549 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:20:52,675 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:20:52,678 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:20:52,678 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:20:52,678 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:20:52,678 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:20:52,679 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:20:52,685 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:20:52,707 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.60:5000
+2025-08-27 15:20:52,707 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-27 15:20:52,709 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:20:54,290 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:20:54,292 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:20:54,293 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:20:54,293 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:20:54,293 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:20:54,294 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:20:54,299 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:20:54,312 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:20:54,316 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:21:37,309 - __main__ - INFO - Processing chatbot query: 'golden temple' for session: bb109606-811b-4b4c-8e3c-79491037ffb5
+2025-08-27 15:21:37,322 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-27 15:21:37,325 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:21:37] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:21:40,536 - __main__ - INFO - Processing chatbot query: 'konark' for session: 9ab59784-1743-49d8-a456-193bd803e31b
+2025-08-27 15:21:40,536 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-27 15:21:40,537 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:21:40] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:21:43,548 - __main__ - INFO - Processing chatbot query: 'show me buddhist sites' for session: 7e9844f4-ad05-4d28-b4cc-bc4995b9d57d
+2025-08-27 15:21:43,548 - __main__ - INFO - Chatbot response: confidence=0.65
+2025-08-27 15:21:43,549 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:21:43] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:21:55,622 - __main__ - INFO - Processing chatbot query: 'golden triangle route' for session: b1753589-eff9-4e5f-9311-fceb4f684c24
+2025-08-27 15:21:55,623 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:21:55,624 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:21:55] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:22:34,884 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:22:34] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 15:22:34,943 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 15:22:34,947 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:22:34] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 15:22:35,186 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:22:35] "GET /api/health HTTP/1.1" 200 -
+2025-08-27 15:22:35,456 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:22:35] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 15:22:35,503 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:22:35] "GET /api/routes HTTP/1.1" 200 -
+2025-08-27 15:22:42,959 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:22:42] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:22:43,222 - __main__ - INFO - Processing chatbot query: 'hi' for session: 17562883548660.9rm7bihl2f6
+2025-08-27 15:22:43,224 - __main__ - INFO - Chatbot response: confidence=0.5
+2025-08-27 15:22:43,225 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:22:43] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:22:48,527 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:22:48] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:22:48,842 - __main__ - INFO - Processing chatbot query: 'What is the Golden Triangle route?' for session: None
+2025-08-27 15:22:48,843 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:22:48,846 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:22:48] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:22:54,194 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:22:54] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:22:54,510 - __main__ - INFO - Processing chatbot query: 'Plan Golden Triangle itinerary' for session: None
+2025-08-27 15:22:54,511 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-27 15:22:54,513 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:22:54] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:23:00,411 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:23:00] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:23:00,723 - __main__ - INFO - Processing chatbot query: 'Architecture of Golden Temple (Harmandir Sahib)' for session: None
+2025-08-27 15:23:00,723 - __main__ - INFO - Chatbot response: confidence=0.9
+2025-08-27 15:23:00,724 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:23:00] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:23:12,548 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:23:12] "GET /api/place-info?name=hampi HTTP/1.1" 200 -
+2025-08-27 15:23:12,881 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:23:12] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:23:13,145 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 15:23:13,146 - __main__ - INFO - Performing cultural analysis for: Hampi
+2025-08-27 15:23:13,146 - __main__ - INFO - Cultural analysis completed for Hampi
+2025-08-27 15:23:13,147 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:23:13] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:47:40,697 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:47:40,701 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:47:40,701 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:47:40,702 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:47:40,702 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:47:40,703 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:47:40,709 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:47:40,745 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.60:5000
+2025-08-27 15:47:40,746 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-27 15:47:40,748 - werkzeug - INFO -  * Restarting with stat
+2025-08-27 15:47:42,458 - __main__ - INFO - Initializing services with use_placeholder=True
+2025-08-27 15:47:42,461 - services.data_loader - INFO - Loaded 20 locations from data module
+2025-08-27 15:47:42,461 - services.data_loader - INFO - Enriched locations with relationship data
+2025-08-27 15:47:42,461 - services.kg_service - INFO - Loaded 20 locations
+2025-08-27 15:47:42,462 - services.kg_service - INFO - Location statistics: {'total_locations': 20, 'unique_dynasties': 20, 'unique_periods': 20, 'unique_categories': 3, 'unique_states': 0}
+2025-08-27 15:47:42,463 - __main__ - INFO - Services initialized successfully
+2025-08-27 15:47:42,470 - __main__ - INFO - Starting CuPe-KG backend on port 5000, debug=True
+2025-08-27 15:47:42,484 - werkzeug - WARNING -  * Debugger is active!
+2025-08-27 15:47:42,488 - werkzeug - INFO -  * Debugger PIN: 941-771-647
+2025-08-27 15:47:57,096 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:47:57] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 15:47:57,098 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:47:57] "GET /api/health HTTP/1.1" 200 -
+2025-08-27 15:47:57,322 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:47:57] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 15:47:57,340 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 15:47:57,348 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:47:57] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 15:47:57,363 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:47:57] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 15:47:57,414 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:47:57] "GET /api/routes HTTP/1.1" 200 -
+2025-08-27 15:47:57,423 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 15:47:57,427 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:47:57] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 15:48:27,393 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:48:27] "GET /api/place-info?name=belur-halebidu HTTP/1.1" 200 -
+2025-08-27 15:48:27,448 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:48:27] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:48:27,650 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 15:48:27,654 - __main__ - INFO - Performing cultural analysis for: Belur and Halebidu
+2025-08-27 15:48:27,656 - __main__ - INFO - Cultural analysis completed for Belur and Halebidu
+2025-08-27 15:48:27,660 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:48:27] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:48:27,817 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:48:27] "[33mGET /assets/images/belur-halebidu.jpg HTTP/1.1[0m" 404 -
+2025-08-27 15:48:28,073 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:48:28] "[33mGET /assets/images/belur-and-halebidu.jpg HTTP/1.1[0m" 404 -
+2025-08-27 15:48:31,980 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:48:31] "GET /api/place-info?name=belur-halebidu HTTP/1.1" 200 -
+2025-08-27 15:48:32,309 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 15:48:32,310 - __main__ - INFO - Performing cultural analysis for: Belur and Halebidu
+2025-08-27 15:48:32,311 - __main__ - INFO - Cultural analysis completed for Belur and Halebidu
+2025-08-27 15:48:32,313 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:48:32] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:48:49,225 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:48:49] "GET /api/place-info?name=mahabalipuram HTTP/1.1" 200 -
+2025-08-27 15:48:49,263 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:48:49] "[33mGET /assets/images/mahabalipuram.jpg HTTP/1.1[0m" 404 -
+2025-08-27 15:48:49,556 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:48:49] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:48:49,838 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 15:48:49,838 - __main__ - INFO - Performing cultural analysis for: Mahabalipuram
+2025-08-27 15:48:49,838 - __main__ - INFO - Cultural analysis completed for Mahabalipuram
+2025-08-27 15:48:49,839 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:48:49] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:50:08,012 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:08] "GET /api/place-info?name=goa-churches HTTP/1.1" 200 -
+2025-08-27 15:50:08,025 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:08] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:50:08,042 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:08] "[33mGET /assets/images/goa-churches.jpg HTTP/1.1[0m" 404 -
+2025-08-27 15:50:08,272 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 15:50:08,272 - __main__ - INFO - Performing cultural analysis for: Churches and Convents of Goa
+2025-08-27 15:50:08,272 - __main__ - INFO - Cultural analysis completed for Churches and Convents of Goa
+2025-08-27 15:50:08,275 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:08] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:50:08,296 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:08] "[33mGET /assets/images/churches-and-convents-of-goa.jpg HTTP/1.1[0m" 404 -
+2025-08-27 15:50:26,339 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:26] "GET /api/place-info?name=mahabalipuram HTTP/1.1" 200 -
+2025-08-27 15:50:26,361 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:26] "[33mGET /assets/images/mahabalipuram.jpg HTTP/1.1[0m" 404 -
+2025-08-27 15:50:26,661 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:26] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:50:26,926 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 15:50:26,926 - __main__ - INFO - Performing cultural analysis for: Mahabalipuram
+2025-08-27 15:50:26,926 - __main__ - INFO - Cultural analysis completed for Mahabalipuram
+2025-08-27 15:50:26,930 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:26] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:50:35,153 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:35] "GET /api/place-info?name=madurai HTTP/1.1" 200 -
+2025-08-27 15:50:35,485 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:35] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:50:35,741 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 15:50:35,741 - __main__ - INFO - Performing cultural analysis for: Madurai
+2025-08-27 15:50:35,741 - __main__ - INFO - Cultural analysis completed for Madurai
+2025-08-27 15:50:35,741 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:50:35] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:51:23,665 - __main__ - INFO - Preference suggestions: 20 periods, 20 dynasties
+2025-08-27 15:51:23,667 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:51:23] "GET /api/preference-suggestions HTTP/1.1" 200 -
+2025-08-27 15:53:02,327 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:53:02] "GET /api/nearby-places?lat=13.0506238&lng=77.7559259&radius=50 HTTP/1.1" 200 -
+2025-08-27 15:53:07,818 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:53:07] "GET /api/nearby-places?lat=13.0506238&lng=77.7559259&radius=60 HTTP/1.1" 200 -
+2025-08-27 15:53:07,838 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:53:07] "GET /api/nearby-places?lat=13.0506238&lng=77.7559259&radius=80 HTTP/1.1" 200 -
+2025-08-27 15:53:07,859 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:53:07] "GET /api/nearby-places?lat=13.0506238&lng=77.7559259&radius=120 HTTP/1.1" 200 -
+2025-08-27 15:53:07,881 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:53:07] "GET /api/nearby-places?lat=13.0506238&lng=77.7559259&radius=130 HTTP/1.1" 200 -
+2025-08-27 15:53:07,887 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:53:07] "GET /api/nearby-places?lat=13.0506238&lng=77.7559259&radius=160 HTTP/1.1" 200 -
+2025-08-27 15:53:07,896 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:53:07] "GET /api/nearby-places?lat=13.0506238&lng=77.7559259&radius=170 HTTP/1.1" 200 -
+2025-08-27 15:53:08,135 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:53:08] "GET /api/nearby-places?lat=13.0506238&lng=77.7559259&radius=190 HTTP/1.1" 200 -
+2025-08-27 15:53:08,169 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:53:08] "GET /api/nearby-places?lat=13.0506238&lng=77.7559259&radius=200 HTTP/1.1" 200 -
+2025-08-27 15:54:14,353 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:54:14] "GET /api/place-info?name=konark HTTP/1.1" 200 -
+2025-08-27 15:54:14,355 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:54:14] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:54:14,615 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 15:54:14,623 - __main__ - INFO - Performing cultural analysis for: Konark
+2025-08-27 15:54:14,623 - __main__ - INFO - Cultural analysis completed for Konark
+2025-08-27 15:54:14,626 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:54:14] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:55:22,517 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:55:22] "GET /api/place-info?name=varanasi HTTP/1.1" 200 -
+2025-08-27 15:55:22,542 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:55:22] "[33mGET /assets/images/varanasi.jpg HTTP/1.1[0m" 404 -
+2025-08-27 15:56:16,611 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:56:16] "GET /api/place-info?name=ajanta HTTP/1.1" 200 -
+2025-08-27 15:56:32,582 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:56:32] "GET /api/place-info?name=mahabalipuram HTTP/1.1" 200 -
+2025-08-27 15:56:32,625 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:56:32] "[33mGET /assets/images/mahabalipuram.jpg HTTP/1.1[0m" 404 -
+2025-08-27 15:56:41,781 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:56:41] "GET /api/health HTTP/1.1" 200 -
+2025-08-27 15:56:41,789 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:56:41] "GET /api/timeline/health HTTP/1.1" 200 -
+2025-08-27 15:56:41,893 - __main__ - INFO - Timeline periods endpoint: Returning 20 periods with total 20 locations
+2025-08-27 15:56:41,898 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:56:41] "GET /api/timeline/periods HTTP/1.1" 200 -
+2025-08-27 15:56:42,175 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:56:42] "GET /api/locations HTTP/1.1" 200 -
+2025-08-27 15:56:42,418 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:56:42] "GET /api/routes HTTP/1.1" 200 -
+2025-08-27 15:57:03,847 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:57:03] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:57:04,152 - __main__ - INFO - Processing chatbot query: 'tell me about taj mahal' for session: 17562904017710.4ls782ipb26
+2025-08-27 15:57:04,156 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:57:04,156 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:57:04] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:57:06,936 - __main__ - INFO - Processing chatbot query: 'Tell me about the Taj Mahal' for session: None
+2025-08-27 15:57:06,936 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:57:06,936 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:57:06] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:57:31,952 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:57:31] "OPTIONS /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:57:32,214 - __main__ - INFO - Processing chatbot query: 'What is the Golden Triangle route?' for session: None
+2025-08-27 15:57:32,214 - __main__ - INFO - Chatbot response: confidence=0.7
+2025-08-27 15:57:32,214 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:57:32] "POST /api/chatbot/ask HTTP/1.1" 200 -
+2025-08-27 15:58:37,398 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:58:37] "GET /api/place-info?name=jaipur HTTP/1.1" 200 -
+2025-08-27 15:58:37,412 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:58:37] "OPTIONS /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:58:37,653 - __main__ - INFO - Cultural analysis request received for location
+2025-08-27 15:58:37,655 - __main__ - INFO - Performing cultural analysis for: Jaipur
+2025-08-27 15:58:37,655 - __main__ - INFO - Cultural analysis completed for Jaipur
+2025-08-27 15:58:37,657 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:58:37] "POST /api/cultural-analysis HTTP/1.1" 200 -
+2025-08-27 15:58:37,761 - werkzeug - INFO - 127.0.0.1 - - [27/Aug/2025 15:58:37] "[33mGET /assets/images/jaipur.jpg HTTP/1.1[0m" 404 -
