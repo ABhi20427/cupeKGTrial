@@ -13,6 +13,7 @@ import NearbyPlaces from './components/NearbyPlaces/NearbyPlaces';
 import CulturalIntelligence from './components/CulturalIntelligence/CulturalIntelligence';
 import { MapProvider, useMapContext } from './context/MapContext';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import { searchLocations } from './services/api';
 import './components/ChatInterface/ChatInterface.css';
 import './components/ChatInterface/MessageGroup.css';
 import './styles/variables.css';
@@ -20,6 +21,8 @@ import './styles/animations.css';
 
 function AppContent() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
   const [theme, setTheme] = useState('light');
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [showTimeline, setShowTimeline] = useState(true);
@@ -37,6 +40,7 @@ function AppContent() {
   // Get data from MapContext - THIS FIXES THE LOCATIONS ERROR
   const { 
     selectRoute, 
+    selectLocation, // Add selectLocation function
     locations,     // This was missing - get locations from context
     routes,        // This was missing - get routes from context
     selectedRoute, // Get current route
@@ -79,9 +83,38 @@ function AppContent() {
     setCurrentRouteForCI(selectedRoute);
   }, [selectedRoute]);
 
-  const handleSearch = (query) => {
+  const handleSearch = async (query) => {
+    if (!query || !query.trim()) {
+      setSearchQuery('');
+      setSearchResults([]);
+      return;
+    }
+
     setSearchQuery(query);
-    console.log('Searching for:', query);
+    setIsSearching(true);
+    
+    try {
+      console.log('Searching for:', query);
+      const results = await searchLocations(query.trim());
+      setSearchResults(results);
+      
+      // If we have results, show the first result on the map
+      if (results.length > 0) {
+        const firstResult = results[0];
+        // Use MapContext to select the location
+        const contextLocation = locations.find(loc => loc.id === firstResult.id);
+        if (contextLocation) {
+          selectLocation(contextLocation);
+        }
+      }
+      
+      console.log('Search completed. Found:', results.length, 'results');
+    } catch (error) {
+      console.error('Search failed:', error);
+      setSearchResults([]);
+    } finally {
+      setIsSearching(false);
+    }
   };
 
   const toggleTheme = () => {
@@ -189,6 +222,8 @@ function AppContent() {
         showNearbyPlaces={showNearbyPlaces}
         userLocation={userLocation}
         onCulturalIntelligenceToggle={handleCulturalIntelligenceToggle}
+        isSearching={isSearching}
+        searchResults={searchResults}
       />
       
       <Map searchQuery={searchQuery} />

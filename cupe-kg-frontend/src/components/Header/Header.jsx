@@ -1,6 +1,6 @@
 // src/components/Header/Header.jsx (Updated with Route Planner Buttons)
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
 
 const Header = ({ 
@@ -11,10 +11,13 @@ const Header = ({
   onToggleNearbyPlaces,
   showNearbyPlaces,
   userLocation,
-  onCulturalIntelligenceToggle
+  onCulturalIntelligenceToggle,
+  isSearching = false,
+  searchResults = []
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showContactPopup, setShowContactPopup] = useState(false);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +29,29 @@ const Header = ({
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const handleContactClick = () => {
+    setShowContactPopup(true);
+    setIsMenuOpen(false); // Close mobile menu if open
+  };
+
+  const closeContactPopup = () => {
+    setShowContactPopup(false);
+  };
+
+  // Handle Escape key to close popup
+  useEffect(() => {
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape' && showContactPopup) {
+        closeContactPopup();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [showContactPopup]);
 
   return (
     <header className="app-header">
@@ -43,10 +69,16 @@ const Header = ({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type="submit" className="search-button">
-            <svg viewBox="0 0 24 24" className="search-icon">
-              <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-            </svg>
+          <button type="submit" className={`search-button ${isSearching ? 'searching' : ''}`} disabled={isSearching}>
+            {isSearching ? (
+              <svg viewBox="0 0 24 24" className="search-icon spinning">
+                <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/>
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" className="search-icon">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+              </svg>
+            )}
           </button>
         </form>
 
@@ -134,10 +166,25 @@ const Header = ({
             <button onClick={() => window.location.href = '/about'} className="nav-link">About</button>
           </li>
           <li className="nav-item">
-            <button onClick={() => window.location.href = '/contact'} className="nav-link">Contact</button>
+            <button onClick={handleContactClick} className="nav-link">Contact</button>
           </li>
         </ul>
       </nav>
+      
+      {/* Contact Popup */}
+      {showContactPopup && (
+        <div className="contact-popup-overlay" onClick={closeContactPopup}>
+          <div className="contact-popup" onClick={(e) => e.stopPropagation()}>
+            <div className="contact-popup-header">
+              <h3>Contact Us</h3>
+              <button className="close-popup-btn" onClick={closeContactPopup}>×</button>
+            </div>
+            <div className="contact-popup-content">
+              <p>I don't want you to contact us</p>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

@@ -112,6 +112,141 @@
   fill: #3f51b5;
 }
 
+.search-button.searching {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.search-button.searching .search-icon {
+  fill: #3f51b5;
+}
+
+.search-icon.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Contact Popup Styles */
+.contact-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.contact-popup {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease-out;
+}
+
+.contact-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.contact-popup-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.close-popup-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.close-popup-btn:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.contact-popup-content {
+  padding: 24px;
+}
+
+.contact-popup-content p {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.9) translateY(-20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+  }
+}
+
+/* Dark theme support */
+.dark-theme .contact-popup {
+  background: #2c2c2c;
+  color: #fff;
+}
+
+.dark-theme .contact-popup-header {
+  border-bottom-color: #444;
+}
+
+.dark-theme .contact-popup-header h3 {
+  color: #fff;
+}
+
+.dark-theme .close-popup-btn {
+  color: #ccc;
+}
+
+.dark-theme .close-popup-btn:hover {
+  background-color: #444;
+  color: #fff;
+}
+
+.dark-theme .contact-popup-content p {
+  color: #fff;
+}
+
 .header-controls {
   display: flex;
   align-items: center;
