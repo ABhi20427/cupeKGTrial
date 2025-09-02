@@ -128,28 +128,38 @@ class ChatbotService:
     def _process_query_intelligently(self, query, context, location_id):
         """Intelligently process query using multiple strategies"""
         
-        # Strategy 1: Try FAQ matching first
+        # Strategy 1: Check if query mentions specific locations first
+        kg_response = self._search_knowledge_graph(query)
+        if kg_response['confidence'] > 0.7:  # High confidence for location matches
+            return kg_response
+            
+        # Strategy 2: Intent-based processing for location queries
+        intent = self._detect_intent(query)
+        if intent in ['location_info', 'history', 'architecture', 'culture']:
+            intent_response = self._handle_intent(intent, query, location_id, context)
+            if intent_response and intent_response.get('confidence', 0) > 0.6:
+                return intent_response
+        
+        # Strategy 3: Try FAQ matching
         faq_response = self._match_faq(query)
         if faq_response and faq_response['confidence'] > 0.6:
             return faq_response
             
-        # Strategy 2: Intent-based processing
-        intent = self._detect_intent(query)
+        # Strategy 4: Handle other intents
         if intent:
             return self._handle_intent(intent, query, location_id, context)
             
-        # Strategy 3: Location-specific information
+        # Strategy 5: Location-specific information if location_id provided
         if location_id:
             location_response = self._get_location_specific_info(query, location_id)
             if location_response['confidence'] > 0.5:
                 return location_response
                 
-        # Strategy 4: Keyword-based matching with knowledge graph
-        kg_response = self._search_knowledge_graph(query)
-        if kg_response['confidence'] > 0.5:
+        # Strategy 6: General knowledge graph search with lower threshold
+        if kg_response['confidence'] > 0.3:
             return kg_response
             
-        # Strategy 5: Fallback response
+        # Strategy 7: Fallback response
         return self._generate_contextual_fallback(query, context)
     
     def _get_context(self, session_id, location_id=None):
@@ -280,17 +290,34 @@ class ChatbotService:
     
     def _extract_location_name(self, query):
         """Extract location names from the query"""
-        # Common location patterns
+        # Get all known locations from our database
+        all_locations = self.kg_service.get_all_locations()
+        location_names = [loc.name.lower() for loc in all_locations]
+        
+        query_lower = query.lower()
+        
+        # First, try direct name matching in the query
+        for location in all_locations:
+            location_name_lower = location.name.lower()
+            if location_name_lower in query_lower:
+                return location.name
+        
+        # Then try pattern-based extraction with more flexible patterns
         location_patterns = [
-            r'(?:about|of|in|visit|reach|to)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)',
-            r'([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+(?:temple|fort|palace|mahal|heritage)',
+            r'(?:tell me about|about|info about|information about|describe|explain|visit|reach|go to)\s+([A-Za-z\s]+?)(?:\s|$|[.!?])',
+            r'(?:what is|what\'s)\s+([A-Za-z\s]+?)(?:\s|$|[.!?])',
+            r'([A-Za-z\s]+?)\s+(?:temple|fort|palace|mahal|heritage|monument|site)',
             r'(Taj\s+Mahal|Red\s+Fort|Golden\s+Temple|Hampi|Khajuraho|Ajanta|Ellora|Konark|Sanchi|Bodh\s+Gaya)',
         ]
         
         for pattern in location_patterns:
             match = re.search(pattern, query, re.IGNORECASE)
             if match:
-                return match.group(1).strip()
+                extracted = match.group(1).strip()
+                # Check if extracted text matches any known location
+                for location in all_locations:
+                    if location.name.lower() in extracted.lower() or extracted.lower() in location.name.lower():
+                        return location.name
         
         return None
     
@@ -337,19 +364,26 @@ class ChatbotService:
             if best_matches:
                 location, score = best_matches[0]
                 
-                # Create rich response
-                response = f"{location.name} is a {location.category} site from the {location.period} period. "
-                response += f"{location.description} "
+                # Create detailed, rich response
+                response = f"**{location.name}** - {location.description}\n\n"
+                
+                if location.period and location.period != "Unknown":
+                    response += f"**Period**: {location.period}\n"
                 
                 if location.dynasty and location.dynasty != "Unknown":
-                    response += f"It was built during the {location.dynasty} era. "
+                    response += f"**Dynasty**: {location.dynasty}\n"
+                
+                if hasattr(location, 'history') and location.history:
+                    response += f"\n**History**: {location.history}\n"
                 
                 if hasattr(location, 'cultural_facts') and location.cultural_facts:
-                    response += f"Cultural insight: {random.choice(location.cultural_facts)} "
+                    response += f"\n**Cultural Highlights**:\n"
+                    for fact in location.cultural_facts[:2]:
+                        response += f"• {fact}\n"
                 
                 return {
                     'answer': response.strip(),
-                    'confidence': min(0.8, score / 10)  # Normalize confidence
+                    'confidence': 0.9 if score > 5 else 0.8  # High confidence for good matches
                 }
         
         except Exception as e:
@@ -603,548 +637,5 @@ class ChatbotService:
             return {
                 'recommendations': [],
                 'message': 'I can help you plan heritage routes! What type of sites interest you most?'
-            }# services/chatbot_service.py - COMPLETE IMPLEMENTATION
-
-import re
-import random
-import logging
-from typing import Dict, List, Any, Optional
-from datetime import datetime
-
-logger = logging.getLogger(__name__)
-
-class ChatbotService:
-    def __init__(self, kg_service, route_service):
-        self.kg_service = kg_service
-        self.route_service = route_service
-        self.conversation_history = {}
-        
-        # Initialize FAQ database
-        self.faq_database = self._initialize_faq()
-        
-        # Initialize intent patterns
-        self.intent_patterns = self._initialize_intent_patterns()
-    
-    def _initialize_faq(self):
-        """Initialize FAQ database with common tourism questions"""
-        return {
-            "what is the best time to visit": {
-                "answer": "The best time to visit most heritage sites in India is from October to March when the weather is pleasant. However, specific recommendations vary by region.",
-                "confidence": 0.8
-            },
-            "how to reach": {
-                "answer": "Most heritage sites are well-connected by road, rail, and air. I can help you plan specific routes based on your starting location.",
-                "confidence": 0.8
-            },
-            "entry fee": {
-                "answer": "Entry fees vary by site. UNESCO World Heritage sites typically charge ₹30-40 for Indians and $10-15 for foreign tourists. Some sites offer combined tickets.",
-                "confidence": 0.7
-            },
-            "opening hours": {
-                "answer": "Most heritage sites are open from sunrise to sunset (approximately 6 AM to 6 PM). Some sites like the Taj Mahal have special timings and are closed on Fridays.",
-                "confidence": 0.8
-            },
-            "photography": {
-                "answer": "Photography is generally allowed in most heritage sites, but there may be restrictions in certain areas. Video cameras might require additional fees.",
-                "confidence": 0.7
-            }
-        }
-    
-    def _initialize_intent_patterns(self):
-        """Initialize intent recognition patterns"""
-        return {
-            "history": r"\b(history|historical|ancient|dynasty|built|constructed|when|period|era)\b",
-            "travel": r"\b(visit|travel|trip|journey|route|how to reach|transportation)\b", 
-            "information": r"\b(tell me|about|what is|describe|information|details)\b",
-            "recommendation": r"\b(recommend|suggest|best|top|popular|famous)\b",
-            "timing": r"\b(time|when|hours|open|close|timing|schedule)\b",
-            "cost": r"\b(cost|price|fee|ticket|entry|expensive|budget)\b",
-            "location": r"\b(where|location|address|find|situated|located)\b"
-        }
-    
-    def process_query(self, query, location_id=None, session_id=None):
-        """Main method to process user queries"""
-        try:
-            # Initialize session if not exists
-            if session_id not in self.conversation_history:
-                self.conversation_history[session_id] = []
-            
-            # Add user query to history
-            self.conversation_history[session_id].append({"role": "user", "text": query})
-            
-            # Get context for the response
-            context = self._get_context(session_id, location_id)
-            
-            # Process the query intelligently
-            response = self._process_query_intelligently(query, context, location_id)
-            
-            # Generate follow-up suggestions
-            suggestions = self._generate_dynamic_suggestions(query, response['answer'], location_id)
-            
-            # Add response to history
-            self.conversation_history[session_id].append({"role": "assistant", "text": response['answer']})
-            
-            return {
-                'answer': response['answer'],
-                'confidence': response.get('confidence', 0.7),
-                'followUpQuestions': suggestions
-            }
-            
-        except Exception as e:
-            logger.error(f"Error processing query: {e}")
-            return {
-                'answer': "I apologize, but I'm experiencing some technical difficulties. Please try asking about a specific heritage site.",
-                'confidence': 0.3,
-                'followUpQuestions': [
-                    "Tell me about the Taj Mahal",
-                    "What is the Golden Triangle route?",
-                    "Show me Buddhist heritage sites"
-                ]
             }
     
-    def _process_query_intelligently(self, query, context, location_id):
-        """Intelligently process query using multiple strategies"""
-        
-        # Strategy 1: Try FAQ matching first
-        faq_response = self._match_faq(query)
-        if faq_response and faq_response['confidence'] > 0.6:
-            return faq_response
-            
-        # Strategy 2: Intent-based processing
-        intent = self._detect_intent(query)
-        if intent:
-            return self._handle_intent(intent, query, location_id, context)
-            
-        # Strategy 3: Location-specific information
-        if location_id:
-            location_response = self._get_location_specific_info(query, location_id)
-            if location_response['confidence'] > 0.5:
-                return location_response
-                
-        # Strategy 4: Keyword-based matching with knowledge graph
-        kg_response = self._search_knowledge_graph(query)
-        if kg_response['confidence'] > 0.5:
-            return kg_response
-            
-        # Strategy 5: Fallback response
-        return self._generate_contextual_fallback(query, context)
-    
-    def _match_faq(self, query):
-        """Match query against FAQ database"""
-        query_lower = query.lower()
-        best_match = None
-        highest_score = 0
-        
-        for faq_key, faq_data in self.faq_database.items():
-            # Simple keyword matching
-            keywords = faq_key.split()
-            score = sum(1 for keyword in keywords if keyword in query_lower) / len(keywords)
-            
-            if score > highest_score and score > 0.5:
-                highest_score = score
-                best_match = faq_data
-        
-        if best_match:
-            return {
-                "answer": best_match["answer"],
-                "confidence": best_match["confidence"] * highest_score
-            }
-        
-        return None
-    
-    def _detect_intent(self, query):
-        """Detect user intent from query"""
-        query_lower = query.lower()
-        
-        for intent, pattern in self.intent_patterns.items():
-            if re.search(pattern, query_lower, re.IGNORECASE):
-                return intent
-        
-        return None
-    
-    def _handle_intent(self, intent, query, location_id, context):
-        """Handle different intents"""
-        try:
-            if intent == "history":
-                return self._handle_history_intent(query, location_id)
-            elif intent == "travel":
-                return self._handle_travel_intent(query, location_id)
-            elif intent == "information":
-                return self._handle_information_intent(query, location_id)
-            elif intent == "recommendation":
-                return self._handle_recommendation_intent(query, location_id)
-            elif intent == "timing":
-                return self._handle_timing_intent(query, location_id)
-            elif intent == "cost":
-                return self._handle_cost_intent(query, location_id)
-            elif intent == "location":
-                return self._handle_location_intent(query, location_id)
-            else:
-                return self._generate_generic_response(query)
-        except Exception as e:
-            logger.error(f"Error handling intent {intent}: {e}")
-            return self._generate_generic_response(query)
-    
-    def _handle_history_intent(self, query, location_id):
-        """Handle history-related queries"""
-        if location_id:
-            location = self.kg_service.get_location_by_id(location_id)
-            if location:
-                response = f"📜 {location.name} has a fascinating history! "
-                if location.history:
-                    response += location.history
-                if location.period:
-                    response += f" It belongs to the {location.period} period"
-                if location.dynasty:
-                    response += f" and was built during the {location.dynasty} dynasty."
-                
-                return {"answer": response, "confidence": 0.9}
-        
-        # Generic history response
-        return {
-            "answer": "India has a rich cultural heritage spanning thousands of years, from ancient Indus Valley civilization to the Mughal Empire and colonial period. Which specific period or location interests you?",
-            "confidence": 0.7
-        }
-    
-    def _handle_travel_intent(self, query, location_id):
-        """Handle travel-related queries"""
-        if location_id:
-            location = self.kg_service.get_location_by_id(location_id)
-            if location:
-                response = f"🚗 To visit {location.name}: "
-                response += f"It's located in {location.state}, India. "
-                response += "The best way to reach depends on your starting point. I can help you plan a detailed route if you share your location."
-                
-                return {"answer": response, "confidence": 0.8}
-        
-        return {
-            "answer": "I can help you plan your heritage journey! India's heritage sites are well-connected by various means of transport. Which destination interests you?",
-            "confidence": 0.7
-        }
-    
-    def _handle_information_intent(self, query, location_id):
-        """Handle information requests"""
-        if location_id:
-            location = self.kg_service.get_location_by_id(location_id)
-            if location:
-                response = f"ℹ️ About {location.name}: "
-                response += location.description
-                if hasattr(location, 'cultural_facts') and location.cultural_facts:
-                    response += f" Cultural significance: {' '.join(location.cultural_facts[:2])}"
-                
-                return {"answer": response, "confidence": 0.9}
-        
-        return {
-            "answer": "I'd be happy to share information about India's heritage sites! Which specific location or aspect interests you?",
-            "confidence": 0.7
-        }
-    
-    def _handle_recommendation_intent(self, query, location_id):
-        """Handle recommendation requests"""
-        locations = self.kg_service.get_all_locations()
-        if locations:
-            # Get top 3 popular locations
-            top_locations = locations[:3]
-            response = "🌟 Here are some must-visit heritage sites:\n\n"
-            for loc in top_locations:
-                response += f"• **{loc.name}** - {loc.description[:100]}...\n"
-            
-            return {"answer": response, "confidence": 0.8}
-        
-        return {
-            "answer": "I recommend exploring the Golden Triangle (Delhi-Agra-Jaipur), the Buddhist Circuit, or South India's temple architecture. What type of experience interests you?",
-            "confidence": 0.7
-        }
-    
-    def _handle_timing_intent(self, query, location_id):
-        """Handle timing-related queries"""
-        generic_timing = "Most heritage sites are open from sunrise to sunset (6 AM - 6 PM). Some sites like the Taj Mahal have special timings and weekly closures."
-        
-        if location_id:
-            location = self.kg_service.get_location_by_id(location_id)
-            if location:
-                response = f"⏰ {location.name} timing: {generic_timing}"
-                return {"answer": response, "confidence": 0.7}
-        
-        return {"answer": f"⏰ {generic_timing}", "confidence": 0.7}
-    
-    def _handle_cost_intent(self, query, location_id):
-        """Handle cost-related queries"""
-        generic_cost = "Entry fees typically range from ₹25-40 for Indians and $10-15 for foreign tourists. UNESCO World Heritage sites may have higher fees."
-        
-        if location_id:
-            location = self.kg_service.get_location_by_id(location_id)
-            if location:
-                response = f"💰 {location.name} fees: {generic_cost}"
-                return {"answer": response, "confidence": 0.7}
-        
-        return {"answer": f"💰 {generic_cost}", "confidence": 0.7}
-    
-    def _handle_location_intent(self, query, location_id):
-        """Handle location-related queries"""
-        if location_id:
-            location = self.kg_service.get_location_by_id(location_id)
-            if location:
-                coords = location.coordinates
-                response = f"📍 {location.name} is located in {location.state}, India"
-                if coords and isinstance(coords, dict):
-                    response += f" at coordinates ({coords.get('lat', 'N/A')}, {coords.get('lng', 'N/A')})"
-                
-                return {"answer": response, "confidence": 0.9}
-        
-        return {
-            "answer": "India's heritage sites are spread across the country. Which specific location are you looking for?",
-            "confidence": 0.6
-        }
-    
-    def _get_location_specific_info(self, query, location_id):
-        """Get location-specific information"""
-        try:
-            location = self.kg_service.get_location_by_id(location_id)
-            if not location:
-                return {"answer": "Location information not available.", "confidence": 0.3}
-            
-            # Build comprehensive response about the location
-            response_parts = []
-            
-            # Basic info
-            response_parts.append(f"🏛️ **{location.name}**")
-            response_parts.append(location.description)
-            
-            # Historical context
-            if location.period:
-                response_parts.append(f"📅 Period: {location.period}")
-            
-            if location.dynasty:
-                response_parts.append(f"👑 Dynasty: {location.dynasty}")
-            
-            # Cultural facts
-            if hasattr(location, 'cultural_facts') and location.cultural_facts:
-                response_parts.append("🎭 Cultural Facts:")
-                for fact in location.cultural_facts[:2]:
-                    response_parts.append(f"• {fact}")
-            
-            response = "\n\n".join(response_parts)
-            
-            return {"answer": response, "confidence": 0.8}
-            
-        except Exception as e:
-            logger.error(f"Error getting location info: {e}")
-            return {"answer": "Unable to retrieve location information.", "confidence": 0.3}
-    
-    def _search_knowledge_graph(self, query):
-        """Search knowledge graph for relevant information"""
-        try:
-            # Extract potential location names from query
-            locations = self.kg_service.get_all_locations()
-            
-            query_lower = query.lower()
-            matching_locations = []
-            
-            for location in locations:
-                # Better matching logic - check if query words appear in location name or description
-                location_text = f"{location.name.lower()} {location.description.lower()}"
-                query_words = query_lower.split()
-                
-                # Score based matching - higher score for exact name matches
-                score = 0
-                for word in query_words:
-                    if len(word) > 2:  # Skip short words
-                        if word in location.name.lower():
-                            score += 10  # Higher weight for name matches
-                        elif word in location.description.lower():
-                            score += 1
-                        elif hasattr(location, 'tags') and any(word in tag.lower() for tag in location.tags):
-                            score += 5  # Medium weight for tag matches
-                
-                if score > 0:
-                    matching_locations.append((location, score))
-            
-            if matching_locations:
-                # Sort by score and return the best matching location
-                matching_locations.sort(key=lambda x: x[1], reverse=True)
-                best_match, best_score = matching_locations[0]
-                
-                response = f"🔍 Found information about {best_match.name}: {best_match.description}"
-                
-                # Add dynasty and period information if available
-                if hasattr(best_match, 'dynasty') and best_match.dynasty:
-                    response += f" Built during the {best_match.dynasty} period"
-                    if hasattr(best_match, 'period') and best_match.period:
-                        response += f" ({best_match.period})"
-                    response += "."
-                
-                confidence = min(0.9, 0.4 + (best_score * 0.05))  # Scale confidence based on score
-                return {"answer": response, "confidence": confidence}
-            
-            return {"answer": "No specific matches found in knowledge base.", "confidence": 0.4}
-            
-        except Exception as e:
-            logger.error(f"Error searching knowledge graph: {e}")
-            return {"answer": "Search functionality temporarily unavailable.", "confidence": 0.3}
-    
-    def _generate_dynamic_suggestions(self, query, response, location_id):
-        """Generate context-aware follow-up suggestions"""
-        suggestions = []
-        
-        query_lower = query.lower()
-        
-        # Try to extract location from the response if not provided as location_id
-        found_location = None
-        if "Found information about" in response:
-            # Extract location name from response
-            import re
-            match = re.search(r'Found information about ([^:]+):', response)
-            if match:
-                location_name = match.group(1).strip()
-                # Find this location in our knowledge base
-                all_locations = self.kg_service.get_all_locations()
-                for loc in all_locations:
-                    if loc.name.lower() == location_name.lower():
-                        found_location = loc
-                        break
-        
-        # Generate location-specific suggestions
-        if found_location:
-            suggestions.extend([
-                f"Best time to visit {found_location.name}",
-                f"How to reach {found_location.name}",
-                f"History of {found_location.name}",
-                f"Architecture of {found_location.name}"
-            ])
-            
-            # Add dynasty-specific suggestions
-            if hasattr(found_location, 'dynasty') and found_location.dynasty:
-                suggestions.append(f"Show me other {found_location.dynasty} sites")
-                
-            # Add category-specific suggestions  
-            if hasattr(found_location, 'category') and found_location.category:
-                suggestions.append(f"Show me other {found_location.category} sites")
-        
-        # Query-based suggestions
-        elif any(word in query_lower for word in ['buddhist', 'buddha']):
-            suggestions.extend([
-                "Tell me about Bodh Gaya",
-                "Show me Ajanta Caves",
-                "Buddhist circuit route",
-                "History of Buddhism in India"
-            ])
-        
-        elif any(word in query_lower for word in ['golden triangle']):
-            suggestions.extend([
-                "Tell me about Delhi monuments",
-                "History of Agra",
-                "Jaipur palaces and forts", 
-                "Plan Golden Triangle itinerary"
-            ])
-            
-        elif any(word in query_lower for word in ['south india', 'southern']):
-            suggestions.extend([
-                "Tell me about Hampi",
-                "Madurai temple architecture",
-                "Kerala heritage sites",
-                "Dravidian architecture"
-            ])
-        
-        # Default suggestions if none generated
-        if not suggestions:
-            suggestions = [
-                "Tell me about the Taj Mahal",
-                "Show me Buddhist heritage sites", 
-                "What is the Golden Triangle route?",
-                "Recommend sites in South India"
-            ]
-        
-        return suggestions[:4]  # Return max 4 suggestions
-    
-    def _generate_contextual_fallback(self, query, context):
-        """Generate contextual fallback response"""
-        fallback_responses = [
-            "I'd love to help you explore India's rich heritage! Could you be more specific about what you'd like to know?",
-            "India has thousands of heritage sites with fascinating stories. What particular aspect interests you?",
-            "I can help you with information about historical sites, travel planning, cultural facts, and more. What would you like to explore?",
-            "That's an interesting question! Let me help you discover India's cultural treasures. Which region or time period interests you most?"
-        ]
-        
-        return {
-            "answer": random.choice(fallback_responses),
-            "confidence": 0.5
-        }
-    
-    def _generate_generic_response(self, query):
-        """Generate a generic helpful response"""
-        return {
-            "answer": "I'm here to help you explore India's incredible cultural heritage! Feel free to ask about specific sites, historical periods, travel routes, or cultural facts.",
-            "confidence": 0.6
-        }
-    
-    def _get_context(self, session_id, location_id=None):
-        """Get relevant context for responding to the query"""
-        context = ""
-        
-        # Add location-specific context if available
-        if location_id:
-            location = self.kg_service.get_location_by_id(location_id)
-            if location:
-                context += f"Current location: {location.name}. "
-                context += f"Description: {location.description}. "
-                if location.period:
-                    context += f"Historical period: {location.period}. "
-                if location.dynasty:
-                    context += f"Dynasty: {location.dynasty}. "
-                if location.history:
-                    context += f"History: {location.history[:200]}... "
-        
-        # Add conversation history context
-        if session_id in self.conversation_history:
-            recent_messages = self.conversation_history[session_id][-4:]  # Last 4 messages
-            for msg in recent_messages:
-                context += f"{msg['role']}: {msg['text'][:100]}... "
-        
-        return context
-    
-    def get_recommendations(self, preferences):
-        """Generate personalized recommendations based on user preferences"""
-        try:
-            # Use the route service to generate personalized routes
-            route = self.route_service.create_personalized_route_with_preferences(preferences)
-            
-            recommendations = {
-                "recommended_locations": [],
-                "suggested_routes": [route.to_dict()] if route else [],
-                "cultural_insights": []
-            }
-            
-            # Add location recommendations
-            locations = self.kg_service.get_all_locations()
-            
-            # Simple filtering based on interests
-            interests = preferences.get('interests', [])
-            if interests:
-                filtered_locations = []
-                for location in locations[:10]:  # Limit to first 10
-                    if any(interest.lower() in location.category.lower() 
-                          for interest in interests if hasattr(location, 'category')):
-                        filtered_locations.append(location.to_dict())
-                
-                recommendations["recommended_locations"] = filtered_locations
-            else:
-                recommendations["recommended_locations"] = [loc.to_dict() for loc in locations[:5]]
-            
-            # Add cultural insights
-            recommendations["cultural_insights"] = [
-                "Consider visiting during festival seasons for authentic cultural experiences",
-                "Many heritage sites offer guided tours that provide deeper historical context",
-                "Local cuisine near heritage sites often reflects historical influences"
-            ]
-            
-            return recommendations
-            
-        except Exception as e:
-            logger.error(f"Error generating recommendations: {e}")
-            return {
-                "recommended_locations": [],
-                "suggested_routes": [],
-                "cultural_insights": ["I apologize, but I'm having trouble generating personalized recommendations right now."],
-                "error": str(e)
-            }

@@ -573,6 +573,122 @@ def get_expanded_locations():
         }
     ],
     "tags": ["Buddhist Heritage", "Emperor Ashoka", "UNESCO World Heritage", "Ancient Stupa", "Mauryan Architecture"]
+},
+
+{
+    "id": "thanjavur",
+    "name": "Thanjavur",
+    "description": "Home to the magnificent Brihadeeswarar Temple and the historic Thanjavur Palace",
+    "coordinates": {"lat": 10.7870, "lng": 79.1378},
+    "category": "historical",
+    "history": "Thanjavur served as the capital of the great Chola Empire from the 9th to 13th centuries. The city reached its zenith under Raja Raja Chola I, who built the magnificent Brihadeeswarar Temple in 1010 CE. Later, it became the capital of the Maratha kingdom of Thanjavur under the Bhonsle dynasty. The Thanjavur Palace complex was built by the Nayak and Maratha rulers.",
+    "period": "9th century CE - Present",
+    "dynasty": "Chola Empire, Nayak Dynasty, Maratha Kingdom",
+    "culturalFacts": [
+        "The Brihadeeswarar Temple is a UNESCO World Heritage Site and masterpiece of Dravidian architecture",
+        "Known as the 'Rice Bowl of Tamil Nadu' due to its fertile agricultural lands",
+        "Famous for Thanjavur paintings, a classical South Indian art form with rich colors and gold foil",
+        "The temple's vimana (tower) is 216 feet tall and was the tallest structure in the world when built",
+        "Thanjavur dolls (dancing dolls) are a unique craft tradition of the region"
+    ],
+    "legends": [
+        {
+            "title": "The Shadow-less Temple",
+            "description": "Legend says that the Brihadeeswarar Temple's towering vimana is designed so perfectly that it casts no shadow on the ground at noon, demonstrating the architectural genius of ancient Tamil builders."
+        },
+        {
+            "title": "The Flying Kite Stone",
+            "description": "Local folklore tells that the 80-ton capstone on top of the temple was lifted using a massive earthen ramp and a giant kite, showcasing the ingenuity of Chola engineering."
+        }
+    ],
+    "tags": ["Chola Empire", "Brihadeeswarar Temple", "UNESCO Heritage", "Dravidian Architecture", "Thanjavur Palace"]
+},
+
+{
+    "id": "kanchipuram",
+    "name": "Kanchipuram",
+    "description": "A historic pilgrimage city famous for its ancient temples and silk sarees",
+    "coordinates": {"lat": 12.8342, "lng": 79.7036},
+    "category": "religious",
+    "history": "Kanchipuram, known as the 'City of Thousand Temples', served as the capital of the Pallava dynasty from the 4th to 9th centuries CE. It was an important center of learning and pilgrimage, mentioned in ancient Tamil literature. The city houses numerous ancient temples dedicated to both Vishnu and Shiva, making it one of the seven sacred cities (Sapta Puri) in Hinduism.",
+    "period": "4th century CE - Present",
+    "dynasty": "Pallava Dynasty, Chola Empire, Vijayanagara Empire",
+    "culturalFacts": [
+        "One of the seven sacred cities (Sapta Puri) in Hinduism for attaining moksha",
+        "Famous worldwide for Kanchipuram silk sarees, handwoven with pure mulberry silk",
+        "The Ekambareswarar Temple has a 1000-year-old mango tree with four branches bearing different varieties of mangoes",
+        "Kailasanathar Temple is one of the earliest structural temples in South India",
+        "Former center of Buddhist learning with ancient monasteries and universities"
+    ],
+    "legends": [
+        {
+            "title": "The Four-Fruited Mango Tree",
+            "description": "Legend says the ancient mango tree in Ekambareswarar Temple represents the four Vedas, with each branch bearing different varieties of mangoes, blessed by Goddess Parvati herself."
+        },
+        {
+            "title": "The Golden City of Learning",
+            "description": "Ancient texts describe Kanchipuram as a golden city where scholars from across India came to debate philosophy, and the city's temples served as universities for various branches of knowledge."
+        }
+    ],
+    "tags": ["Pallava Dynasty", "Temple City", "Sapta Puri", "Silk Sarees", "Pilgrimage Center"]
+},
+
+{
+    "id": "chidambaram",
+    "name": "Chidambaram",
+    "description": "A significant pilgrimage town famous for the Nataraja Temple and cosmic dance of Shiva",
+    "coordinates": {"lat": 11.3988, "lng": 79.6947},
+    "category": "religious",
+    "history": "Chidambaram is an ancient temple town that has been a major pilgrimage center for over 2,000 years. The famous Nataraja Temple, dedicated to Lord Shiva as the cosmic dancer, was patronized by the Chola kings. The temple represents the cosmic dance of creation, preservation, and destruction. The town has been ruled by various dynasties including Pallavas, Cholas, and Vijayanagara Empire.",
+    "period": "Ancient times - Present",
+    "dynasty": "Pallava Dynasty, Chola Empire, Vijayanagara Empire",
+    "culturalFacts": [
+        "The Nataraja Temple is famous for its representation of Shiva's cosmic dance (Ananda Tandava)",
+        "The temple's Chit Sabha (consciousness hall) represents the space element (akasha)",
+        "Home to one of the Pancha Bhoota Sthalams representing the element of space/ether",
+        "The temple has 21,600 gold tiles on its roof representing the number of breaths a human takes per day",
+        "Center for classical Tamil poetry and Bharatanatyam dance traditions"
+    ],
+    "legends": [
+        {
+            "title": "The Cosmic Dance Hall",
+            "description": "Legend states that Lord Shiva performs his eternal dance in the golden hall (Pon Ambalam) of Chidambaram, and those with divine vision can witness this cosmic performance that sustains the universe."
+        },
+        {
+            "title": "The Secret of the Empty Space",
+            "description": "The temple's inner sanctum contains empty space representing the formless nature of the divine, and it's said that true devotees can perceive the invisible dance of Nataraja in this sacred void."
+        }
+    ],
+    "tags": ["Nataraja Temple", "Cosmic Dance", "Pancha Bhoota Sthalam", "Chola Patronage", "Spiritual Center"]
+},
+
+{
+    "id": "thiruvannamalai",
+    "name": "Thiruvannamalai",
+    "description": "Sacred pilgrimage town known for the Arunachala Temple and spiritual significance",
+    "coordinates": {"lat": 12.2253, "lng": 79.0747},
+    "category": "religious",
+    "history": "Thiruvannamalai is built around the sacred Arunachala Hill, considered to be a manifestation of Lord Shiva himself. The town has been a major pilgrimage center for centuries, with the Annamalaiyar Temple dating back to the 9th century. It gained further spiritual significance as the residence of sage Ramana Maharshi in the 20th century, attracting spiritual seekers from around the world.",
+    "period": "9th century CE - Present",
+    "dynasty": "Chola Empire, Vijayanagara Empire, Maratha Kingdom",
+    "culturalFacts": [
+        "The Arunachala Hill is considered one of the holiest mountains in South India",
+        "Famous for the Karthigai Deepam festival when a huge fire is lit on the hill top",
+        "Home to Ramana Maharshi's ashram, attracting spiritual seekers worldwide",
+        "The Annamalaiyar Temple is one of the largest temples in Tamil Nadu",
+        "Girivalam (circumambulation of the hill) is performed by thousands of devotees"
+    ],
+    "legends": [
+        {
+            "title": "The Fire Lingam of Arunachala",
+            "description": "Legend says that when Brahma and Vishnu argued about their supremacy, Shiva appeared as an infinite column of fire. Arunachala Hill is believed to be the physical manifestation of this divine fire lingam."
+        },
+        {
+            "title": "The Self-Manifested Temple",
+            "description": "According to tradition, the Annamalaiyar Temple was not built by human hands but manifested spontaneously around the sacred hill, with each stone placed by divine will rather than human effort."
+        }
+    ],
+    "tags": ["Arunachala Temple", "Sacred Hill", "Ramana Maharshi", "Karthigai Deepam", "Spiritual Tourism"]
 }
         
         

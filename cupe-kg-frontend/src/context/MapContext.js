@@ -182,7 +182,36 @@ export const MapProvider = ({ children }) => {
             coordinates: { lat: 12.6269, lng: 80.1927 },
             category: 'historical',
             description: 'Ancient port city famous for stone temples and rock sculptures'
-          }
+          },
+          // Add these locations to the existing fallbackLocations array:  
+        {
+          id: 'thanjavur',
+          name: 'Thanjavur',
+          coordinates: { lat: 10.7870, lng: 79.1378 },
+          category: 'historical',
+          description: 'Home to Brihadeeswarar Temple and Thanjavur Palace'
+        },
+        {
+          id: 'kanchipuram',
+          name: 'Kanchipuram',
+          coordinates: { lat: 12.8342, lng: 79.7036 },
+          category: 'religious',
+          description: 'Historic pilgrimage city famous for its temples'
+        },
+        {
+          id: 'chidambaram',
+          name: 'Chidambaram',
+          coordinates: { lat: 11.3985, lng: 79.6947 },
+          category: 'religious',
+          description: 'Significant pilgrimage town with historical importance'
+        },
+        {
+          id: 'thiruvannamalai',
+          name: 'Thiruvannamalai',
+          coordinates: { lat: 12.2253, lng: 79.0747 },
+          category: 'religious',
+          description: 'Known for the Arunachala Temple'
+        }
         ];
         
         setLocations(fallbackLocations);

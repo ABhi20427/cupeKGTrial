@@ -252,5 +252,93 @@ jaipur: {
       }
     ],
     tags: ['UNESCO Heritage', 'Shore Temple', 'Pallava', 'Rock-Cut Art', 'Coastal Heritage']
-  }
+  },
+  // Add these to the placeholderData export:
+thanjavur: {
+  id: 'thanjavur',
+  name: 'Thanjavur',
+  description: 'Historic city in Tamil Nadu famous for the Brihadeeswarar Temple and royal palace',
+  history: 'Thanjavur was the capital of the great Chola dynasty and later the Maratha kingdom. The city is renowned for its magnificent architecture, classical music, and art. The Brihadeeswarar Temple, built in 1010 CE, is a UNESCO World Heritage Site and one of the largest temples in India.',
+  period: '9th century CE - Present',
+  dynasty: 'Chola Dynasty, Maratha Kingdom',
+  culturalFacts: [
+    'Home to the magnificent Brihadeeswarar Temple, a UNESCO World Heritage Site',
+    'The Thanjavur Palace complex houses museums with rare artifacts and manuscripts',
+    'Known as the cultural capital of Tamil Nadu and birthplace of Bharatanatyam dance',
+    'Famous for Thanjavur paintings, a unique art form with gold foil work'
+  ],
+  legends: [
+    {
+      title: 'The Legend of the Great Living Chola Temple',
+      description: 'The Brihadeeswarar Temple is said to be built in such a way that its shadow never falls on the ground at noon, showcasing the architectural marvel of ancient Tamil engineering.'
+    }
+  ],
+  tags: ['UNESCO Heritage', 'Chola Architecture', 'Classical Music', 'Bharatanatyam', 'Royal Palace']
+},
+
+kanchipuram: {
+  id: 'kanchipuram',
+  name: 'Kanchipuram',
+  description: 'One of the seven sacred cities of India, known for its ancient temples and silk sarees',
+  history: 'Kanchipuram served as the capital of the Pallava dynasty and later the Chola empire. It is one of the oldest cities in South India and has been a center of learning and pilgrimage for over 2000 years. The city is home to numerous ancient temples dedicated to both Vishnu and Shiva.',
+  period: '6th century CE - Present',
+  dynasty: 'Pallava Dynasty, Chola Empire',
+  culturalFacts: [
+    'One of the seven Moksha-puris (cities of salvation) in Hinduism',
+    'Houses over 1000 temples, including the famous Kailasanathar and Ekambareswarar temples',
+    'Known worldwide for Kanchipuram silk sarees with intricate zari work',
+    'Ancient seat of learning, once home to the great philosopher Shankaracharya'
+  ],
+  legends: [
+    {
+      title: 'The City of Thousand Temples',
+      description: 'Legend says that Kanchipuram was blessed by Lord Brahma himself, and whoever visits the city with devotion will attain moksha (salvation).'
+    }
+  ],
+  tags: ['Sacred City', 'Ancient Temples', 'Silk Sarees', 'Pallava Architecture', 'Pilgrimage']
+},
+
+chidambaram: {
+  id: 'chidambaram',
+  name: 'Chidambaram',
+  description: 'Sacred town famous for the Nataraja Temple, where Lord Shiva is worshipped as the cosmic dancer',
+  history: 'Chidambaram has been a center of worship for over 2000 years. The Nataraja Temple, dating back to the 10th century, represents the cosmic dance of creation and destruction. The town has been patronized by various dynasties including the Cholas, Pandyas, and Vijayanagara empire.',
+  period: '10th century CE - Present',
+  dynasty: 'Chola Dynasty, Pandya Dynasty',
+  culturalFacts: [
+    'Home to the famous Nataraja Temple, one of the holiest Shiva temples',
+    'The temple represents the cosmic dance of Shiva as Nataraja',
+    'Known for the Chidambaram Rahasya (secret) - the formless representation of divine',
+    'Important center for classical Tamil literature and Bharatanatyam dance'
+  ],
+  legends: [
+    {
+      title: 'The Cosmic Dance of Shiva',
+      description: 'It is believed that Lord Shiva performed his cosmic dance (Ananda Tandava) in this sacred space, representing the eternal cycle of creation, preservation, and destruction.'
+    }
+  ],
+  tags: ['Nataraja Temple', 'Cosmic Dance', 'Sacred Space', 'Classical Dance', 'Tamil Literature']
+},
+
+thiruvannamalai: {
+  id: 'thiruvannamalai',
+  name: 'Thiruvannamalai',
+  description: 'Holy town centered around the sacred Arunachala Hill and its ancient temple',
+  history: 'Thiruvannamalai is built around the sacred Arunachala Hill, believed to be a manifestation of Lord Shiva. The Arunachaleswara Temple, dating back to at least the 9th century, is one of the largest temples in India. The town has been a spiritual center for millennia and attracted saints like Ramana Maharshi.',
+  period: '9th century CE - Present',
+  dynasty: 'Various Tamil dynasties',
+  culturalFacts: [
+    'The Arunachaleswara Temple is one of the Pancha Bhoota Sthalams (five element temples)',
+    'The sacred Arunachala Hill is considered a manifestation of Lord Shiva',
+    'Famous for the Karthigai Deepam festival with a giant beacon lit atop the hill',
+    'Spiritual center that attracted the sage Ramana Maharshi in modern times'
+  ],
+  legends: [
+    {
+      title: 'The Hill of Fire',
+      description: 'According to legend, Arunachala Hill appeared as a column of fire when Brahma and Vishnu were searching for the beginning and end of Shiva, establishing it as a sacred representation of the infinite divine.'
+    }
+  ],
+  tags: ['Sacred Hill', 'Ancient Temple', 'Spiritual Center', 'Karthigai Deepam', 'Pancha Bhoota Sthalam']
+}
   };

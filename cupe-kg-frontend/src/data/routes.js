@@ -307,5 +307,39 @@ export const routes = [
         description: 'Multi-religious rock-cut temples including Buddhist caves'
       }
     ]
-  }
+  },
+  {
+  id: 'tamil-heritage-trail',
+  name: 'Tamil Nadu Heritage Trail',
+  description: 'Explore the ancient temples and cultural treasures of Tamil Nadu',
+  color: '#FF5722',
+  path: [
+    [10.7870, 79.1378], // Thanjavur
+    [12.8342, 79.7036], // Kanchipuram
+    [11.3985, 79.6947], // Chidambaram
+    [12.2253, 79.0747]  // Thiruvannamalai
+  ],
+  locations: [
+    {
+      name: 'Thanjavur',
+      coordinates: [10.7870, 79.1378],
+      description: 'Brihadeeswarar Temple and Palace'
+    },
+    {
+      name: 'Kanchipuram',
+      coordinates: [12.8342, 79.7036],
+      description: 'City of Thousand Temples'
+    },
+    {
+      name: 'Chidambaram',
+      coordinates: [11.3985, 79.6947],
+      description: 'Nataraja Temple'
+    },
+    {
+      name: 'Thiruvannamalai',
+      coordinates: [12.2253, 79.0747],
+      description: 'Sacred Arunachala Hill'
+    }
+  ]
+}
   ];
