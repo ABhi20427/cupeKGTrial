@@ -11,6 +11,7 @@ def get_expanded_locations():
             "category": "cultural",
             "history": "The Taj Mahal was commissioned in 1632 by the Mughal emperor Shah Jahan to house the tomb of his favorite wife, Mumtaz Mahal. Construction was completed in 1643, employing thousands of artisans and craftsmen. The Taj Mahal exemplifies the refinement of Mughal architecture, combining elements from Islamic, Persian, Ottoman Turkish and Indian architectural styles.",
             "period": "1632 CE - 1643 CE",
+            
             "dynasty": "Mughal Empire",
             "culturalFacts": [
                 "The Taj Mahal is considered one of the most perfect architectural monuments in the world.",
@@ -689,7 +690,326 @@ def get_expanded_locations():
         }
     ],
     "tags": ["Arunachala Temple", "Sacred Hill", "Ramana Maharshi", "Karthigai Deepam", "Spiritual Tourism"]
+},
+
+{
+    "id": "puri",
+    "name": "Puri",
+    "description": "Sacred coastal city famous for the Jagannath Temple and annual Rath Yatra festival",
+    "coordinates": {"lat": 19.8135, "lng": 85.8312},
+    "category": "religious",
+    "history": "Puri is one of the four sacred dhams (pilgrimage sites) in Hinduism and home to the famous Jagannath Temple, built in the 12th century by King Anantavarman Chodaganga Deva of the Eastern Ganga Dynasty. The city has been a major pilgrimage center for centuries, with the annual Rath Yatra (chariot festival) attracting millions of devotees. The temple's unique tradition includes serving prasad (blessed food) to thousands daily.",
+    "period": "12th century CE - Present",
+    "dynasty": "Eastern Ganga Dynasty, Gajapati Dynasty",
+    "culturalFacts": [
+        "One of the Char Dham pilgrimage sites in Hinduism",
+        "The Rath Yatra festival features three massive wooden chariots carrying the deities through the streets",
+        "The Jagannath Temple serves Mahaprasad to over 100,000 pilgrims daily",
+        "The temple flag atop the dome always flies in the opposite direction of the wind",
+        "Puri beach is one of the most sacred beaches in Hinduism for performing last rites"
+    ],
+    "legends": [
+        {
+            "title": "The Incomplete Idols",
+            "description": "Legend says that Lord Jagannath, his brother Balabhadra, and sister Subhadra were carved by divine architect Vishwakarma in secrecy. King Indradyumna opened the door prematurely, and the idols remained incomplete with no hands or legs, but the Lord blessed them to be worshipped in this form forever."
+        },
+        {
+            "title": "The Sacred Kitchen Miracle",
+            "description": "The temple kitchen is said to have a miraculous pot system where seven pots are stacked on a wood fire, but the top pot cooks first. Devotees believe this defies natural laws and is a divine blessing of Lord Jagannath."
+        }
+    ],
+    "tags": ["Jagannath Temple", "Rath Yatra", "Char Dham", "Pilgrimage", "Odisha Heritage"]
+},
+
+{
+    "id": "sundarbans",
+    "name": "Sundarbans",
+    "description": "Largest mangrove delta and UNESCO World Heritage Site, home to the Royal Bengal Tiger",
+    "coordinates": {"lat": 21.9497, "lng": 89.1833},
+    "category": "natural",
+    "history": "The Sundarbans is the world's largest tidal mangrove forest, formed by the confluence of the Ganges, Brahmaputra, and Meghna rivers. The name 'Sundarbans' means 'beautiful forest' in Bengali. It has been inhabited for centuries with ancient references in Mughal records. The region was declared a UNESCO World Heritage Site in 1987 and is crucial for ecological balance and biodiversity.",
+    "period": "Ancient times - Present",
+    "dynasty": "Mughal Empire, British Colonial Rule, Modern India",
+    "culturalFacts": [
+        "UNESCO World Heritage Site and largest mangrove ecosystem in the world",
+        "Home to approximately 400 Royal Bengal Tigers adapted to swim in saline water",
+        "The region contains 102 islands with unique estuarine mangrove forests",
+        "Important habitat for endangered species like Irrawaddy dolphins and saltwater crocodiles",
+        "Local communities worship Bonbibi, the forest goddess who protects people from tigers"
+    ],
+    "legends": [
+        {
+            "title": "Bonbibi - The Forest Guardian",
+            "description": "Local legend tells of Bonbibi, a forest goddess who protects honey collectors and woodcutters from tiger attacks. Both Hindus and Muslims worship her, making offerings before entering the forest for protection."
+        },
+        {
+            "title": "Dakshin Ray - The Tiger Spirit",
+            "description": "Folklore speaks of Dakshin Ray, a powerful spirit who appears as a tiger and rules the southern forests. He must be appeased with prayers and offerings, or he sends his tiger minions to punish those who disrespect the forest."
+        }
+    ],
+    "tags": ["UNESCO Heritage", "Mangrove Forest", "Bengal Tiger", "Biodiversity", "Natural Wonder"]
+},
+
+{
+    "id": "victoria-memorial",
+    "name": "Victoria Memorial",
+    "description": "Magnificent white marble monument built during British colonial era, now a museum",
+    "coordinates": {"lat": 22.5448, "lng": 88.3426},
+    "category": "historical",
+    "history": "The Victoria Memorial was built between 1906 and 1921 to commemorate Queen Victoria's 25-year reign over India. Designed by British architect William Emerson, it combines British and Mughal architectural elements. After India's independence in 1947, it was converted into a museum showcasing the colonial history and Indian art. The memorial sits in 64 acres of landscaped gardens.",
+    "period": "1906 CE - 1921 CE",
+    "dynasty": "British Colonial Rule",
+    "culturalFacts": [
+        "Built with white Makrana marble from Rajasthan, the same material used for the Taj Mahal",
+        "The bronze Angel of Victory statue atop the dome rotates with the wind",
+        "Houses 25 galleries displaying paintings, manuscripts, and artifacts from British India",
+        "The gardens feature numerous statues including Queen Victoria, Lord Curzon, and other colonial figures",
+        "Popular cultural venue hosting light and sound shows depicting Kolkata's history"
+    ],
+    "legends": [
+        {
+            "title": "The Rotating Angel",
+            "description": "The 16-foot bronze Angel of Victory crowning the memorial is designed to rotate with wind direction. Legend says it points toward prosperity when facing east and warns of challenges when turning west."
+        },
+        {
+            "title": "The Midnight Procession",
+            "description": "Local lore speaks of ghostly colonial-era processions seen in the memorial gardens on foggy winter nights, with sounds of horse carriages and British military bands echoing through the mist."
+        }
+    ],
+    "tags": ["Colonial Architecture", "British Raj", "Marble Monument", "Museum", "Kolkata Heritage"]
+},
+
+{
+    "id": "nalanda",
+    "name": "Nalanda",
+    "description": "Ancient Buddhist university and monastic complex, one of the world's first residential universities",
+    "coordinates": {"lat": 25.1358, "lng": 85.4438},
+    "category": "educational",
+    "history": "Nalanda was an ancient center of higher learning in Bihar from the 5th century CE to 1200 CE. At its peak, it housed over 10,000 students and 2,000 teachers from across Asia, teaching subjects including Buddhist philosophy, logic, grammar, medicine, and mathematics. The university was destroyed by invader Bakhtiyar Khilji in 1193 CE. The ruins were excavated in the 19th century and designated a UNESCO World Heritage Site in 2016.",
+    "period": "5th century CE - 12th century CE",
+    "dynasty": "Gupta Empire, Pala Empire",
+    "culturalFacts": [
+        "UNESCO World Heritage Site since 2016 as an archaeological site of Nalanda Mahavihara",
+        "Had a nine-story library called Dharmaganja with millions of manuscripts",
+        "Attracted scholars from China, Korea, Japan, Tibet, Mongolia, Turkey, Sri Lanka, and Southeast Asia",
+        "Chinese scholar Xuanzang studied here in the 7th century and documented its grandeur",
+        "Covered an area of 14 hectares with lecture halls, meditation halls, and temples"
+    ],
+    "legends": [
+        {
+            "title": "The Three Libraries of Knowledge",
+            "description": "Legend tells of three great libraries - Ratnasagara (Sea of Jewels), Ratnodadhi (Ocean of Jewels), and Ratnaranjaka (Delight of Jewels). When invaders set them on fire, the libraries burned for three months, showing the vastness of knowledge stored there."
+        },
+        {
+            "title": "The Debate That Shook Mountains",
+            "description": "According to tradition, the philosophical debates at Nalanda were so intense and profound that the nearby mountains would tremble, and divine beings would descend from heaven to listen to the discourse of learned masters."
+        }
+    ],
+    "tags": ["UNESCO Heritage", "Ancient University", "Buddhist Learning", "Archaeological Site", "Bihar Heritage"]
+},
+
+{
+    "id": "patna-golghar",
+    "name": "Patna Golghar",
+    "description": "Historic beehive-shaped granary built by the British to prevent famine",
+    "coordinates": {"lat": 25.6171, "lng": 85.1392},
+    "category": "historical",
+    "history": "The Golghar (Round House) was constructed in 1786 by Captain John Garstin of the British East India Company to store grain as a safeguard against famine. The construction was prompted by the devastating famine of 1770 that killed millions. The massive granary, with its unique architecture and spiral staircase, was designed to store 140,000 tons of grain but was never used for its intended purpose.",
+    "period": "1786 CE",
+    "dynasty": "British East India Company",
+    "culturalFacts": [
+        "Built in the aftermath of the Great Bengal Famine of 1770",
+        "Features a unique pillar-less structure with 145 steps spiraling to the top",
+        "Offers panoramic views of Patna city and the Ganges River from the summit",
+        "The doors were designed to open inward, preventing the structure from being filled to capacity",
+        "Symbol of British engineering prowess and colonial administrative foresight"
+    ],
+    "legends": [
+        {
+            "title": "The Architectural Flaw",
+            "description": "Legend says the architect designed the doors to open inward, meaning once filled with grain, the doors couldn't be opened. This ironic design flaw meant the granary remained empty, and the architect never received his full payment."
+        },
+        {
+            "title": "The Curse of Abundance",
+            "description": "Local folklore claims that the Golghar was cursed never to be filled because it was built from the suffering of famine victims. Any attempt to store grain would result in it mysteriously disappearing overnight."
+        }
+    ],
+    "tags": ["British Architecture", "Colonial Heritage", "Granary", "Patna Landmark", "Historical Monument"]
+},
+
+{
+    "id": "badami",
+    "name": "Badami",
+    "description": "Ancient capital of Chalukya dynasty famous for rock-cut cave temples",
+    "coordinates": {"lat": 15.9149, "lng": 75.6765},
+    "category": "religious",
+    "history": "Badami served as the capital of the Early Chalukya dynasty from 540 CE to 757 CE. The town is famous for its four rock-cut cave temples carved into sandstone cliffs, built in the 6th century CE. These caves showcase Hindu, Jain, and possibly Buddhist influences. The Chalukyas later moved their capital, but Badami remained an important religious and cultural center.",
+    "period": "6th century CE - 8th century CE",
+    "dynasty": "Chalukya Dynasty",
+    "culturalFacts": [
+        "Features four cave temples carved into red sandstone cliffs overlooking Agastya Lake",
+        "Cave 1 is dedicated to Shiva, Cave 2 and 3 to Vishnu, and Cave 4 to Jain Tirthankaras",
+        "Cave 3 contains the largest cave temple with intricate carvings of Vishnu avatars",
+        "The caves showcase the evolution of Indian rock-cut architecture",
+        "Ancient inscriptions in Sanskrit and Kannada provide historical records of the Chalukya period"
+    ],
+    "legends": [
+        {
+            "title": "The Demon Slayer's Refuge",
+            "description": "Legend says these caves were created by divine architect Vishwakarma for the Chalukya kings who slayed demons terrorizing the region. The caves were blessed to provide protection and spiritual power to righteous rulers."
+        },
+        {
+            "title": "The Musical Pillars Secret",
+            "description": "Local folklore speaks of hidden musical pillars within the caves that produce different classical ragas when struck in specific sequences, revealing the location of ancient Chalukya treasures."
+        }
+    ],
+    "tags": ["Chalukya Dynasty", "Cave Temples", "Rock-cut Architecture", "Karnataka Heritage", "Ancient Capital"]
+},
+
+{
+    "id": "pattadakal",
+    "name": "Pattadakal",
+    "description": "UNESCO World Heritage temple complex showcasing Chalukyan architectural synthesis",
+    "coordinates": {"lat": 15.9477, "lng": 75.8165},
+    "category": "religious",
+    "history": "Pattadakal was the ceremonial capital of the Chalukya dynasty where kings were crowned. The site contains a group of 9 Hindu temples and a Jain sanctuary built in the 7th and 8th centuries CE. The temples represent the culmination of early Chalukyan architecture, blending the Nagara (North Indian) and Dravidian (South Indian) styles. UNESCO designated it a World Heritage Site in 1987.",
+    "period": "7th-8th century CE",
+    "dynasty": "Chalukya Dynasty",
+    "culturalFacts": [
+        "UNESCO World Heritage Site showcasing harmonious blend of northern and southern temple architecture",
+        "The Virupaksha Temple was built by Queen Lokamahadevi to commemorate her husband's victory",
+        "Contains inscriptions in Sanskrit, Kannada, and other languages documenting Chalukyan history",
+        "Features exquisite sculptures depicting scenes from Ramayana, Mahabharata, and Puranas",
+        "Represents the experimental phase that influenced later South Indian temple architecture"
+    ],
+    "legends": [
+        {
+            "title": "The Queen's Divine Dream",
+            "description": "Legend says Queen Lokamahadevi had a divine vision where Lord Shiva instructed her to build a temple blending northern and southern styles to symbolize the unity of India. The Virupaksha Temple was the result of this divine command."
+        },
+        {
+            "title": "The Coronation Sanctity",
+            "description": "According to tradition, Chalukya princes who were crowned at Pattadakal gained divine blessings for just rule. Any king crowned elsewhere was said to face rebellions and misfortune, making Pattadakal essential for legitimate succession."
+        }
+    ],
+    "tags": ["UNESCO Heritage", "Chalukya Architecture", "Temple Complex", "Karnataka Heritage", "Architectural Synthesis"]
+},
+
+{
+    "id": "warangal-fort",
+    "name": "Warangal Fort",
+    "description": "Magnificent ruins of Kakatiya dynasty capital with iconic stone gateways",
+    "coordinates": {"lat": 17.9784, "lng": 79.6005},
+    "category": "historical",
+    "history": "Warangal Fort was the capital of the Kakatiya dynasty from 12th to 14th century CE. Built by King Ganapati Deva and his daughter Queen Rudrama Devi, the fort showcases advanced engineering with concentric layers of defense. The most iconic structure is the Warangal Gate (Kakatiya Kala Thoranam), which has become the emblem of Telangana. The fort was later conquered by the Delhi Sultanate in 1323 CE.",
+    "period": "12th-14th century CE",
+    "dynasty": "Kakatiya Dynasty",
+    "culturalFacts": [
+        "The four ornamental gates (Thoranams) are architectural marvels and symbol of Telangana state",
+        "Built using massive granite blocks fitted together without mortar using interlocking joints",
+        "Features a 1000-pillared temple (Rudreshwara Temple) nearby, a Kakatiya masterpiece",
+        "Advanced water management system with lakes and canals supported the kingdom",
+        "Queen Rudrama Devi was one of the few female rulers in medieval India who fortified this capital"
+    ],
+    "legends": [
+        {
+            "title": "The Warrior Queen's Throne",
+            "description": "Legend tells that Queen Rudrama Devi, one of India's few female rulers, held court in the fort dressed as a male warrior. Her throne had a secret mechanism that would detect deception, causing disloyal ministers to fall through a trapdoor."
+        },
+        {
+            "title": "The Kohinoor Diamond Mystery",
+            "description": "Local folklore claims that the famous Kohinoor diamond was mined from the Kollur mine near Warangal and was part of the Kakatiya treasury before being looted by Alauddin Khilji's forces during the conquest of the fort."
+        }
+    ],
+    "tags": ["Kakatiya Dynasty", "Fort Architecture", "Telangana Heritage", "Medieval India", "Queen Rudrama Devi"]
+},
+
+{
+    "id": "rameshwaram",
+    "name": "Rameshwaram",
+    "description": "Sacred island pilgrimage town with historic Ramanathaswamy Temple and Pamban Bridge",
+    "coordinates": {"lat": 9.2876, "lng": 79.3129},
+    "category": "religious",
+    "history": "Rameshwaram is one of the holiest places in Hinduism, believed to be where Lord Rama built a bridge to Lanka and worshipped Lord Shiva to absolve sins after defeating Ravana. The Ramanathaswamy Temple was built in the 12th century and expanded over centuries. The island is connected to mainland India by the historic Pamban Bridge, built in 1914. It's one of the Char Dham pilgrimage sites.",
+    "period": "12th century CE - Present (Temple), Ancient (Mythological)",
+    "dynasty": "Pandya Dynasty, Setupati Kings",
+    "culturalFacts": [
+        "One of the Char Dham pilgrimage sites and one of the 12 Jyotirlinga temples",
+        "The temple corridor is the longest in India at 1,220 meters with ornate pillars",
+        "Features 22 sacred wells (theerthams) where pilgrims bathe before worship",
+        "Pamban Bridge was India's first sea bridge and an engineering marvel of its time",
+        "Dr. APJ Abdul Kalam was born here and his memorial attracts visitors worldwide"
+    ],
+    "legends": [
+        {
+            "title": "Ram Setu - The Divine Bridge",
+            "description": "According to the Ramayana, Lord Rama and his vanara (monkey) army built a bridge of floating stones from Rameshwaram to Lanka. The remnants of this mythical bridge, called Adam's Bridge, can still be seen connecting India and Sri Lanka."
+        },
+        {
+            "title": "The Two Lingams",
+            "description": "Legend says Sita created a sand lingam for Rama to worship before Hanuman could bring one from Kashi. When Hanuman arrived with the Kashi lingam, both were installed in the temple. The sand lingam is worshipped first, honoring Sita's devotion."
+        }
+    ],
+    "tags": ["Char Dham", "Jyotirlinga", "Ramayana", "Pamban Bridge", "Island Pilgrimage"]
+},
+
+{
+    "id": "tirupati",
+    "name": "Tirupati",
+    "description": "Home to Venkateswara Temple, the world's richest and most visited religious site",
+    "coordinates": {"lat": 13.6288, "lng": 79.4192},
+    "category": "religious",
+    "history": "Tirupati is home to the ancient Sri Venkateswara Temple located on Tirumala hills. The temple has been mentioned in ancient Tamil literature dating back to 300 CE, but the current structure was built during the Pallava period (9th century CE) and expanded by various dynasties. The temple receives the highest donations of any religious institution in the world and is visited by 50,000-100,000 pilgrims daily.",
+    "period": "9th century CE - Present (Ancient references from 300 CE)",
+    "dynasty": "Pallava Dynasty, Chola Empire, Vijayanagara Empire",
+    "culturalFacts": [
+        "The world's richest temple with annual donations exceeding billions of dollars",
+        "Receives 50,000-100,000 pilgrims daily, making it the most visited religious site globally",
+        "Famous for the tradition of devotees offering their hair as a sacrifice (tonsuring)",
+        "The temple's main deity is adorned with jewels worth billions, including the famous Kiritam (crown)",
+        "Tirumala Tirupati Devasthanams manages the temple and runs massive charitable operations"
+    ],
+    "legends": [
+        {
+            "title": "Venkateswara's Debt to Kubera",
+            "description": "Legend says Lord Venkateswara borrowed money from Kubera (god of wealth) to finance his wedding to Goddess Padmavati. Devotees donate money to help the Lord repay this divine debt, which is why the temple receives such enormous wealth."
+        },
+        {
+            "title": "The Self-Manifested Idol",
+            "description": "According to tradition, the main idol of Lord Venkateswara is Swayambhu (self-manifested) and not carved by human hands. The deity's eyes are covered with a white mark because it's believed the Lord's direct gaze is too powerful for mortals to bear."
+        }
+    ],
+    "tags": ["Venkateswara Temple", "Richest Temple", "Pilgrimage", "Hair Offering", "Andhra Pradesh Heritage"]
+},
+
+{
+    "id": "lepakshi",
+    "name": "Lepakshi",
+    "description": "Historic temple town famous for the hanging pillar and Veerabhadra Temple",
+    "coordinates": {"lat": 13.8283, "lng": 77.6037},
+    "category": "religious",
+    "history": "Lepakshi is famous for the Veerabhadra Temple built in the 16th century during the Vijayanagara Empire by brothers Viranna and Virupanna, who were governors under King Achyuta Deva Raya. The temple is renowned for its architectural marvels, exquisite frescoes, and the mysterious hanging pillar. The town's name comes from the legend of Jatayu from the Ramayana.",
+    "period": "16th century CE",
+    "dynasty": "Vijayanagara Empire",
+    "culturalFacts": [
+        "Famous for the hanging pillar that doesn't touch the ground, with a gap visible when paper is passed underneath",
+        "Features India's largest monolithic Nandi bull statue, carved from a single granite block",
+        "Temple ceilings have magnificent frescoes depicting scenes from Ramayana, Mahabharata, and Puranas",
+        "The temple showcases the pinnacle of Vijayanagara architectural and artistic achievement",
+        "Contains intricate carvings with over 70 pillars, each uniquely designed"
+    ],
+    "legends": [
+        {
+            "title": "Jatayu's Last Words - 'Le Pakshi'",
+            "description": "Legend says that when Ravana abducted Sita, the divine eagle Jatayu fought him but was mortally wounded. He fell at this spot, and when Rama found him, he said 'Le Pakshi' (Rise, bird in Telugu), giving the town its name. A rock formation here is believed to be Jatayu's fallen body."
+        },
+        {
+            "title": "The Hanging Pillar Miracle",
+            "description": "According to local lore, a British engineer tried to move the hanging pillar to understand its construction secret. The moment he attempted to shift it, the entire temple structure began to shake. He immediately stopped, and the pillar remains mysteriously suspended to this day."
+        }
+    ],
+    "tags": ["Vijayanagara Empire", "Hanging Pillar", "Veerabhadra Temple", "Monolithic Nandi", "Andhra Pradesh Heritage"]
 }
-        
-        
+
+
     ]

@@ -128,26 +128,28 @@ class ChatbotService:
     def _process_query_intelligently(self, query, context, location_id):
         """Intelligently process query using multiple strategies"""
         
-        # Strategy 1: Check if query mentions specific locations first
+        # Strategy 1: Intent-based processing first (prioritize specific user actions)
+        intent = self._detect_intent(query)
+        if intent:
+            intent_response = self._handle_intent(intent, query, location_id, context)
+            if intent_response and intent_response.get('confidence', 0) > 0.7:
+                return intent_response
+        
+        # Strategy 2: Check if query mentions specific locations
         kg_response = self._search_knowledge_graph(query)
         if kg_response['confidence'] > 0.7:  # High confidence for location matches
             return kg_response
             
-        # Strategy 2: Intent-based processing for location queries
-        intent = self._detect_intent(query)
-        if intent in ['location_info', 'history', 'architecture', 'culture']:
-            intent_response = self._handle_intent(intent, query, location_id, context)
-            if intent_response and intent_response.get('confidence', 0) > 0.6:
-                return intent_response
-        
         # Strategy 3: Try FAQ matching
         faq_response = self._match_faq(query)
         if faq_response and faq_response['confidence'] > 0.6:
             return faq_response
             
-        # Strategy 4: Handle other intents
+        # Strategy 4: Handle intents with medium confidence
         if intent:
-            return self._handle_intent(intent, query, location_id, context)
+            intent_response = self._handle_intent(intent, query, location_id, context)
+            if intent_response and intent_response.get('confidence', 0) > 0.5:
+                return intent_response
             
         # Strategy 5: Location-specific information if location_id provided
         if location_id:
@@ -187,6 +189,25 @@ class ChatbotService:
                 context += f"{msg['role'].title()}: {msg['text']} "
         
         return context
+    
+    def _extract_location_from_context(self, context):
+        """Extract the most recently mentioned location from context"""
+        all_locations = self.kg_service.get_all_locations()
+        context_lower = context.lower()
+
+        # Find the last mentioned location (search in reverse order for most recent)
+        last_position = -1
+        last_location = None
+
+        for location in all_locations:
+            location_name_lower = location.name.lower()
+            # Find last occurrence of this location name
+            pos = context_lower.rfind(location_name_lower)
+            if pos > last_position:
+                last_position = pos
+                last_location = location.name
+
+        return last_location
         
     def _match_faq(self, query):
         """Enhanced FAQ matching with better similarity scoring"""
@@ -220,9 +241,9 @@ class ChatbotService:
         intents = {
             'greeting': r'\b(hello|hi|hey|greetings|namaste|good\s+(morning|afternoon|evening))\b',
             'farewell': r'\b(bye|goodbye|see you|farewell|thanks|thank you)\b',
+            'best_time': r'\b(best time|when to visit|visiting season|weather|climate|time to visit|what.*best.*time)\b',
+            'how_to_reach': r'\b(how to reach|how to get to|how do i (get|go|reach)|directions to|travel to|route to|reach there|get there|go there)\b',
             'location_info': r'\b(tell me about|info about|information about|what is|describe|explain)\s+(.+)',
-            'best_time': r'\b(best time|when to visit|visiting season|weather|climate)\b',
-            'how_to_reach': r'\b(how to reach|how to get to|directions to|travel to|route to)\b',
             'history': r'\b(history|historical|heritage|past|ancient|built by|founded by)\b',
             'architecture': r'\b(architecture|architectural|design|style|built|construction)\b',
             'culture': r'\b(culture|cultural|tradition|festival|art|customs)\b',
@@ -268,10 +289,16 @@ class ChatbotService:
                 
         elif intent == 'best_time':
             location_name = self._extract_location_name(query)
+            # If no location in query, try to get from context
+            if not location_name:
+                location_name = self._extract_location_from_context(context)
             return self._get_best_time_info(location_name or "India")
             
         elif intent == 'how_to_reach':
             location_name = self._extract_location_name(query)
+            # If no location in query, try to get from context
+            if not location_name:
+                location_name = self._extract_location_from_context(context)
             return self._get_travel_info(location_name)
             
         elif intent == 'route_planning':
@@ -527,9 +554,42 @@ class ChatbotService:
                 'confidence': 0.3
             }
         
-        # You could enhance this with actual route data from your knowledge graph
+        # Specific travel information for known destinations
+        travel_info = {
+            'hampi': "To reach Hampi:\n• **By Air**: Nearest airport is Ballari (60 km) or Hubli Airport (143 km)\n• **By Train**: Closest railway station is Hospet Junction (12 km) with connections to Bangalore, Hyderabad, and Goa\n• **From Hospet**: Take local buses, auto-rickshaws, or taxis to reach Hampi\n• **By Road**: Well connected by state highways from major cities in Karnataka",
+
+            'taj mahal': "To reach Taj Mahal (Agra):\n• **By Air**: Agra Airport (12 km) - limited flights. Delhi Airport (230 km) is better connected\n• **By Train**: Agra Cantt and Agra Fort stations are well-connected. Gatimaan Express from Delhi is fastest\n• **By Road**: 3-4 hours from Delhi via Yamuna Expressway\n• **Local Transport**: Taxis, auto-rickshaws, and cycle-rickshaws available",
+
+            'agra': "To reach Agra:\n• **By Air**: Agra Airport (12 km) - limited flights. Delhi Airport (230 km) is better connected\n• **By Train**: Agra Cantt and Agra Fort stations are well-connected. Gatimaan Express from Delhi is fastest\n• **By Road**: 3-4 hours from Delhi via Yamuna Expressway\n• **Local Transport**: Taxis, auto-rickshaws, and cycle-rickshaws available",
+
+            'golden temple': "To reach Golden Temple (Amritsar):\n• **By Air**: Sri Guru Ram Dass Jee International Airport (11 km)\n• **By Train**: Amritsar Junction is well connected to major cities\n• **By Road**: NH44 connects to Delhi (450 km). Good bus connectivity\n• **Local Transport**: Auto-rickshaws, taxis, and cycle-rickshaws to the temple",
+
+            'jaipur': "To reach Jaipur:\n• **By Air**: Jaipur International Airport (13 km) - well connected\n• **By Train**: Jaipur Junction is a major railway hub\n• **By Road**: Part of Golden Triangle circuit, 280 km from Delhi\n• **Local Transport**: Auto-rickshaws, taxis, buses, and metro available",
+
+            'sundarbans': "To reach Sundarbans:\n• **By Air**: Netaji Subhas Chandra Bose International Airport, Kolkata (100 km)\n• **By Train**: Canning Railway Station (48 km from Sundarbans) from Sealdah, Kolkata\n• **From Kolkata**: Take train to Canning, then bus/taxi to Godkhali (boat boarding point)\n• **By Boat**: Motorboats and ferries from Godkhali to various Sundarbans islands\n• **Best Access**: Book organized tours from Kolkata (includes transport and permits)",
+
+            'belur': "To reach Belur and Halebidu:\n• **By Air**: Mangalore Airport (160 km) or Bangalore Airport (220 km)\n• **By Train**: Hassan Railway Station (40 km from Belur) is well connected\n• **From Hassan**: Take local buses or hire taxi to Belur (16 km) and Halebidu (32 km)\n• **By Road**: Well connected by road from Bangalore (220 km), Mysore (149 km), and Mangalore",
+
+            'halebidu': "To reach Belur and Halebidu:\n• **By Air**: Mangalore Airport (160 km) or Bangalore Airport (220 km)\n• **By Train**: Hassan Railway Station (40 km from Halebidu) is well connected\n• **From Hassan**: Take local buses or hire taxi to Halebidu (32 km) and Belur (16 km)\n• **By Road**: Well connected by road from Bangalore (220 km), Mysore (149 km), and Mangalore",
+
+            'delhi': "To reach Delhi:\n• **By Air**: Indira Gandhi International Airport - well connected globally\n• **By Train**: New Delhi, Old Delhi, and Hazrat Nizamuddin are major railway stations\n• **By Road**: National highways connect to all major cities\n• **Local Transport**: Delhi Metro, buses, auto-rickshaws, and taxis widely available",
+
+            'varanasi': "To reach Varanasi:\n• **By Air**: Lal Bahadur Shastri Airport (22 km)\n• **By Train**: Varanasi Junction and Mughal Sarai are major stations\n• **By Road**: Connected via NH2 to major cities\n• **Local Transport**: Auto-rickshaws, cycle-rickshaws, and boats on Ganges",
+
+            'bodh gaya': "To reach Bodh Gaya:\n• **By Air**: Gaya Airport (13 km) with limited flights. Patna Airport (110 km) is better connected\n• **By Train**: Gaya Junction (13 km) is well connected to major cities\n• **From Gaya**: Buses, taxis, and auto-rickshaws to Bodh Gaya\n• **By Road**: Connected via NH83 from Patna and other major cities"
+        }
+        
+        location_lower = location_name.lower()
+        for key, info in travel_info.items():
+            if key in location_lower or location_lower in key:
+                return {
+                    'answer': info,
+                    'confidence': 0.9
+                }
+        
+        # Generic response for other locations
         return {
-            'answer': f"To reach {location_name}, I'd recommend checking the nearest airport, railway station, and road connections. Most major heritage sites in India are well-connected by rail and road. Would you like me to suggest a complete travel itinerary including {location_name}?",
+            'answer': f"To reach {location_name}:\n• Check for the nearest airport and railway station\n• Most heritage sites in India are well-connected by rail and road\n• Local transport like buses, taxis, and auto-rickshaws are usually available\n• Consider booking accommodation in advance during peak season",
             'confidence': 0.6
         }
     

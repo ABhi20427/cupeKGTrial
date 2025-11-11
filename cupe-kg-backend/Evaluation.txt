@@ -1,0 +1,226 @@
+'''1. Cosine Similarity (most common metric)
+
+  - Location: cupe-kg-backend/services/chatbot_service.py:212-233 and nlp_service.py:320-353
+  - Formula: dot_product(vec1, vec2) / (norm(vec1) * norm(vec2))
+  - Used for:
+    - FAQ matching (TF-IDF vectors)
+    - Cultural similarity (BERT/Sentence-BERT embeddings)
+    - Text comparison
+
+  2. Confidence Scores (from ML models)
+
+  - Sentiment Analysis (nlp_service.py:225-283):
+    - Uses pre-trained model outputs (Twitter-RoBERTa)
+    - Returns confidence per sentiment label (0-1)
+  - NER Confidence (nlp_service.py:153-223):
+    - Entity confidence from dslim/bert-base-NER model
+    - Threshold: 0.7 minimum confidence
+
+  3. Composite Weighted Scores (route planning)
+
+  - Location: route_service.py:468-495
+  - Formula:
+  score = (interest_score × 0.4) + 
+          (historical_score × 0.2) +
+          (accessibility_score × 0.2) +
+          (distance_score × 0.2)
+
+  4. Relevance Score (knowledge graph search)
+
+  - Location: chatbot_service.py:359-419
+  - Method: Word frequency counting in matched location texts
+
+  ---
+  F1 Score & Accuracy - Where They Come From:
+
+  These are NOT calculated in your code - they're documented model performance metrics from the pre-trained models you're using:
+
+  From MODEL_COMPARISON_MATRIX.md:
+  - NER Model (dslim/bert-base-NER): F1 Score = 95%
+  - Embeddings (Sentence-BERT): Accuracy = 89%
+  - Sentiment (Twitter-RoBERTa): Accuracy = 87%
+
+  These metrics were calculated by the model creators during their training/evaluation phase, not by your application.
+
+  ============================================================================
+  TEST DATASETS FOR MODEL EVALUATION
+  ============================================================================
+
+  # Save this section as: cupe-kg-backend/tests/test_datasets.py
+
+  """
+  Test datasets with ground truth labels for model evaluation
+  """
+
+  # ============================================================================
+  # NER TEST DATASET
+  # Ground truth format: (text, [entities])
+  # Entity format: {"text": str, "label": str, "start": int, "end": int}
+  # ============================================================================
+
+  NER_TEST_DATA = [
+      # Test Case 1: Mughal Heritage
+      {
+          "text": "The Taj Mahal was built by Emperor Shah Jahan in Agra during the Mughal Empire between 1632 and 1653.",
+          "entities": [
+              {"text": "Taj Mahal", "label": "LOC", "start": 4, "end": 13},
+              {"text": "Shah Jahan", "label": "PER", "start": 35, "end": 45},
+              {"text": "Agra", "label": "LOC", "start": 49, "end": 53},
+              {"text": "Mughal Empire", "label": "ORG", "start": 65, "end": 78},
+          ]
+      },
+
+      # Test Case 2: Vijayanagara Empire
+      {
+          "text": "Hampi served as the capital of the Vijayanagara Empire founded by Harihara I and Bukka Raya I in 1336 CE.",
+          "entities": [
+              {"text": "Hampi", "label": "LOC", "start": 0, "end": 5},
+              {"text": "Vijayanagara Empire", "label": "ORG", "start": 35, "end": 54},
+              {"text": "Harihara I", "label": "PER", "start": 66, "end": 76},
+              {"text": "Bukka Raya I", "label": "PER", "start": 81, "end": 93},
+          ]
+      },
+
+      # Test Case 3: Buddhist Sites
+      {
+          "text": "Buddha attained enlightenment at Bodh Gaya in Bihar and delivered his first sermon at Sarnath near Varanasi.",
+          "entities": [
+              {"text": "Buddha", "label": "PER", "start": 0, "end": 6},
+              {"text": "Bodh Gaya", "label": "LOC", "start": 33, "end": 42},
+              {"text": "Bihar", "label": "LOC", "start": 46, "end": 51},
+              {"text": "Sarnath", "label": "LOC", "start": 87, "end": 94},
+              {"text": "Varanasi", "label": "LOC", "start": 100, "end": 108},
+          ]
+      },
+
+      # Test Case 4: Rajput Architecture
+      {
+          "text": "The Amber Fort in Jaipur was constructed by Raja Man Singh I of the Kachwaha Rajput clan.",
+          "entities": [
+              {"text": "Amber Fort", "label": "LOC", "start": 4, "end": 14},
+              {"text": "Jaipur", "label": "LOC", "start": 18, "end": 24},
+              {"text": "Raja Man Singh I", "label": "PER", "start": 44, "end": 60},
+              {"text": "Kachwaha Rajput", "label": "ORG", "start": 68, "end": 83},
+          ]
+      },
+
+      # Test Case 5: Chola Dynasty
+      {
+          "text": "The Brihadeshwara Temple in Thanjavur was built by Raja Raja Chola I and is a UNESCO World Heritage Site.",
+          "entities": [
+              {"text": "Brihadeshwara Temple", "label": "LOC", "start": 4, "end": 24},
+              {"text": "Thanjavur", "label": "LOC", "start": 28, "end": 37},
+              {"text": "Raja Raja Chola I", "label": "PER", "start": 52, "end": 69},
+              {"text": "UNESCO", "label": "ORG", "start": 79, "end": 85},
+          ]
+      },
+
+      # Add 10 more test cases for comprehensive evaluation...
+  ]
+
+
+  # ============================================================================
+  # SIMILARITY/EMBEDDINGS TEST DATASET
+  # Ground truth format: (query, document, expected_similarity_range)
+  # ============================================================================
+
+  SIMILARITY_TEST_DATA = [
+      # High Similarity Cases (should score > 0.7)
+      {
+          "query": "Tell me about Mughal architecture and monuments",
+          "document": "The Taj Mahal is the finest example of Mughal architecture, combining Islamic, Persian, and Indian styles.",
+          "expected_range": (0.7, 1.0),
+          "label": "high_similarity"
+      },
+      {
+          "query": "Buddhist heritage sites in India",
+          "document": "Bodh Gaya, Sarnath, and Sanchi are major Buddhist pilgrimage sites with ancient stupas and monasteries.",
+          "expected_range": (0.7, 1.0),
+          "label": "high_similarity"
+      },
+      {
+          "query": "Vijayanagara Empire capital ruins",
+          "document": "Hampi was the capital of Vijayanagara Empire, featuring spectacular temple ruins and royal monuments.",
+          "expected_range": (0.7, 1.0),
+          "label": "high_similarity"
+      },
+
+      # Medium Similarity Cases (should score 0.4-0.7)
+      {
+          "query": "Historical monuments in Agra",
+          "document": "The Taj Mahal is considered one of the world's most beautiful buildings with white marble construction.",
+          "expected_range": (0.4, 0.7),
+          "label": "medium_similarity"
+      },
+      {
+          "query": "Religious pilgrimage sites",
+          "document": "The Golden Temple in Amritsar serves langar (free meals) to thousands of visitors daily.",
+          "expected_range": (0.4, 0.7),
+          "label": "medium_similarity"
+      },
+
+      # Low Similarity Cases (should score < 0.4)
+      {
+          "query": "Mughal architectural style",
+          "document": "Kerala is famous for its backwaters, houseboats, and Ayurvedic treatments.",
+          "expected_range": (0.0, 0.4),
+          "label": "low_similarity"
+      },
+      {
+          "query": "Buddhist heritage in Bihar",
+          "document": "Rajasthani cuisine features dal baati churma, laal maas, and ghevar desserts.",
+          "expected_range": (0.0, 0.4),
+          "label": "low_similarity"
+      },
+  ]
+
+
+  # ============================================================================
+  # SENTIMENT ANALYSIS TEST DATASET
+  # Ground truth format: (text, expected_sentiment)
+  # Sentiment labels: 'positive', 'negative', 'neutral'
+  # ============================================================================
+
+  SENTIMENT_TEST_DATA = [
+      # Positive Sentiment Cases
+      {
+          "text": "The Taj Mahal is absolutely breathtaking! One of the most beautiful monuments I've ever seen.",
+          "expected_sentiment": "positive"
+      },
+      {
+          "text": "Hampi is magnificent with stunning temple architecture. A must-visit UNESCO World Heritage site!",
+          "expected_sentiment": "positive"
+      },
+      {
+          "text": "The Golden Temple experience was deeply spiritual and peaceful. The community kitchen is wonderful.",
+          "expected_sentiment": "positive"
+      },
+
+      # Negative Sentiment Cases
+      {
+          "text": "The monument is poorly maintained and deteriorating. Very disappointing to see such neglect.",
+          "expected_sentiment": "negative"
+      },
+      {
+          "text": "Extremely crowded and chaotic. The site was damaged and dirty. Not worth the visit.",
+          "expected_sentiment": "negative"
+      },
+      {
+          "text": "Terrible experience with rude staff and inadequate facilities. The heritage site is being ruined.",
+          "expected_sentiment": "negative"
+      },
+
+      # Neutral Sentiment Cases
+      {
+          "text": "The Qutub Minar is a 73-meter tall tower located in Delhi, built in the 12th century.",
+          "expected_sentiment": "neutral"
+      },
+      {
+          "text": "The temple opens at 6 AM and closes at 8 PM. Entry fee is 50 rupees for Indian citizens.",
+          "expected_sentiment": "neutral"
+      },
+      {
+          "text": "The fort was constructed during the 16th century and served as a military stronghold.",
+          "expected_sentiment": "neutral"
+      },
+  ]'''

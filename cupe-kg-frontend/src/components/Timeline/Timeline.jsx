@@ -249,15 +249,33 @@ const Timeline = ({ isVisible, onLocationSelect }) => {
   const handlePeriodClick = (period) => {
     if (selectedPeriod?.label === period.label) {
       setSelectedPeriod(null);
+      // Reset to modern view
+      if (onLocationSelect) {
+        onLocationSelect(null, 'modern');
+      }
     } else {
       setSelectedPeriod(period);
+      // Trigger historical visualization mode
+      if (onLocationSelect) {
+        onLocationSelect(period.locations[0] || null, 'historical', {
+          period: period,
+          era: period.era,
+          timeframe: period.label
+        });
+      }
     }
   };
 
   const handleLocationClick = (location) => {
     selectLocation(location);
     if (onLocationSelect) {
-      onLocationSelect(location);
+      // Pass historical context when clicking from timeline
+      onLocationSelect(location, 'historical', {
+        period: selectedPeriod,
+        era: selectedPeriod?.era,
+        timeframe: selectedPeriod?.label,
+        dynasty: location.dynasty
+      });
     }
   };
 

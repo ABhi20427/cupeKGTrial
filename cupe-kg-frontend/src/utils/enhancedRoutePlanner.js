@@ -101,35 +101,45 @@ export class UltraAccurateRoutePlanner {
   // Main route creation function
   createUltraAccurateRoute(preferences) {
     console.log('Creating ultra-accurate route with preferences:', preferences);
-    
+
     const {
       interests = [],
       max_travel_days = 7,
       budget_range = 'medium',
-      preferred_season = 'winter',
       start_location = null,
-      transport_mode = 'car'
+      transport_mode = 'car',
+      max_distance_km = 500
     } = preferences;
 
     // Step 1: Filter locations by interests
-    const candidateLocations = this.filterLocationsByInterests(interests);
+    let candidateLocations = this.filterLocationsByInterests(interests);
     console.log('Candidate locations found:', candidateLocations.length);
-    
+
     if (candidateLocations.length === 0) {
       throw new Error('No locations found matching your interests');
     }
 
-    // Step 2: Create optimized path
-    const optimizedPath = this.optimizePath(candidateLocations, start_location, max_travel_days);
+    // Step 2: Filter locations by distance from start location
+    if (start_location && max_distance_km) {
+      candidateLocations = this.filterLocationsByDistance(candidateLocations, start_location, max_distance_km);
+      console.log(`Locations within ${max_distance_km}km:`, candidateLocations.length);
+
+      if (candidateLocations.length === 0) {
+        throw new Error(`No locations found within ${max_distance_km}km of your starting point. Try increasing the distance limit.`);
+      }
+    }
+
+    // Step 3: Create optimized path
+    const optimizedPath = this.optimizePath(candidateLocations, start_location, max_travel_days, max_distance_km);
     console.log('Optimized path created:', optimizedPath.length, 'locations');
-    
+
     if (optimizedPath.length === 0) {
       throw new Error('Could not create an optimized path with your preferences');
     }
 
-    // Step 3: Generate detailed itinerary
+    // Step 4: Generate detailed itinerary
     const detailedItinerary = this.createDetailedItinerary(optimizedPath, transport_mode, budget_range);
-    
+
     return detailedItinerary;
   }
 
@@ -143,7 +153,7 @@ export class UltraAccurateRoutePlanner {
       const locationTags = location.tags || [];
       const locationCategory = location.category || '';
       const locationDescription = location.description || '';
-      
+
       return interests.some(interest => {
         return locationTags.some(tag => tag.toLowerCase().includes(interest.toLowerCase())) ||
                locationCategory.toLowerCase().includes(interest.toLowerCase()) ||
@@ -153,7 +163,7 @@ export class UltraAccurateRoutePlanner {
 
     // If filtered results are too few, add some popular destinations
     if (filteredLocations.length < 3) {
-      const popularDestinations = this.locations.filter(loc => 
+      const popularDestinations = this.locations.filter(loc =>
         ['taj-mahal', 'delhi', 'jaipur', 'varanasi', 'hampi'].includes(loc.id)
       );
       return [...filteredLocations, ...popularDestinations].slice(0, 8);
@@ -162,8 +172,26 @@ export class UltraAccurateRoutePlanner {
     return filteredLocations.slice(0, 10);
   }
 
-  // Optimize path based on distance and travel time
-  optimizePath(locations, startLocation, maxDays) {
+  // Filter locations by distance from start point
+  filterLocationsByDistance(locations, startLocation, maxDistanceKm) {
+    if (!startLocation || !maxDistanceKm) {
+      return locations;
+    }
+
+    const filtered = locations.filter(location => {
+      const locationCoords = this.getLocationCoordinates(location);
+      const distance = this.calculateHaversineDistance(startLocation, locationCoords);
+
+      console.log(`Distance from start to ${location.name}: ${distance}km (max: ${maxDistanceKm}km)`);
+
+      return distance <= maxDistanceKm;
+    });
+
+    return filtered;
+  }
+
+  // Optimize path based on distance and travel time using Nearest Neighbor + 2-Opt
+  optimizePath(locations, startLocation, maxDays, maxDistanceKm = null) {
     if (!locations || locations.length === 0) {
       return [];
     }
@@ -171,15 +199,32 @@ export class UltraAccurateRoutePlanner {
     // Limit locations based on travel days (roughly 1-2 locations per day)
     const maxLocations = Math.min(locations.length, Math.ceil(maxDays / 1.5));
     const limitedLocations = locations.slice(0, maxLocations);
-    
+
     if (limitedLocations.length <= 1) {
       return limitedLocations;
     }
 
-    // Simple nearest neighbor optimization
+    // Step 1: Use Nearest Neighbor to get initial route
+    const initialPath = this.nearestNeighborPath(limitedLocations, startLocation, maxDistanceKm, maxLocations);
+
+    if (initialPath.length <= 2) {
+      return initialPath;
+    }
+
+    // Step 2: Improve the route using 2-Opt algorithm
+    const improvedPath = this.twoOptImprovement(initialPath, startLocation);
+
+    console.log('Route optimization: Initial distance:', this.calculateTotalDistance(initialPath),
+                'km, Improved distance:', this.calculateTotalDistance(improvedPath), 'km');
+
+    return improvedPath;
+  }
+
+  // Nearest Neighbor algorithm for initial path
+  nearestNeighborPath(locations, startLocation, maxDistanceKm, maxLocations) {
     const optimizedPath = [];
-    const remainingLocations = [...limitedLocations];
-    
+    const remainingLocations = [...locations];
+
     // Start with location closest to start point or first location
     let currentLocation;
     if (startLocation) {
@@ -187,12 +232,12 @@ export class UltraAccurateRoutePlanner {
     } else {
       currentLocation = remainingLocations[0];
     }
-    
+
     optimizedPath.push(currentLocation);
     const currentIndex = remainingLocations.indexOf(currentLocation);
     remainingLocations.splice(currentIndex, 1);
 
-    // Add nearest neighbors
+    // Add nearest neighbors, ensuring we don't exceed max distance from start
     while (remainingLocations.length > 0 && optimizedPath.length < maxLocations) {
       const currentCoords = this.getLocationCoordinates(currentLocation);
       let nearestLocation = null;
@@ -201,7 +246,15 @@ export class UltraAccurateRoutePlanner {
       remainingLocations.forEach(loc => {
         const locCoords = this.getLocationCoordinates(loc);
         const distance = this.calculateHaversineDistance(currentCoords, locCoords);
-        
+
+        // Additional check: ensure location is within max distance from start if specified
+        if (maxDistanceKm && startLocation) {
+          const distanceFromStart = this.calculateHaversineDistance(startLocation, locCoords);
+          if (distanceFromStart > maxDistanceKm) {
+            return; // Skip this location as it's beyond max distance
+          }
+        }
+
         if (distance < shortestDistance) {
           shortestDistance = distance;
           nearestLocation = loc;
@@ -219,6 +272,60 @@ export class UltraAccurateRoutePlanner {
     }
 
     return optimizedPath;
+  }
+
+  // 2-Opt improvement algorithm - iteratively improves the route
+  twoOptImprovement(path, startLocation) {
+    if (path.length < 4) {
+      return path; // 2-opt needs at least 4 locations
+    }
+
+    let improved = true;
+    let currentPath = [...path];
+    let iterations = 0;
+    const maxIterations = 100; // Prevent infinite loops
+
+    while (improved && iterations < maxIterations) {
+      improved = false;
+      iterations++;
+
+      for (let i = 0; i < currentPath.length - 2; i++) {
+        for (let j = i + 2; j < currentPath.length; j++) {
+          // Skip if we're trying to reverse a segment that includes the start
+          if (startLocation && i === 0 && j === currentPath.length - 1) {
+            continue;
+          }
+
+          const newPath = this.twoOptSwap(currentPath, i, j);
+          const currentDistance = this.calculateTotalDistance(currentPath);
+          const newDistance = this.calculateTotalDistance(newPath);
+
+          if (newDistance < currentDistance) {
+            currentPath = newPath;
+            improved = true;
+            break;
+          }
+        }
+        if (improved) break;
+      }
+    }
+
+    console.log(`2-Opt completed in ${iterations} iterations`);
+    return currentPath;
+  }
+
+  // Perform 2-opt swap - reverse the segment between i and j
+  twoOptSwap(path, i, j) {
+    const newPath = [...path];
+
+    // Reverse the segment between i+1 and j
+    while (i + 1 < j) {
+      i++;
+      [newPath[i], newPath[j]] = [newPath[j], newPath[i]];
+      j--;
+    }
+
+    return newPath;
   }
 
   // Find nearest location to a given point

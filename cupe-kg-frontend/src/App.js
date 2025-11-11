@@ -11,6 +11,7 @@ import GraphVisualization from './components/GraphVisualization/GraphVisualizati
 import RoutePreferences from './components/RoutePreferences/RoutePreferences';
 import NearbyPlaces from './components/NearbyPlaces/NearbyPlaces';
 import CulturalIntelligence from './components/CulturalIntelligence/CulturalIntelligence';
+import HistoricalView from './components/HistoricalView/HistoricalView';
 import { MapProvider, useMapContext } from './context/MapContext';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import { searchLocations } from './services/api';
@@ -36,6 +37,11 @@ function AppContent() {
   const [showCulturalIntelligence, setShowCulturalIntelligence] = useState(false);
   const [selectedLocationForCI, setSelectedLocationForCI] = useState(null);
   const [currentRouteForCI, setCurrentRouteForCI] = useState(null);
+
+  // Historical View states
+  const [showHistoricalView, setShowHistoricalView] = useState(false);
+  const [historicalLocation, setHistoricalLocation] = useState(null);
+  const [historicalContext, setHistoricalContext] = useState(null);
 
   // Get data from MapContext - THIS FIXES THE LOCATIONS ERROR
   const { 
@@ -122,9 +128,6 @@ function AppContent() {
     document.body.className = theme === 'light' ? 'dark-theme' : 'light-theme';
   };
 
-  const handleTimelineLocationSelect = (location) => {
-    console.log('Timeline location selected:', location);
-  };
 
   const handleGraphNodeClick = (location) => {
     console.log('Graph node clicked:', location);
@@ -209,6 +212,28 @@ function AppContent() {
     }
   };
 
+  // Timeline Historical View handlers
+  const handleTimelineLocationSelect = (location, viewMode = 'modern', context = null) => {
+    if (viewMode === 'historical' && location && context) {
+      setHistoricalLocation(location);
+      setHistoricalContext(context);
+      setShowHistoricalView(true);
+      // Also select the location on the map
+      selectLocation(location);
+      setIsPanelOpen(true);
+    } else if (viewMode === 'modern') {
+      setShowHistoricalView(false);
+      setHistoricalLocation(null);
+      setHistoricalContext(null);
+    }
+  };
+
+  const handleHistoricalViewClose = () => {
+    setShowHistoricalView(false);
+    setHistoricalLocation(null);
+    setHistoricalContext(null);
+  };
+
   return (
     <div className={`app ${theme}-theme`}>
       <Header 
@@ -270,6 +295,13 @@ function AppContent() {
           onRecommendSimilar={handleRecommendSimilar}
         />
       )}
+
+      <HistoricalView
+        location={historicalLocation}
+        historicalContext={historicalContext}
+        isVisible={showHistoricalView}
+        onClose={handleHistoricalViewClose}
+      />
     </div>
   );
 }
