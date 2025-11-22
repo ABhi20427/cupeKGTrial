@@ -2,6 +2,7 @@
 // FIXED VERSION - Replace your entire App.js with this
 
 import React, { useState, useEffect } from 'react';
+import './i18n'; // Initialize i18n
 import Map from './components/Map/Map';
 import Header from './components/Header/Header';
 import InfoPanel from './components/InfoPanel/InfoPanel';
@@ -253,9 +254,14 @@ function AppContent() {
       
       <Map searchQuery={searchQuery} />
       
-      <InfoPanel 
+      <InfoPanel
         onOpen={() => setIsPanelOpen(true)}
         onClose={() => setIsPanelOpen(false)}
+        onCulturalIntelligence={() => handleCulturalIntelligenceToggle()}
+        onExploreRoute={(location) => {
+          console.log('Explore route for:', location);
+          setShowRoutePreferences(true);
+        }}
       />
       
       <ErrorBoundary>

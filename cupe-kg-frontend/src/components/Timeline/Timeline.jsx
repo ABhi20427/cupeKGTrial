@@ -2,11 +2,20 @@
 // FINAL VERSION with Complete API Integration
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMapContext } from '../../context/MapContext';
 import timelineApiService from '../../services/timelineApi';
+import { useTranslatedText } from '../../utils/translationHelper';
 import './Timeline.css';
 
+// Helper component to translate text items
+const TranslatedText = ({ text }) => {
+  const { translatedText } = useTranslatedText(text || '');
+  return <>{translatedText}</>;
+};
+
 const Timeline = ({ isVisible, onLocationSelect }) => {
+  const { t } = useTranslation();
   const { locations, selectLocation, selectedLocation } = useMapContext();
   const [selectedPeriod, setSelectedPeriod] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -330,7 +339,7 @@ const Timeline = ({ isVisible, onLocationSelect }) => {
   return (
     <div className={`timeline-container ${isExpanded ? 'expanded' : 'collapsed'}`}>
       <div className="timeline-header" onClick={toggleExpanded}>
-        <h3>Historical Timeline</h3>
+        <h3>{t('timeline.title', 'Historical Timeline')}</h3>
         <div className="timeline-status">
           {dataSource === 'backend' && <span className="data-source-indicator api" title="Data from backend API">API</span>}
           {dataSource === 'frontend' && <span className="data-source-indicator local" title="Data processed locally">LOCAL</span>}
@@ -350,7 +359,7 @@ const Timeline = ({ isVisible, onLocationSelect }) => {
           {isLoading && (
             <div className="timeline-loading">
               <div className="loading-spinner"></div>
-              <p>Loading timeline data from server...</p>
+              <p>{t('timeline.loading', 'Loading timeline data from server...')}</p>
             </div>
           )}
 
@@ -358,11 +367,11 @@ const Timeline = ({ isVisible, onLocationSelect }) => {
           {error && !isLoading && timelinePeriods.length === 0 && (
             <div className="timeline-error">
               <div className="error-message">
-                <p>Failed to load timeline data</p>
+                <p>{t('timeline.error', 'Failed to load timeline data')}</p>
                 <small>{error}</small>
               </div>
               <button onClick={retryApiLoad} className="retry-button">
-                Retry API Connection
+                {t('timeline.retry', 'Retry API Connection')}
               </button>
             </div>
           )}
@@ -396,7 +405,7 @@ const Timeline = ({ isVisible, onLocationSelect }) => {
                     
                     {selectedPeriod?.label === period.label && period.locations && (
                       <div className="period-locations">
-                        <h4>Heritage Sites from this Period</h4>
+                        <h4>{t('timeline.heritageSites', 'Heritage Sites from this Period')}</h4>
                         <ul>
                           {period.locations.map((location, locIndex) => (
                             <li
@@ -408,15 +417,17 @@ const Timeline = ({ isVisible, onLocationSelect }) => {
                               }}
                             >
                               <div className="location-info">
-                                <div className="location-name">{location.name}</div>
+                                <div className="location-name">
+                                  <TranslatedText text={location.name} />
+                                </div>
                                 {location.dynasty && (
                                   <div className="location-dynasty">
-                                    {location.dynasty}
+                                    <TranslatedText text={location.dynasty} />
                                   </div>
                                 )}
                                 {location.category && (
                                   <div className="location-category">
-                                    {location.category}
+                                    <TranslatedText text={location.category} />
                                   </div>
                                 )}
                               </div>

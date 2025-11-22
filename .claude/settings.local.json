@@ -4,7 +4,13 @@
       "Bash(npm start)",
       "Bash(python:*)",
       "Bash(dir:*)",
-      "Bash(pip uninstall:*)"
+      "Bash(pip uninstall:*)",
+      "Bash(cat:*)",
+      "Bash(npm install:*)",
+      "Bash(for lang in bn ta te mr gu kn ml pa)",
+      "Bash(do cp en/translation.json $lang/translation.json)",
+      "Bash(done)",
+      "Bash(pip install:*)"
     ],
     "deny": [],
     "ask": []

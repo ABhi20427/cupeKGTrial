@@ -1,15 +1,34 @@
 // Update your InfoPanel.jsx with this enhanced image handling
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useTranslatedText } from '../../utils/translationHelper';
+import { useMapContext } from '../../context/MapContext';
 import './InfoPanel.css';
 
-const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose, onOpen, onCulturalIntelligence }) => {
+// Helper component to translate text items
+const TranslatedText = ({ text }) => {
+  const { translatedText } = useTranslatedText(text || '');
+  return <>{translatedText}</>;
+};
+
+const InfoPanel = ({ onClose, onOpen, onCulturalIntelligence, onExploreRoute }) => {
+  // Get data from MapContext
+  const { selectedLocation, locationData, isLoading, clearSelections } = useMapContext();
+  const isOpen = !!selectedLocation;
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('history');
   const [isVisible, setIsVisible] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
   const [imageSrc, setImageSrc] = useState('');
   const [animationClass, setAnimationClass] = useState('');
+
+  // Translate location data fields
+  const { translatedText: translatedName } = useTranslatedText(selectedLocation?.name || '');
+  const { translatedText: translatedHistory } = useTranslatedText(locationData?.history || '');
+  const { translatedText: translatedPeriod } = useTranslatedText(locationData?.period || '');
+  const { translatedText: translatedDynasty } = useTranslatedText(locationData?.dynasty || '');
 
   // Enhanced image handling
   useEffect(() => {
@@ -90,6 +109,21 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
     }, 150);
   };
 
+  const handleClose = (e) => {
+    console.log('Close button clicked!');
+    // Prevent event from bubbling up
+    e.preventDefault();
+    e.stopPropagation();
+    // Blur the button to remove focus before closing
+    e.currentTarget.blur();
+    // Clear the selected location to close the panel
+    clearSelections();
+    // Call onClose callback if provided
+    if (onClose) {
+      onClose();
+    }
+  };
+
   const renderTabContent = () => {
     if (isLoading) {
       return (
@@ -108,13 +142,13 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
       case 'history':
         return (
           <div className={`tab-content ${animationClass}`}>
-            <h3>Historical Significance</h3>
-            <p>{locationData.history}</p>
+            <h3>{t('infoPanel.tabs.history')}</h3>
+            <p>{translatedHistory}</p>
             <div className="time-period">
               <h4>Time Period</h4>
               <div className="time-period-info">
-                <span className="period">{locationData.period}</span>
-                <span className="dynasty">{locationData.dynasty}</span>
+                <span className="period">{translatedPeriod}</span>
+                <span className="dynasty">{translatedDynasty}</span>
               </div>
             </div>
           </div>
@@ -122,10 +156,12 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
       case 'culture':
         return (
           <div className={`tab-content ${animationClass}`}>
-            <h3>Cultural Facts</h3>
+            <h3>{t('infoPanel.tabs.culture')}</h3>
             <ul className="culture-facts">
               {locationData.culturalFacts.map((fact, index) => (
-                <li key={index} className={`stagger-delay-${index % 5 + 1}`}>{fact}</li>
+                <li key={index} className={`stagger-delay-${index % 5 + 1}`}>
+                  <TranslatedText text={fact} />
+                </li>
               ))}
             </ul>
           </div>
@@ -137,8 +173,8 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
             <div className="story-container">
               {locationData.legends.map((legend, index) => (
                 <div className={`story stagger-delay-${index + 1}`} key={index}>
-                  <h4>{legend.title}</h4>
-                  <p>{legend.description}</p>
+                  <h4><TranslatedText text={legend.title} /></h4>
+                  <p><TranslatedText text={legend.description} /></p>
                 </div>
               ))}
             </div>
@@ -152,8 +188,16 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
   const panelClasses = `info-panel ${isOpen ? 'open' : ''} ${animationClass}`;
 
   return (
-    <div className={panelClasses} aria-hidden={!isOpen}>
+    <div className={panelClasses} aria-hidden={!isVisible}>
       <div className="panel-header">
+        <button
+          className="close-button"
+          onClick={handleClose}
+          aria-label="Close information panel"
+          style={{ zIndex: 999 }}
+        >
+          ×
+        </button>
         {selectedLocation && (
           <>
             <div className="location-image-container">
@@ -164,42 +208,39 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
                 onLoad={handleImageLoad}
                 onError={handleImageError}
               />
-              <div className="image-overlay"></div>
-              {imageError && (
-                <div className="image-error-overlay">
-                  <div className="error-icon">🏛️</div>
-                  <div className="error-text">Heritage Site</div>
-                </div>
-              )}
             </div>
-            <h2 className="location-title">{selectedLocation.name}</h2>
+            <div className="info-header-content">
+              <span className="badge">{selectedLocation.category || 'Heritage Site'}</span>
+              <h2 className="location-title">{translatedName}</h2>
+              <p className="info-sub">
+                {selectedLocation.state || 'India'} · {selectedLocation.description?.substring(0, 40) || 'Cultural Heritage Site'}
+              </p>
+              <div className="info-chips">
+                {(locationData?.tags || selectedLocation.tags || ['Heritage', 'Culture', 'History']).slice(0, 3).map((tag, index) => (
+                  <span key={index} className="chip">{tag}</span>
+                ))}
+              </div>
+            </div>
           </>
         )}
-        <button 
-          className="close-button" 
-          onClick={onClose}
-          aria-label="Close information panel"
-        >
-          <span>×</span>
-        </button>
       </div>
 
       <div className="panel-tabs">
-        <button 
+        <button
           className={`tab-button ${activeTab === 'history' ? 'active' : ''}`}
           onClick={() => handleTabChange('history')}
           aria-pressed={activeTab === 'history'}
         >
-          History
+          {t('infoPanel.tabs.history')}
         </button>
-        <button 
+        <button
           className={`tab-button ${activeTab === 'culture' ? 'active' : ''}`}
           onClick={() => handleTabChange('culture')}
           aria-pressed={activeTab === 'culture'}
         >
-          Culture
+          {t('infoPanel.tabs.culture')}
         </button>
-        <button 
+        <button
           className={`tab-button ${activeTab === 'stories' ? 'active' : ''}`}
           onClick={() => handleTabChange('stories')}
           aria-pressed={activeTab === 'stories'}
@@ -214,21 +255,20 @@ const InfoPanel = ({ isOpen, isLoading, locationData, selectedLocation, onClose,
 
       {locationData && (
         <div className="panel-footer">
-          <div className="tags">
-            {locationData.tags.map((tag, index) => (
-              <span key={index} className="tag">{tag}</span>
-            ))}
-          </div>
           <div className="footer-buttons">
-            <button className="explore-more-btn">
-              Explore More
+            <button
+              className="explore-more-btn"
+              onClick={() => onExploreRoute && onExploreRoute(selectedLocation)}
+              title="Create a route including this location"
+            >
+              Explore Route
             </button>
-            <button 
-              className="ci-trigger-btn" 
+            <button
+              className="ci-trigger-btn"
               onClick={() => onCulturalIntelligence && onCulturalIntelligence()}
               title="Open Cultural Intelligence Analysis"
             >
-              🧠 Cultural AI
+              🧠 Ask Cultural AI
             </button>
           </div>
         </div>

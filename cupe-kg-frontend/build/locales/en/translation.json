@@ -1,0 +1,112 @@
+{
+  "header": {
+    "title": "CuPe-KG",
+    "subtitle": "Cultural Perspectives Knowledge Graph",
+    "search": {
+      "placeholder": "Search for locations, routes, or cultural elements...",
+      "button": "Search"
+    },
+    "buttons": {
+      "createRoute": "Create Route",
+      "nearby": "Nearby",
+      "culturalAI": "Cultural AI",
+      "themeToggle": "Switch to {{mode}} mode"
+    },
+    "locationStatus": "Location detected",
+    "nav": {
+      "home": "Home",
+      "explore": "Explore",
+      "routes": "Routes",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "message": "I don't want you to contact us"
+    }
+  },
+  "infoPanel": {
+    "loading": "Loading information...",
+    "tabs": {
+      "history": "History",
+      "architecture": "Architecture",
+      "culture": "Culture",
+      "timeline": "Timeline",
+      "gallery": "Gallery"
+    },
+    "noData": "No information available",
+    "culturalIntelligence": "Analyze with Cultural AI"
+  },
+  "chat": {
+    "welcome": "Namaste! I'm your CuPe-KG cultural heritage guide. Discover India's rich history, explore magnificent monuments, and plan unforgettable heritage journeys.",
+    "placeholder": "Ask about history, routes, or cultural insights...",
+    "send": "Send",
+    "typing": "Typing...",
+    "suggestions": {
+      "hampi": "Tell me about the history of Hampi",
+      "delhi": "What's the best time to visit Delhi?",
+      "buddhist": "Show me the Buddhist trail route",
+      "konark": "What dynasty built the Konark Sun Temple?",
+      "tour": "Suggest a 7-day cultural heritage tour"
+    }
+  },
+  "map": {
+    "loading": "Loading map...",
+    "error": "Error loading map",
+    "markers": {
+      "temple": "Temple",
+      "fort": "Fort",
+      "palace": "Palace",
+      "monument": "Monument"
+    }
+  },
+  "routes": {
+    "title": "Heritage Routes",
+    "create": "Create New Route",
+    "preferences": {
+      "title": "Route Preferences",
+      "duration": "Duration",
+      "interests": "Interests",
+      "difficulty": "Difficulty Level"
+    }
+  },
+  "nearbyPlaces": {
+    "title": "Nearby Heritage Sites",
+    "distance": "{{distance}} km away",
+    "noLocation": "Enable location to find nearby places",
+    "searching": "Searching for nearby places..."
+  },
+  "timeline": {
+    "title": "Historical Timeline",
+    "loading": "Loading timeline data from server...",
+    "error": "Failed to load timeline data",
+    "retry": "Retry API Connection",
+    "heritageSites": "Heritage Sites from this Period"
+  },
+  "common": {
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "share": "Share",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish"
+  },
+  "languages": {
+    "en": "English",
+    "hi": "हिन्दी (Hindi)",
+    "bn": "বাংলা (Bengali)",
+    "ta": "தமிழ் (Tamil)",
+    "te": "తెలుగు (Telugu)",
+    "mr": "मराठी (Marathi)",
+    "gu": "ગુજરાતી (Gujarati)",
+    "kn": "ಕನ್ನಡ (Kannada)",
+    "ml": "മലയാളം (Malayalam)",
+    "pa": "ਪੰਜਾਬੀ (Punjabi)"
+  }
+}

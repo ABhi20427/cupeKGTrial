@@ -60,10 +60,7 @@ const MapContent = () => {
 
   const handleLocationClick = (location) => {
     selectLocation(location);
-    // Trigger cultural intelligence analysis
-    if (window.handleLocationSelected) {
-      window.handleLocationSelected(location);
-    }
+    // Cultural Intelligence can be opened manually via the button in InfoPanel or Header
   };
 
 

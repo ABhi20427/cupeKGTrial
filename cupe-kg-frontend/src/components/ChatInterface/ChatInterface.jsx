@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMapContext } from '../../context/MapContext';
 import { askChatbot } from '../../services/api';
+import { translateText } from '../../utils/translationHelper';
 import MessageGroup from './MessageGroup';
 import './ChatInterface.css';
 import './MessageGroup.css';
 
 const ChatInterface = ({ isPanelOpen }) => {
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       id: 1,
       type: 'bot',
-      text: '🙏 Namaste! I\'m your CuPe-KG cultural heritage guide. Discover India\'s rich history, explore magnificent monuments, and plan unforgettable heritage journeys.',
+      text: t('chat.welcome'),
       timestamp: new Date(),
       status: 'delivered',
       confidence: 0.95
@@ -37,11 +40,11 @@ const ChatInterface = ({ isPanelOpen }) => {
   }, [sessionId]);
 
   const suggestions = [
-    "🏛️ Tell me about the history of Hampi",
-    "🌅 What's the best time to visit Delhi?", 
-    "🧘 Show me the Buddhist trail route",
-    "🎨 What dynasty built the Konark Sun Temple?",
-    "🗺️ Suggest a 7-day cultural heritage tour"
+    t('chat.suggestions.hampi'),
+    t('chat.suggestions.delhi'),
+    t('chat.suggestions.buddhist'),
+    t('chat.suggestions.konark'),
+    t('chat.suggestions.tour')
   ];
 
   // IMPROVED: More reliable scroll to bottom function
@@ -199,17 +202,23 @@ const ChatInterface = ({ isPanelOpen }) => {
 
       // Get bot response
       const response = await askChatbot(textToSend, sessionId, selectedLocation);
-      
+
+      // Translate bot response if not in English
+      let botText = response.answer || "I apologize, but I'm having trouble understanding that. Could you please rephrase your question about India's cultural heritage?";
+      if (i18n.language !== 'en') {
+        botText = await translateText(botText, i18n.language, 'en');
+      }
+
       // FIXED: Use 'answer' instead of 'response' field
       const botMessage = {
         id: Date.now() + 1,
         type: 'bot',
-        text: response.answer || "I apologize, but I'm having trouble understanding that. Could you please rephrase your question about India's cultural heritage?", // ← CHANGED FROM response.response to response.answer
+        text: botText,
         timestamp: new Date(),
         confidence: response.confidence || 0.7,
         suggestions: response.followUpQuestions || []
       };
-      
+
       setMessages(prev => [...prev, botMessage]);
       
     } catch (error) {
@@ -322,7 +331,7 @@ const ChatInterface = ({ isPanelOpen }) => {
           <textarea
             ref={inputRef}
             className="chat-input"
-            placeholder="Ask about India's heritage, monuments, or travel plans..."
+            placeholder={t('chat.placeholder')}
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}

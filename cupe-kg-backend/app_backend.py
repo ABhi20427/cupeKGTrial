@@ -6,6 +6,7 @@ from flask_cors import CORS
 from services.kg_service import KnowledgeGraphService
 from services.route_service import RouteService
 from services.chatbot_service import ChatbotService
+from services.translation_service import translate_text, translate_dict, translate_list, get_cache_stats, SUPPORTED_LANGUAGES
 import uuid
 import os
 import logging
@@ -907,6 +908,79 @@ def timeline_health():
             'timestamp': int(time.time())
             
         }), 500
+
+# ------------------ Translation Endpoints ------------------
+@app.route('/api/translate/text', methods=['POST'])
+def translate_text_endpoint():
+    """Translate text from one language to another"""
+    try:
+        data = request.get_json()
+        text = data.get('text', '')
+        target_lang = data.get('target_lang', 'en')
+        source_lang = data.get('source_lang', 'en')
+
+        if not text:
+            return jsonify({'error': 'No text provided'}), 400
+
+        if target_lang not in SUPPORTED_LANGUAGES:
+            return jsonify({'error': f'Unsupported target language: {target_lang}'}), 400
+
+        translated = translate_text(text, target_lang, source_lang)
+
+        return jsonify({
+            'originalText': text,
+            'translatedText': translated,
+            'sourceLang': source_lang,
+            'targetLang': target_lang
+        })
+
+    except Exception as e:
+        logger.error(f"Translation error: {e}")
+        return jsonify({'error': 'Translation failed'}), 500
+
+@app.route('/api/translate/location', methods=['POST'])
+def translate_location_endpoint():
+    """Translate location data to target language"""
+    try:
+        data = request.get_json()
+        location_data = data.get('location', {})
+        target_lang = data.get('target_lang', 'en')
+
+        if not location_data:
+            return jsonify({'error': 'No location data provided'}), 400
+
+        # Translate specific fields
+        fields_to_translate = ['name', 'description', 'historical_significance',
+                               'architectural_style', 'cultural_importance']
+
+        translated_location = translate_dict(location_data, target_lang, 'en', fields_to_translate)
+
+        return jsonify({
+            'location': translated_location,
+            'targetLang': target_lang
+        })
+
+    except Exception as e:
+        logger.error(f"Location translation error: {e}")
+        return jsonify({'error': 'Location translation failed'}), 500
+
+@app.route('/api/translate/languages', methods=['GET'])
+def get_supported_languages():
+    """Get list of supported languages"""
+    return jsonify({
+        'languages': SUPPORTED_LANGUAGES,
+        'default': 'en'
+    })
+
+@app.route('/api/translate/cache/stats', methods=['GET'])
+def get_translation_cache_stats():
+    """Get translation cache statistics"""
+    try:
+        stats = get_cache_stats()
+        return jsonify(stats)
+    except Exception as e:
+        logger.error(f"Cache stats error: {e}")
+        return jsonify({'error': 'Failed to get cache stats'}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
